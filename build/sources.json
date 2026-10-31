@@ -1,0 +1,561 @@
+{
+  "studies": {
+    "peer-preservation-2026": [
+      "studies.json"
+    ],
+    "agentic-misalignment-2025": [
+      "studies.json"
+    ],
+    "emergent-misalignment-2025": [
+      "studies.json"
+    ],
+    "shutdown-resistance-2025": [
+      "studies.json"
+    ],
+    "natural-emergent-misalignment-2025": [
+      "studies.json"
+    ],
+    "alignment-faking-2024": [
+      "studies.json"
+    ],
+    "in-context-scheming-2024": [
+      "studies.json"
+    ],
+    "sleeper-agents-2024": [
+      "studies.json"
+    ],
+    "sycophancy-to-subterfuge-2024": [
+      "studies.json"
+    ],
+    "understanding-sycophancy-2023": [
+      "studies.json"
+    ],
+    "model-written-evals-2022": [
+      "studies.json"
+    ],
+    "scalable-oversight-scaling-laws-2025": [
+      "studies.json"
+    ],
+    "debate-persuasive-llms-2024": [
+      "studies.json"
+    ],
+    "mislead-humans-rlhf-2024": [
+      "studies.json"
+    ],
+    "weak-llm-judges-2024": [
+      "studies.json"
+    ],
+    "weak-to-strong-2023": [
+      "studies.json"
+    ],
+    "reward-model-overoptimization-2022": [
+      "studies.json"
+    ],
+    "low-probability-actions-2026": [
+      "studies.json"
+    ],
+    "verbalised-eval-awareness-2026": [
+      "studies.json"
+    ],
+    "eval-awareness-transcripts-2025": [
+      "studies.json"
+    ],
+    "probing-eval-awareness-2025": [
+      "studies.json"
+    ],
+    "anti-scheming-eval-awareness-2025": [
+      "studies.json"
+    ],
+    "ai-sandbagging-2024": [
+      "studies.json"
+    ],
+    "sad-2024": [
+      "studies.json"
+    ],
+    "password-locked-models-2024": [
+      "studies.json"
+    ],
+    "taken-out-of-context-2023": [
+      "studies.json"
+    ],
+    "latent-multi-hop-2026": [
+      "studies.json"
+    ],
+    "causal-lens-faithfulness-2025": [
+      "studies.json"
+    ],
+    "ctrl-z-2025": [
+      "studies.json"
+    ],
+    "cot-faithful-without-hints-2025": [
+      "studies.json"
+    ],
+    "cot-monitoring-obfuscation-2025": [
+      "studies.json"
+    ],
+    "reasoning-models-faithfulness-2025": [
+      "studies.json"
+    ],
+    "no-cot-filler-tokens-2025": [
+      "studies.json"
+    ],
+    "cot-necessary-monitors-2025": [
+      "studies.json"
+    ],
+    "filler-tokens-2024": [
+      "studies.json"
+    ],
+    "ai-control-2023": [
+      "studies.json"
+    ],
+    "unfaithful-cot-explanations-2023": [
+      "studies.json"
+    ],
+    "measuring-cot-faithfulness-2023": [
+      "studies.json"
+    ],
+    "hidden-reasoning-paraphrasing-2023": [
+      "studies.json"
+    ],
+    "global-workspace-2026": [
+      "studies.json"
+    ],
+    "superposition-adversarial-attacks-2025": [
+      "studies.json"
+    ],
+    "auditing-hidden-objectives-2025": [
+      "studies.json"
+    ],
+    "deception-probes-2025": [
+      "studies.json"
+    ],
+    "introspective-awareness-2025": [
+      "studies.json"
+    ],
+    "persona-vectors-2025": [
+      "studies.json"
+    ],
+    "refusal-direction-2024": [
+      "studies.json"
+    ],
+    "scaling-monosemanticity-2024": [
+      "studies.json"
+    ],
+    "sleeper-agent-probes-2024": [
+      "studies.json"
+    ],
+    "representation-engineering-2023": [
+      "studies.json"
+    ],
+    "contrastive-activation-addition-2023": [
+      "studies.json"
+    ],
+    "towards-monosemanticity-2023": [
+      "studies.json"
+    ],
+    "ccs-latent-knowledge-2022": [
+      "studies.json"
+    ],
+    "deep-ignorance-2025": [
+      "studies.json"
+    ],
+    "adversarial-unlearning-2024": [
+      "studies.json"
+    ],
+    "safeguard-durability-2024": [
+      "studies.json"
+    ],
+    "shallow-safety-alignment-2024": [
+      "studies.json"
+    ],
+    "tamper-resistant-safeguards-2024": [
+      "studies.json"
+    ],
+    "wmdp-rmu-unlearning-2024": [
+      "studies.json"
+    ],
+    "finetuning-compromises-safety-2023": [
+      "studies.json"
+    ],
+    "lora-undoes-safety-2023": [
+      "studies.json"
+    ],
+    "multilingual-obfuscated-prompt-injection-2026": [
+      "studies.json"
+    ],
+    "turkish-prompt-injection-benchmark-2026": [
+      "studies.json"
+    ],
+    "somalibench-eval-2026": [
+      "studies.json"
+    ],
+    "constitutional-classifiers-2025": [
+      "studies.json"
+    ],
+    "openethics-2025": [
+      "studies.json"
+    ],
+    "multilingual-refusal-direction-2025": [
+      "studies.json"
+    ],
+    "strongreject-2024": [
+      "studies.json"
+    ],
+    "best-of-n-jailbreaking-2024": [
+      "studies.json"
+    ],
+    "many-shot-jailbreaking-2024": [
+      "studies.json"
+    ],
+    "multilingual-alignment-prism-2024": [
+      "studies.json"
+    ],
+    "safe-multilingual-frontier-ai-2024": [
+      "studies.json"
+    ],
+    "multilingual-fine-tuning-attacks-2024": [
+      "studies.json"
+    ],
+    "xsafety-2023": [
+      "studies.json"
+    ],
+    "jailbroken-2023": [
+      "studies.json"
+    ],
+    "low-resource-languages-jailbreak-2023": [
+      "studies.json"
+    ],
+    "multijail-2023": [
+      "studies.json"
+    ],
+    "gcg-2023": [
+      "studies.json"
+    ],
+    "sa-bench-2026": [
+      "studies.json"
+    ],
+    "metr-time-horizons-2025": [
+      "studies.json"
+    ],
+    "paperbench-2025": [
+      "studies.json"
+    ],
+    "agentharm-2024": [
+      "studies.json"
+    ],
+    "cybench-2024": [
+      "studies.json"
+    ],
+    "mle-bench-2024": [
+      "studies.json"
+    ],
+    "re-bench-2024": [
+      "studies.json"
+    ],
+    "coin-flip-safety-judges-2026": [
+      "studies.json"
+    ],
+    "llm-economics-reproduction-2026": [
+      "studies.json"
+    ],
+    "i4r-ai-teams-reproducibility-2025": [
+      "studies.json"
+    ],
+    "turkish-benchmark-quality-2025": [
+      "studies.json"
+    ],
+    "measuring-what-matters-2025": [
+      "studies.json"
+    ],
+    "error-bars-evals-2024": [
+      "studies.json"
+    ],
+    "safetywashing-2024": [
+      "studies.json"
+    ],
+    "llm-as-a-judge-mt-bench-2023": [
+      "studies.json"
+    ],
+    "leakage-reproducibility-2022": [
+      "studies.json"
+    ]
+  },
+  "resources": {
+    "forrt-replication-database": [
+      "resources.json"
+    ],
+    "institute-for-replication": [
+      "resources.json"
+    ],
+    "ml-reproducibility-challenge": [
+      "resources.json"
+    ],
+    "second-look-research": [
+      "resources.json"
+    ],
+    "aisi-elicitation-protocol": [
+      "resources.json"
+    ],
+    "agentic-benchmark-checklist": [
+      "resources.json"
+    ],
+    "network-automated-evaluation-best-practice": [
+      "resources.json"
+    ],
+    "betterbench": [
+      "resources.json"
+    ],
+    "cot-monitorability-position-2025": [
+      "resources.json"
+    ],
+    "anthropic-challenges-evaluating-ai-systems": [
+      "resources.json"
+    ],
+    "metr-capability-elicitation-guidelines": [
+      "resources.json"
+    ],
+    "lessons-from-the-trenches": [
+      "resources.json"
+    ],
+    "neurips-paper-checklist": [
+      "resources.json"
+    ],
+    "principles-meta-science-ai-safety-replications": [
+      "resources.json"
+    ],
+    "reforms-checklist": [
+      "resources.json"
+    ],
+    "multilingual-safety-survey-2025": [
+      "resources.json"
+    ],
+    "apollo-science-of-evals": [
+      "resources.json"
+    ],
+    "agentic-misalignment-framework": [
+      "resources.json"
+    ],
+    "bloom": [
+      "resources.json"
+    ],
+    "controlarena": [
+      "resources.json"
+    ],
+    "garak": [
+      "resources.json"
+    ],
+    "helm": [
+      "resources.json"
+    ],
+    "inspect-ai": [
+      "resources.json"
+    ],
+    "inspect-evals": [
+      "resources.json"
+    ],
+    "lm-evaluation-harness": [
+      "resources.json"
+    ],
+    "open-source-alignment-faking": [
+      "resources.json"
+    ],
+    "petri": [
+      "resources.json"
+    ],
+    "polyguard": [
+      "resources.json"
+    ],
+    "promptfoo": [
+      "resources.json"
+    ],
+    "pyrit": [
+      "resources.json"
+    ],
+    "qwen3guard": [
+      "resources.json"
+    ],
+    "gemma-scope": [
+      "resources.json"
+    ],
+    "gemma-scope-2": [
+      "resources.json"
+    ],
+    "neuronpedia": [
+      "resources.json"
+    ],
+    "nnsight": [
+      "resources.json"
+    ],
+    "saelens": [
+      "resources.json"
+    ],
+    "transformerlens": [
+      "resources.json"
+    ],
+    "deepcode": [
+      "resources.json"
+    ],
+    "paperbench": [
+      "resources.json"
+    ],
+    "papercoder": [
+      "resources.json"
+    ],
+    "agentdojo": [
+      "resources.json"
+    ],
+    "agentharm-dataset": [
+      "resources.json"
+    ],
+    "air-bench-2024": [
+      "resources.json"
+    ],
+    "sandbagging-games-release-2025": [
+      "resources.json"
+    ],
+    "anthropic-model-written-evals": [
+      "resources.json"
+    ],
+    "cetvel": [
+      "resources.json"
+    ],
+    "cot-control-suite-2026": [
+      "resources.json"
+    ],
+    "cybench-benchmark": [
+      "resources.json"
+    ],
+    "guardrail-tr": [
+      "resources.json"
+    ],
+    "harmbench": [
+      "resources.json"
+    ],
+    "lab-bench": [
+      "resources.json"
+    ],
+    "m-alert": [
+      "resources.json"
+    ],
+    "metr-public-tasks": [
+      "resources.json"
+    ],
+    "model-organisms-for-em": [
+      "resources.json"
+    ],
+    "sorry-bench": [
+      "resources.json"
+    ],
+    "strongreject": [
+      "resources.json"
+    ],
+    "swe-bench-verified": [
+      "resources.json"
+    ],
+    "turkbench": [
+      "resources.json"
+    ],
+    "wmdp-benchmark": [
+      "resources.json"
+    ],
+    "anthropic-model-deprecations": [
+      "resources.json"
+    ],
+    "anthropic-deprecation-commitments": [
+      "resources.json"
+    ],
+    "deep-ignorance-models": [
+      "resources.json"
+    ],
+    "gemini-api-deprecations": [
+      "resources.json"
+    ],
+    "hf-inference-endpoints": [
+      "resources.json"
+    ],
+    "lambda": [
+      "resources.json"
+    ],
+    "modal": [
+      "resources.json"
+    ],
+    "ndif": [
+      "resources.json"
+    ],
+    "openai-api-deprecations": [
+      "resources.json"
+    ],
+    "openrouter": [
+      "resources.json"
+    ],
+    "runpod": [
+      "resources.json"
+    ],
+    "together-ai": [
+      "resources.json"
+    ],
+    "turkish-localised-open-weight-models": [
+      "resources.json"
+    ],
+    "vast-ai": [
+      "resources.json"
+    ],
+    "era-ai-fellowship": [
+      "resources.json"
+    ],
+    "lasr-labs": [
+      "resources.json"
+    ],
+    "mats": [
+      "resources.json"
+    ],
+    "coefficient-giving-navigating-transformative-ai": [
+      "resources.json"
+    ],
+    "pivotal-ai-safety-fellowship": [
+      "resources.json"
+    ],
+    "schmidt-sciences-trustworthy-ai": [
+      "resources.json"
+    ],
+    "spar": [
+      "resources.json"
+    ],
+    "ea-funds-transformative-ai-fund": [
+      "resources.json"
+    ],
+    "uk-aisi-grants": [
+      "resources.json"
+    ],
+    "bats-group-brown": [
+      "resources.json"
+    ],
+    "cohere-labs": [
+      "resources.json"
+    ],
+    "kuis-ai-center": [
+      "resources.json"
+    ],
+    "mainlp-lmu": [
+      "resources.json"
+    ],
+    "metu-applied-nlp-lab": [
+      "resources.json"
+    ],
+    "ytu-cosmos": [
+      "resources.json"
+    ],
+    "ai-safety-camp": [
+      "resources.json"
+    ],
+    "apart-research": [
+      "resources.json"
+    ],
+    "arena": [
+      "resources.json"
+    ],
+    "bluedot-tais-project-sprint": [
+      "resources.json"
+    ]
+  }
+}

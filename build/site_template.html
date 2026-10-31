@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Safety Replication Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Schibsted+Grotesk:wght@400..800&display=swap">
+<style>
+/* Design: a library. Each study is a book on a shelf, bound in the colour of its replication status; unbound pale spines have no independent re-run yet. Colour belongs to status only; the chrome is ink on paper, with wood for the shelves. */
+:root {
+  --paper: #f3f0e8;
+  --paper2: #e9e3d5;
+  --card: #fcfbf7;
+  --ink: #1f1c17;
+  --ink2: #4a453c;
+  --muted: #746c5f;
+  --rule: #d8d0bf;
+  --rule2: #e5dfd2;
+  --wood: #5a3e26;
+  --wood2: #7c5838;
+  --rep: #2e5e47;
+  --part: #b38429;
+  --cond: #3b5a80;
+  --cont: #8c3936;
+  --none: #a89f8b;
+  --fail: #8c3936;
+  --ext: #8a8170;
+  --unbound: #f9f6ef;
+  --on-cloth: #f6f1e6;
+  --serif: "Libre Caslon Text", "Iowan Old Style", Georgia, serif;
+  --display: "Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
+  --sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #171512;
+    --paper2: #201d18;
+    --card: #1f1c18;
+    --ink: #ece6da;
+    --ink2: #c8c0b1;
+    --muted: #9b9282;
+    --rule: #3a342b;
+    --rule2: #2c2822;
+    --wood: #6b4a2e;
+    --wood2: #8a6340;
+    --rep: #4f9a76;
+    --part: #d2a648;
+    --cond: #6f93c4;
+    --cont: #c4625c;
+    --none: #7f776a;
+    --fail: #c4625c;
+    --ext: #9b9282;
+    --unbound: #2a2620;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--sans); }
+a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--muted); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 2px; }
+main:focus { outline: none; }
+[id] { scroll-margin-top: 84px; }
+h1, h2, h3 { margin: 0; font-weight: 400; }
+h1 { font: 400 40px/1.1 var(--display); letter-spacing: -0.01em; }
+h2 { font: 400 29px/1.15 var(--display); }
+h3 { font: 700 17px/1.3 var(--serif); }
+p { margin: 0 0 14px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+.read { max-width: 720px; }
+.serif { font-family: var(--serif); font-size: 16.5px; line-height: 1.7; }
+.lead { font: 400 19px/1.6 var(--serif); color: var(--ink2); max-width: 660px; margin-top: 16px; }
+.muted { color: var(--muted); }
+.small { font-size: 13.5px; }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--ink); color: var(--paper); padding: 8px 12px; z-index: 50; }
+.skip:focus { left: 8px; }
+
+/* Header */
+.site-head { background: var(--paper); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+.head-inner { display: flex; align-items: center; gap: 28px; min-height: 66px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font: 400 19px/1.1 var(--display); white-space: nowrap; }
+.brand-tag { font: 600 11.5px/1 var(--sans); color: var(--muted); border: 1px solid var(--rule); border-radius: 99px; padding: 4px 8px; }
+.logo { display: inline-flex; align-items: flex-end; gap: 2px; height: 24px; padding-bottom: 2px; border-bottom: 2px solid var(--wood); }
+.logo i { display: block; width: 5px; border-radius: 1px 1px 0 0; }
+.logo i:nth-child(1) { height: 18px; background: var(--rep); }
+.logo i:nth-child(2) { height: 22px; background: var(--cond); }
+.logo i:nth-child(3) { height: 16px; background: var(--part); }
+.logo i:nth-child(4) { height: 20px; background: var(--unbound); box-shadow: inset 0 0 0 1px var(--none); transform: rotate(9deg); transform-origin: bottom left; margin-left: 2px; }
+.nav { display: flex; align-items: center; gap: 2px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { text-decoration: none; color: var(--muted); font-size: 14.5px; font-weight: 550; padding: 8px 10px; white-space: nowrap; }
+.nav a:hover { color: var(--ink); }
+.nav a[aria-current="page"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--ink); }
+.nav .sep { width: 1px; height: 20px; background: var(--rule); margin: 0 8px; flex: none; }
+
+/* Status colour plumbing */
+.s-rep { --c: var(--rep); } .s-part { --c: var(--part); } .s-cond { --c: var(--cond); } .s-cont { --c: var(--cont); }
+.s-none { --c: var(--none); } .s-fail { --c: var(--fail); } .s-ext { --c: var(--ext); }
+.sw { display: inline-block; width: 8px; height: 15px; border-radius: 1.5px 1.5px 0 0; background: var(--c); flex: none; }
+.sw.s-none, .sw.s-ext { background: var(--unbound); box-shadow: inset 0 0 0 1px var(--c); }
+.status { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 3px; font: 600 15px/1.2 var(--sans); background: var(--ink); color: var(--paper); border: 1px solid var(--ink); text-decoration: none; cursor: pointer; }
+.btn:hover { opacity: 0.88; }
+.btn.quiet { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn.quiet:hover { background: var(--card); opacity: 1; }
+.btn.small { padding: 7px 12px; font-size: 14px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+
+/* Hero and the stacks */
+.hero { padding-top: 64px; padding-bottom: 56px; }
+.hero h1 { font-size: clamp(38px, 5.2vw, 64px); line-height: 1.04; max-width: 17em; letter-spacing: -0.015em; }
+.hero .lead strong { color: var(--ink); font-weight: 700; }
+.stacks { margin-top: 52px; }
+.stacks-cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; align-items: baseline; margin-bottom: 14px; }
+.stacks-cap p { margin: 0; font-size: 14px; color: var(--ink2); }
+.case { background: var(--paper2); border: 1px solid var(--rule); border-radius: 4px; padding: 30px 30px 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 40px; }
+.shelf { min-width: 0; }
+.books { display: flex; align-items: flex-end; gap: 1.5px; height: 178px; padding: 0 6px; }
+.book { flex: 0 1 var(--w); min-width: 11px; width: var(--w); height: var(--h); background-color: var(--c); color: var(--on-cloth); border-radius: 2px 2px 0 0; display: flex; justify-content: center; padding-top: 14px; text-decoration: none; overflow: hidden;
+  background-image: linear-gradient(to bottom, transparent 7px, rgba(255, 255, 255, 0.28) 7px, rgba(255, 255, 255, 0.28) 8px, transparent 8px, transparent 10px, rgba(255, 255, 255, 0.28) 10px, rgba(255, 255, 255, 0.28) 11px, transparent 11px),
+    linear-gradient(to top, transparent 7px, rgba(255, 255, 255, 0.22) 7px, rgba(255, 255, 255, 0.22) 8px, transparent 8px);
+  box-shadow: inset -2px 0 0 rgba(0, 0, 0, 0.14), inset 1px 0 0 rgba(255, 255, 255, 0.1);
+  transition: transform 0.16s ease; }
+.book span { writing-mode: vertical-rl; font: 600 10.5px/1 var(--sans); letter-spacing: 0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-height: calc(100% - 26px); }
+.book.s-part { color: #1f1c17; }
+.book.s-none { background-color: var(--unbound); color: var(--ink2); box-shadow: inset 0 0 0 1px var(--none);
+  background-image: linear-gradient(to bottom, transparent 7px, var(--rule) 7px, var(--rule) 8px, transparent 8px), linear-gradient(to top, transparent 7px, var(--rule) 7px, var(--rule) 8px, transparent 8px); }
+.book:hover, .book:focus-visible { transform: translateY(-9px); }
+.board { height: 9px; background: linear-gradient(var(--wood2), var(--wood)); border-radius: 1px; box-shadow: 0 4px 8px rgba(60, 40, 20, 0.16); }
+.shelf-label { display: block; margin-top: 11px; text-decoration: none; font-size: 13.5px; line-height: 1.3; color: var(--ink2); }
+.shelf-label b { display: block; color: var(--ink); font-weight: 600; }
+.shelf-label:hover b { text-decoration: underline; }
+.case.anim .book { animation: shelve 0.5s both cubic-bezier(0.2, 0.8, 0.3, 1); animation-delay: calc(var(--k) * 9ms); }
+@keyframes shelve { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13.5px; color: var(--ink2); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend b { color: var(--ink); font-weight: 600; }
+.tip { position: fixed; z-index: 40; background: var(--ink); color: var(--paper); font-size: 13px; line-height: 1.35; padding: 8px 11px; border-radius: 3px; pointer-events: none; max-width: 300px; box-shadow: 0 6px 18px rgba(30, 20, 10, 0.2); }
+.tip span { display: block; opacity: 0.75; font-size: 12px; margin-top: 2px; }
+
+/* Sections */
+.section { padding: 64px 0; border-top: 1px solid var(--rule); }
+.section-head { max-width: 720px; margin-bottom: 30px; }
+.section-head p { color: var(--ink2); margin-top: 12px; font: 400 17px/1.65 var(--serif); }
+.cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.way { position: relative; background: var(--card); border: 1px solid var(--rule); border-radius: 3px; padding: 20px 22px 40px; box-shadow: 0 1px 0 var(--rule2), 0 3px 0 -1px var(--card), 0 4px 0 -1px var(--rule); }
+.way::after { content: ""; position: absolute; left: 50%; bottom: 12px; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%; background: var(--paper2); box-shadow: inset 0 0 0 1px var(--rule); }
+.way h3 { font-size: 18px; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--rule2); }
+.way p { color: var(--ink2); font-size: 15px; }
+.way a.go { font-weight: 600; }
+.statuses { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px 40px; }
+.statuses div { display: grid; grid-template-columns: 14px 1fr; gap: 4px 10px; align-items: start; }
+.statuses .sw { margin-top: 3px; }
+.statuses b { font-weight: 650; }
+.statuses p { grid-column: 2; margin: 0; color: var(--ink2); font-size: 15px; }
+.page-head { padding: 52px 0 30px; }
+.page-head h1 { font-size: clamp(34px, 4vw, 46px); }
+.page-head .lead { margin-top: 12px; }
+
+/* Shortfalls and changes */
+.pairs { border-top: 1px solid var(--ink); }
+.pair-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; font-size: 13.5px; font-weight: 650; color: var(--muted); padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding: 26px 0; border-bottom: 1px solid var(--rule); }
+.pair h3 { font-size: 18px; margin-bottom: 8px; }
+.pair p { font: 400 15.5px/1.65 var(--serif); color: var(--ink2); margin: 0; }
+.pair .next { position: relative; }
+.pair .next::before { content: ""; position: absolute; left: -33px; top: 2px; bottom: 2px; width: 1px; background: var(--rule); }
+
+
+.reasons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; border-top: 1px solid var(--ink); }
+.reason { padding: 22px 0 26px; border-bottom: 1px solid var(--rule); }
+.reason h3 { font-size: 18px; margin-bottom: 8px; }
+.reason p { font: 400 15.5px/1.65 var(--serif); color: var(--ink2); margin: 0; }
+.reason.start { border: 1.5px dashed var(--muted); border-radius: 4px; padding: 20px 22px; margin: 16px 0; background: var(--card); }
+
+/* Coming next */
+.coming { border: 1.5px dashed var(--muted); border-radius: 4px; padding: 34px; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr); gap: 40px; background: linear-gradient(var(--paper), var(--paper)) padding-box; }
+.coming .tagline { display: inline-block; font: 600 12.5px/1 var(--sans); color: var(--ink2); border: 1px solid var(--rule); background: var(--card); border-radius: 99px; padding: 5px 10px; margin-bottom: 14px; }
+.coming h2 { margin-bottom: 12px; }
+.coming p { font: 400 16px/1.65 var(--serif); color: var(--ink2); }
+.coming ul { list-style: none; margin: 0; padding: 0; }
+.coming li { display: grid; grid-template-columns: 38px 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid var(--rule2); }
+.coming li:first-child { border-top: 0; padding-top: 0; }
+.coming li b { display: block; font: 700 16px/1.3 var(--serif); color: var(--ink); margin-bottom: 3px; }
+.coming li span { font-size: 15px; color: var(--ink2); }
+.ghost { width: 38px; height: 46px; border: 1.5px dashed var(--muted); border-radius: 2px 2px 0 0; border-bottom: 3px solid var(--wood); }
+
+/* Studies browser */
+.browse { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 48px; padding-bottom: 80px; }
+.filters { position: sticky; top: 86px; align-self: start; max-height: calc(100vh - 104px); overflow: auto; padding-right: 6px; }
+.filters summary { display: none; }
+.filters fieldset { border: 0; margin: 0 0 22px; padding: 0; }
+.filters legend { font-size: 13.5px; font-weight: 650; color: var(--ink); margin-bottom: 6px; padding: 0; }
+.opt { display: flex; align-items: center; gap: 9px; font-size: 14.5px; padding: 3px 0; cursor: pointer; color: var(--ink2); }
+.opt input { margin: 0; accent-color: var(--ink); width: 15px; height: 15px; flex: none; }
+.opt .n { margin-left: auto; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.opt.zero { opacity: 0.5; }
+input[type="search"], input[type="text"], input[type="email"], input[type="number"], select, textarea {
+  width: 100%; font: 400 15px/1.4 var(--sans); color: var(--ink); background: var(--card); border: 1px solid var(--rule); border-radius: 3px; padding: 9px 11px;
+}
+textarea { min-height: 88px; resize: vertical; }
+input:focus, select:focus, textarea:focus { border-color: var(--ink); outline: none; box-shadow: 0 0 0 1px var(--ink); }
+.results-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--ink); flex-wrap: wrap; }
+.results-bar select { width: auto; padding: 6px 10px; }
+.results-bar .count { font-weight: 600; }
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--ink); text-decoration: underline; text-decoration-color: var(--muted); text-underline-offset: 3px; cursor: pointer; }
+.row { display: grid; grid-template-columns: 12px minmax(0, 1fr) 200px; gap: 22px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+.row-spine { width: 12px; align-self: stretch; min-height: 64px; max-height: 96px; border-radius: 2px 2px 0 0; background: var(--c); border-bottom: 3px solid var(--wood); }
+.row-spine.s-none { background: var(--unbound); box-shadow: inset 0 0 0 1px var(--none); }
+.row h3 { font: 700 17.5px/1.3 var(--serif); }
+.row h3 a { text-decoration: none; }
+.row h3 a:hover { text-decoration: underline; }
+.by { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+.clamp { color: var(--ink2); font: 400 15px/1.6 var(--serif); margin: 8px 0 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.row-meta { font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.row-meta .status { margin-bottom: 4px; }
+.empty { padding: 40px 0; color: var(--ink2); }
+
+/* Study page */
+.crumbs { font-size: 13.5px; color: var(--muted); padding-top: 34px; }
+.crumbs a { color: var(--muted); }
+.study { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 60px; padding: 16px 0 80px; }
+.study h1 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.1; }
+.study .by { font-size: 15px; margin-top: 12px; }
+.verdict { margin: 28px 0 8px; padding: 16px 18px 16px 20px; background: var(--card); border: 1px solid var(--rule); border-left: 10px solid var(--c); border-radius: 3px; }
+.verdict.s-none { border-left-color: var(--unbound); box-shadow: inset 1px 0 0 var(--none); }
+.verdict .status { font-size: 15px; }
+.verdict p { margin: 6px 0 0; color: var(--ink2); font-size: 15px; }
+.study h2 { font: 700 20px/1.3 var(--serif); margin: 40px 0 12px; }
+.rep-item { padding: 16px 0; border-top: 1px solid var(--rule2); }
+.study h2 + .rep-item { border-top: 0; padding-top: 4px; }
+.rep-item .status { font-size: 13px; }
+.rep-item h3 { font: 700 16px/1.4 var(--serif); margin: 6px 0 2px; }
+.rep-item p { font: 400 15.5px/1.65 var(--serif); color: var(--ink2); margin: 6px 0 0; }
+.ideas { padding-left: 20px; margin: 0; }
+.ideas li { margin-bottom: 8px; font: 400 16px/1.65 var(--serif); }
+.note { font-size: 14px; color: var(--ink2); background: var(--card); border: 1px solid var(--rule); border-radius: 3px; padding: 10px 12px; margin-top: 12px; }
+.facts { margin: 0; }
+.facts dt { font-size: 12.5px; font-weight: 650; color: var(--muted); }
+.facts dd { margin: 2px 0 14px; font-size: 14.5px; color: var(--ink); overflow-wrap: anywhere; }
+.aside-box { border: 1px solid var(--rule); background: var(--card); border-radius: 3px; padding: 18px; margin-bottom: 22px; }
+.aside-box h3 { font-size: 16px; margin-bottom: 6px; }
+.aside-box p { font-size: 14px; color: var(--ink2); }
+.pager { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--rule); padding-top: 16px; margin-top: 44px; font-size: 14.5px; }
+.pager a { text-decoration: none; max-width: 48%; font-family: var(--serif); }
+.pager span { display: block; color: var(--muted); font: 600 12.5px var(--sans); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12.5px; color: var(--ink2); border: 1px solid var(--rule); border-radius: 99px; padding: 1px 9px; }
+
+/* Resources */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
+.chip { font: 550 13.5px/1.2 var(--sans); color: var(--ink2); background: var(--card); border: 1px solid var(--rule); border-radius: 99px; padding: 6px 12px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.res-group { margin-top: 38px; }
+.res-group h2 { font-size: 24px; padding-bottom: 10px; border-bottom: 1px solid var(--ink); }
+.res { padding: 18px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 24px; }
+.res h3 { font-size: 16.5px; }
+.res p { font: 400 15px/1.6 var(--serif); color: var(--ink2); margin: 6px 0 0; }
+.res dl { margin: 0; font-size: 13.5px; }
+.res dt { color: var(--muted); font-weight: 600; font-size: 12.5px; }
+.res dd { margin: 1px 0 8px; color: var(--ink2); }
+
+/* Long-form pages */
+.prose { max-width: 720px; padding-bottom: 80px; font: 400 16.5px/1.7 var(--serif); }
+.prose h2 { margin: 48px 0 12px; }
+.prose h3 { margin: 26px 0 8px; }
+.prose ul, .prose ol { padding-left: 22px; }
+.prose li { margin-bottom: 8px; }
+.prose .btn, .prose .linkish, .prose .copy-status, .prose table, .prose .small { font-family: var(--sans); }
+.defs { margin: 0; font-family: var(--sans); font-size: 15.5px; }
+.defs div { display: grid; grid-template-columns: 150px 1fr; gap: 14px; padding: 10px 0; border-top: 1px solid var(--rule2); }
+.defs dt { font-weight: 650; display: flex; gap: 8px; align-items: center; }
+.defs dd { margin: 0; color: var(--ink2); }
+pre.template { background: var(--card); border: 1px solid var(--rule); border-radius: 3px; padding: 16px; font: 13.5px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; overflow-x: auto; }
+.copy-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0; }
+.copy-status { font-size: 13.5px; color: var(--muted); }
+table.plain { border-collapse: collapse; width: 100%; font-size: 15px; margin: 8px 0 20px; }
+table.plain th, table.plain td { text-align: left; padding: 9px 10px 9px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+table.plain th { font-size: 13px; color: var(--muted); font-weight: 650; border-bottom-color: var(--ink); }
+
+/* Network */
+.adds .cols3 { margin-top: 4px; }
+.diagram { margin: 30px 0 10px; color: var(--ink); background: var(--card); border: 1px solid var(--rule); border-radius: 4px; padding: 10px 6px; }
+.diagram svg { width: 100%; height: auto; display: block; }
+.diagram .bx { fill: var(--card); stroke: var(--rule); stroke-width: 1.25; }
+.diagram .bx.main { fill: var(--rep); fill-opacity: 0.1; stroke: var(--rep); stroke-width: 2; }
+.diagram .ln { fill: none; stroke: var(--muted); stroke-width: 1.25; }
+.diagram .hd { fill: var(--muted); }
+.diagram .t1 { fill: var(--ink); font: 600 13px var(--sans); }
+.diagram .t2 { fill: var(--ink2); font: 400 11.5px var(--sans); }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 3px; padding: 22px 24px; }
+.card + .card { margin-top: 14px; }
+.card .label { font-size: 13px; font-weight: 650; color: var(--muted); }
+.card h3 { font-size: 19px; margin: 4px 0 12px; line-height: 1.3; }
+.card dl { margin: 0; display: grid; grid-template-columns: 170px 1fr; gap: 8px 18px; font-size: 15px; }
+.card dt { color: var(--muted); font-weight: 600; font-size: 13.5px; padding-top: 1px; }
+.card dd { margin: 0; color: var(--ink2); }
+.gap-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+.gap-item h3 { font: 700 17px/1.3 var(--serif); }
+.gap-item .idea { font: 400 15.5px/1.6 var(--serif); color: var(--ink2); margin: 8px 0 0; }
+.gap-filters { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; padding: 14px 0; border-bottom: 1px solid var(--ink); }
+.gap-filters label { font-size: 13px; font-weight: 600; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+.gap-filters select { width: auto; min-width: 180px; }
+.gap-filters .opt { color: var(--ink2); font-weight: 400; font-size: 14.5px; flex-direction: row; padding-bottom: 8px; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--rule); margin: 8px 0 28px; overflow-x: auto; }
+.tabs button { font: 600 15px var(--sans); color: var(--muted); background: none; border: 0; padding: 12px 14px; cursor: pointer; white-space: nowrap; }
+.tabs button[aria-selected="true"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--ink); }
+.form { max-width: 640px; }
+.fld { margin-bottom: 18px; }
+.fld > label, .fld > .lab { display: block; font-weight: 600; font-size: 14.5px; margin-bottom: 4px; }
+.fld .hint { display: block; font-size: 13.5px; color: var(--muted); margin-bottom: 6px; }
+.fld .err { color: var(--fail); font-size: 13.5px; margin-top: 4px; }
+.radios { display: flex; flex-direction: column; gap: 4px; }
+.radios label { display: flex; gap: 8px; align-items: center; font-size: 15px; color: var(--ink2); }
+.radios input { accent-color: var(--ink); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.preview { margin-top: 28px; }
+.proto { font-size: 14px; color: var(--ink2); border: 1.5px dashed var(--muted); border-radius: 3px; padding: 10px 14px; margin: 0 0 22px; }
+
+
+/* Vision page */
+.vision { max-width: 780px; padding-bottom: 80px; }
+.vsec { padding: 40px 0 8px; border-top: 1px solid var(--rule); }
+.vsec:first-child { border-top: 0; padding-top: 4px; }
+.vsec h2 { margin-bottom: 14px; }
+.vsec > p, .vintro { font: 400 16.5px/1.7 var(--serif); color: var(--ink2); }
+.vcase { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 20px; padding: 22px 0; border-top: 1px solid var(--rule2); }
+.vspine { width: 10px; border-radius: 2px 2px 0 0; background: var(--c); border-bottom: 3px solid var(--wood); min-height: 70px; }
+.vspine.s-none { background: var(--unbound); box-shadow: inset 0 0 0 1px var(--none); }
+.vcase h3 { font-size: 19px; margin-bottom: 6px; }
+.vtags { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-bottom: 8px; }
+.vtags .status { font-size: 12.5px; font-weight: 600; text-decoration: none; color: var(--ink2); }
+.vtags .status:hover { color: var(--ink); text-decoration: underline; }
+.vcase p, .vnote p, .voice p { font: 400 16px/1.7 var(--serif); color: var(--ink2); margin: 0; }
+.vnote { margin-top: 18px; padding: 20px 22px; background: var(--card); border: 1px solid var(--rule); border-radius: 3px; }
+.vnote h3 { font-size: 17.5px; margin-bottom: 8px; }
+.cbars { margin-top: 16px; }
+.cbar { margin-bottom: 14px; }
+.cbar-label { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.cbar-label .muted { font-weight: 400; }
+.cbar-track { display: flex; gap: 2px; height: 28px; }
+.seg { display: flex; align-items: center; justify-content: center; background: var(--c); color: var(--on-cloth); font: 600 12.5px/1 var(--sans); border-radius: 2px; min-width: 22px; }
+.seg.s-part { color: #1f1c17; }
+.cbars .legend { margin-top: 6px; }
+.voices { border-top: 1px solid var(--ink); }
+.voice { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--rule2); position: relative; }
+.voice::before { content: ""; position: absolute; left: 0; top: 20px; bottom: 20px; width: 2px; background: var(--rule); }
+.voice h3 { font: 600 13.5px/1.3 var(--sans); color: var(--muted); margin-bottom: 6px; }
+.vlist { padding-left: 20px; margin: 0; font: 400 16px/1.7 var(--serif); color: var(--ink2); }
+.vlist li { margin-bottom: 12px; padding-left: 4px; }
+.vsec a, .vintro a { font-family: inherit; }
+
+/* Footer */
+.site-foot { border-top: 1px solid var(--rule); padding: 32px 0 48px; font-size: 13.5px; color: var(--muted); background: var(--paper2); }
+.site-foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 30px; }
+.site-foot a { color: var(--muted); }
+
+@media (max-width: 1060px) {
+  .case { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reasons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 960px) {
+  .browse { grid-template-columns: 1fr; gap: 0; }
+  .filters { position: static; max-height: none; overflow: visible; border-bottom: 1px solid var(--rule); margin-bottom: 18px; padding-bottom: 6px; }
+  .filters summary { display: block; cursor: pointer; font-weight: 650; padding: 10px 0; }
+  .study { grid-template-columns: 1fr; gap: 10px; }
+  .cols3 { grid-template-columns: 1fr; gap: 18px; }
+  .reasons { grid-template-columns: 1fr; }
+  .res { grid-template-columns: 1fr; gap: 6px; }
+  .coming { grid-template-columns: 1fr; gap: 24px; padding: 26px; }
+}
+@media (max-width: 720px) {
+  .wrap { padding: 0 20px; }
+  .head-inner { flex-wrap: wrap; gap: 0; padding-top: 12px; }
+  .nav { width: 100%; margin-left: -10px; }
+  .site-head { position: static; }
+  .hero { padding-top: 40px; }
+  .case { grid-template-columns: 1fr; padding: 22px 16px 10px; gap: 26px; }
+  .books { height: 150px; padding: 0 2px; gap: 1.5px; }
+  .row { grid-template-columns: 8px minmax(0, 1fr); gap: 14px; }
+  .row-spine { width: 8px; grid-row: span 2; }
+  .row-meta { grid-column: 2; flex-direction: row; flex-wrap: wrap; gap: 4px 14px; }
+  .card dl { grid-template-columns: 1fr; gap: 2px; }
+  .card dd { margin-bottom: 8px; }
+  .gap-item { grid-template-columns: 1fr; }
+  .two { grid-template-columns: 1fr; }
+  .defs div { grid-template-columns: 1fr; gap: 2px; }
+  .pair-head { display: none; }
+  .pair { grid-template-columns: 1fr; gap: 18px; }
+  .pair > div::before { content: attr(data-label); display: block; font: 650 12.5px/1.3 var(--sans); color: var(--muted); margin-bottom: 6px; }
+  .pair .next::before { display: none; }
+  .pair .next { padding-left: 14px; border-left: 1px solid var(--rule); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .case.anim .book { animation: none; }
+  .book { transition: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#app">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="#/" id="brand">
+      <span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span id="brand-name">AI Safety Replication Library</span>
+      <span class="brand-tag" id="brand-tag" hidden>Prototype</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Main"></nav>
+  </div>
+</header>
+<main id="app" tabindex="-1"></main>
+<footer class="site-foot"><div class="wrap" id="foot"></div></footer>
+<div class="tip" id="tip" role="tooltip" hidden></div>
+<script>
+(function () {
+  "use strict";
+  var NETWORK = /*__NETWORK__*/false;
+  var DATA = /*__DATA__*/{};
+  var S = DATA.studies || [];
+  var R = DATA.resources || [];
+  var PILOT_ID = "multilingual-refusal-direction-2025";
+  var app = document.getElementById("app");
+
+  /* ---------- Vocabularies ---------- */
+  var STATUS = [
+    { key: "rep", value: "replicated", label: "Replicated", def: "At least one independent re-run reports that the main result holds." },
+    { key: "part", value: "partially replicated", label: "Partially replicated", def: "Some main claims hold and others do not, or the effects are clearly weaker." },
+    { key: "cond", value: "conditional", label: "Conditional", def: "Holds for some models or settings and not for others." },
+    { key: "cont", value: "contested", label: "Contested", def: "Published disagreement without a clear resolution." },
+    { key: "none", value: "no public replication found", label: "No public replication found", def: "No independent re-run located after searching." }
+  ];
+  var SBY = {}; STATUS.forEach(function (s) { SBY[s.value] = s; SBY[s.key] = s; });
+  var OUTCOME = {
+    replicated: { key: "rep", label: "Replicated" },
+    partial: { key: "part", label: "Partly replicated" },
+    conditional: { key: "cond", label: "Conditional" },
+    failed: { key: "fail", label: "Did not replicate" },
+    contested: { key: "cont", label: "Contested" },
+    extended: { key: "ext", label: "Extended" }
+  };
+  var TIERS = [
+    ["T0", "under about $50", "API calls or a laptop"],
+    ["T1", "about $50 to $500", "One GPU or modest API spend"],
+    ["T2", "about $500 to $5,000", "Several GPUs, mid-size fine-tuning or heavy API use"],
+    ["T3", "over about $5,000", "Large-scale training or frontier-scale compute"]
+  ];
+  var DIFF = [
+    ["starter", "Starter", "Prompting or inference only, with public code or a clear method. Days of work with basic Python."],
+    ["intermediate", "Intermediate", "Fine-tuning, activation-level work or building a custom judge. Weeks of work."],
+    ["advanced", "Advanced", "Training runs, complex agent environments or under-documented methods."]
+  ];
+  var ACCESS = [["open-weight", "Open-weight"], ["API-only", "API only"], ["mixed", "Mixed"]];
+  var AVAIL = [["yes", "Yes"], ["partly", "Partly"], ["no", "No"], ["unknown", "Unknown"]];
+  var LANGS = [["en", "English only"], ["multi", "Beyond English"], ["na", "Not language-based"]];
+  var AREAS = [];
+  S.forEach(function (s) { if (AREAS.indexOf(s.category) < 0) AREAS.push(s.category); });
+
+  function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function arr(v) { return Array.isArray(v) ? v : (v ? [v] : []); }
+  function isURL(u) { return typeof u === "string" && /^https?:\/\//.test(u); }
+  function find(list, key) { for (var i = 0; i < list.length; i++) if (list[i][0] === key) return list[i]; return null; }
+  function plural(n, one, many) { return n + " " + (n === 1 ? one : (many || one + "s")); }
+  function ext(url, text) { return '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(text) + "</a>"; }
+  function sw(key) { return '<span class="sw s-' + key + '" aria-hidden="true"></span>'; }
+  function statusTag(s) { return '<span class="status s-' + s._st.key + '">' + sw(s._st.key) + esc(s._st.label) + "</span>"; }
+  function tierText(t) { var x = find(TIERS, t); return x ? t + ", " + x[1] : (t || ""); }
+  function tierShort(t) { var x = find(TIERS, t); return x ? t + ", " + x[1].replace("about ", "") : (t || ""); }
+  function shortName(s) { return s.short_name || s.title; }
+
+  var BYID = {};
+  S.forEach(function (s, i) {
+    s._i = i;
+    s._st = SBY[s.replication_status] || SBY.none;
+    s._area = AREAS.indexOf(s.category);
+    s._code = isURL(s.code_url);
+    s._indep = arr(s.replications).filter(function (r) { return r.outcome && r.outcome !== "extended"; }).length;
+    s._hay = [s.id, s.title, s.short_name, s.authors, s.organisation, s.core_claim, arr(s.original_models).join(" "), arr(s.tags).join(" "), s.tooling, s.category, s.languages_tested].join(" ").toLowerCase();
+    BYID[s.id] = s;
+  });
+  var ENGLISH_ONLY = S.filter(function (s) { return String(s.languages_tested).trim() === "English only"; }).length;
+  var LIMITED = S.filter(function (s) { return s.replication_search_limited; }).length;
+  function countStatus(key) { return S.filter(function (s) { return s._st.key === key; }).length; }
+
+  /* ---------- Studies filtering ---------- */
+  var FACETS = [
+    { id: "status", label: "Replication status", opts: STATUS.map(function (s) { return [s.key, s.label]; }), get: function (s) { return s._st.key; }, swatch: true },
+    { id: "area", label: "Research area", opts: AREAS.map(function (a, i) { return [String(i), a]; }), get: function (s) { return String(s._area); } },
+    { id: "diff", label: "Difficulty", opts: DIFF.map(function (d) { return [d[0], d[1]]; }), get: function (s) { return s.difficulty; } },
+    { id: "tier", label: "Compute", opts: TIERS.map(function (t) { return [t[0], t[0] + ", " + t[1].replace("about ", "")]; }), get: function (s) { return s.compute_tier; } },
+    { id: "access", label: "Model access", opts: ACCESS, get: function (s) { return s.model_access; } },
+    { id: "avail", label: "Original models still available", opts: AVAIL, get: function (s) { return s.models_still_available; } },
+    { id: "code", label: "Code", opts: [["yes", "Released code"], ["no", "No released code"]], get: function (s) { return s._code ? "yes" : "no"; } },
+    { id: "lang", label: "Languages tested", opts: LANGS, get: function (s) { return s._lang; } }
+  ];
+  var SORTS = [["area", "By research area"], ["new", "Newest first"], ["easy", "Easiest first"], ["reruns", "Most independent re-runs"]];
+  var DIFF_ORDER = { starter: 0, intermediate: 1, advanced: 2 };
+  var TIER_ORDER = { T0: 0, T1: 1, T2: 2, T3: 3 };
+  var STATUS_ORDER = { rep: 0, part: 1, cond: 2, cont: 3, none: 4 };
+
+  function stateFrom(q) {
+    var st = { q: q.get("q") || "", sort: q.get("sort") || "area", sets: {} };
+    FACETS.forEach(function (f) { st.sets[f.id] = new Set((q.get(f.id) || "").split(",").filter(Boolean)); });
+    return st;
+  }
+  function stateHash(st) {
+    var parts = [];
+    if (st.q) parts.push("q=" + encodeURIComponent(st.q));
+    FACETS.forEach(function (f) { var v = Array.from(st.sets[f.id]); if (v.length) parts.push(f.id + "=" + v.join(",")); });
+    if (st.sort && st.sort !== "area") parts.push("sort=" + st.sort);
+    return "#/studies" + (parts.length ? "?" + parts.join("&") : "");
+  }
+  function matches(s, st, skip) {
+    for (var i = 0; i < FACETS.length; i++) {
+      var f = FACETS[i];
+      if (f.id === skip) continue;
+      var set = st.sets[f.id];
+      if (set.size && !set.has(f.get(s))) return false;
+    }
+    if (st.q) {
+      var toks = st.q.toLowerCase().split(/\s+/).filter(Boolean);
+      for (var j = 0; j < toks.length; j++) if (s._hay.indexOf(toks[j]) < 0) return false;
+    }
+    return true;
+  }
+  function sortStudies(list, how) {
+    var l = list.slice();
+    l.sort(function (a, b) {
+      if (how === "new") return (b.year || 0) - (a.year || 0) || a._i - b._i;
+      if (how === "easy") return (DIFF_ORDER[a.difficulty] - DIFF_ORDER[b.difficulty]) || (TIER_ORDER[a.compute_tier] - TIER_ORDER[b.compute_tier]) || a._i - b._i;
+      if (how === "reruns") return b._indep - a._indep || a._i - b._i;
+      return a._area - b._area || a._i - b._i;
+    });
+    return l;
+  }
+  function presetHash(p) {
+    var st = { q: "", sort: "area", sets: {} };
+    FACETS.forEach(function (f) { st.sets[f.id] = new Set(p[f.id] || []); });
+    return { hash: stateHash(st), n: S.filter(function (s) { return matches(s, st); }).length };
+  }
+  var PRESETS = {
+    learn: presetHash({ diff: ["starter"], tier: ["T0", "T1"], code: ["yes"] }),
+    gap: presetHash({ status: ["none"], avail: ["yes", "partly"] }),
+    port: presetHash({ lang: ["en"], diff: ["starter", "intermediate"] })
+  };
+
+  /* ---------- Shell ---------- */
+  var NAV_LIB = [["vision", "Vision"], ["studies", "Studies"], ["resources", "Resources"], ["guide", "Choosing a study"], ["method", "Method"]];
+  var NAV_NET = [["network", "How it works"], ["requests", "Requests"], ["pilot", "Pilot"], ["take-part", "Take part"]];
+  function navHTML(page) {
+    var cur = page === "study" ? "studies" : page;
+    function a(item) { return '<a href="#/' + item[0] + '"' + (item[0] === cur ? ' aria-current="page"' : "") + ">" + item[1] + "</a>"; }
+    var h = NAV_LIB.map(a).join("");
+    if (NETWORK) h = NAV_NET.map(a).join("") + '<span class="sep" aria-hidden="true"></span>' + h;
+    return h;
+  }
+  if (NETWORK) {
+    document.getElementById("brand-name").textContent = "AI Safety Replication Network";
+    document.getElementById("brand-tag").hidden = false;
+    document.title = "AI Safety Replication Network (prototype)";
+  }
+  document.getElementById("foot").innerHTML =
+    "<div>" + (NETWORK ? "A prototype of a replication network built on the AI Safety Replication Library. The forms on this site do not send anything." : "AI Safety Replication Library.") +
+    " Compiled by AI Safety Türkiye. Records compiled and independently checked on 31 October 2026.</div>" +
+    '<div><a href="#/method/data">Download the data</a> &nbsp; <a href="#/method/corrections">Corrections</a></div>';
+
+  /* ---------- Home ---------- */
+  function hashN(str) { var h = 0; for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0; return h; }
+  function fieldHTML() {
+    var k = 0;
+    var shelves = AREAS.map(function (area, ai) {
+      var list = S.filter(function (s) { return s._area === ai; }).sort(function (a, b) { return STATUS_ORDER[a._st.key] - STATUS_ORDER[b._st.key] || a._i - b._i; });
+      var books = list.map(function (s) {
+        var h = hashN(s.id), w = 13 + (h % 7), ht = 126 + ((h >>> 5) % 44);
+        return '<a class="book s-' + s._st.key + '" href="#/study/' + esc(s.id) + '" style="--w:' + w + "px;--h:" + ht + "px;--k:" + (k++) + '" data-tip="' + esc(s.title) + '" data-tip2="' + esc(s._st.label) + '" aria-label="' + esc(shortName(s) + ": " + s._st.label) + '"><span aria-hidden="true">' + esc(shortName(s)) + "</span></a>";
+      }).join("");
+      return '<div class="shelf"><div class="books">' + books + '</div><div class="board"></div><a class="shelf-label" href="#/studies?area=' + ai + '"><b>' + esc(area) + "</b>" + plural(list.length, "study", "studies") + "</a></div>";
+    }).join("");
+    var legend = STATUS.map(function (s) { return "<span>" + sw(s.key) + esc(s.label) + " <b>" + countStatus(s.key) + "</b></span>"; }).join("");
+    return '<div class="stacks"><div class="stacks-cap"><p>The stacks: ' + S.length + " studies, shelved by research area and bound in the colour of their replication status. Pale, unbound spines have no independent re-run yet.</p><p>Select a book to open its record.</p></div>" +
+      '<div class="case' + (firstHome ? " anim" : "") + '">' + shelves + '</div><div class="legend">' + legend + "</div></div>";
+  }
+  var firstHome = true;
+  function renderHome() {
+    var cmpEM = '<a href="#/study/emergent-misalignment-2025">original emergent misalignment study</a>';
+    var PAIRS = [
+      ["Results are repeated without their conditions",
+       "A finding is shown on particular models, prompts, judges, languages and settings, then cited as if it held for AI systems in general. The " + cmpEM + " found that GPT-4o, fine-tuned on insecure code, gave misaligned answers about 20% of the time on eight unrelated questions. A 2026 re-test found consistent emergent misalignment in only 2 of 12 open models.",
+       "State every finding with its conditions, and vary them one at a time",
+       "A result names the models and versions, language, prompts, judge and settings it was shown under, and says whether it claims that something can happen, how often, how much or why. Open-weight models let researchers fix the exact checkpoint, probe it, fine-tune it and compare it with versions adapted for other languages, so each condition can be changed on its own."],
+      ["Many results are never re-tested",
+       "We could not find an independent re-run for " + countStatus("none") + " of the " + S.length + " studies in the library, and " + countStatus("cond") + " more held only under some conditions. The re-runs that exist are spread across papers, blog posts and code repositories, and no organisation decides for the field which findings get re-tested next.",
+       "Re-test the findings that decisions rest on",
+       "Independent groups re-run load-bearing results, including on new models as they are released. They are paid whatever they find, so that a replication that fails earns as much as one that holds, and every result returns to a shared record."],
+      ["The measuring instruments are rarely checked",
+       'A <a href="#/study/measuring-what-matters-2025">review of 445 language model benchmarks</a> found that only 16% used uncertainty estimates or statistical tests. Safety scores also depend on models grading models: in <a href="#/study/coin-flip-safety-judges-2026">an audit of 6,642 human-verified harmfulness labels</a>, four common safety judges were 51% to 59% accurate.',
+       "Check the instruments before trusting the results",
+       "Automated judges are compared with human raters in every language they are used in, scores carry uncertainty, and reports say how much of a result comes from the judge, the prompts and the sampling rather than from the model."],
+      ["Models can tell when they are being tested",
+       'In a 2025 study, <a href="#/study/eval-awareness-transcripts-2025">nine frontier models told evaluations apart from real use</a> well above chance. On one safety benchmark, <a href="#/study/verbalised-eval-awareness-2026">answers in which a model said it was being evaluated</a> refused 3 to 18 percentage points more often on the same questions, so part of a measured safety score can reflect the test.',
+       "Measure whether the model noticed the test",
+       "Reports say how often a model states that it is being evaluated, and how its behaviour changes when the cues that give the test away are removed. The same study found that removing such cues cut stated awareness by more than 40% and lowered refusal rates."],
+      ["Most evidence comes from English",
+       "Of the " + S.length + " studies, " + ENGLISH_ONLY + ' tested English alone, Turkish appears in five and Portuguese in none. Where models adapted for another language have been tested, they can behave differently: in a <a href="#/study/turkish-prompt-injection-benchmark-2026">2026 study of 55 models on Turkish prompts</a>, most Turkish-adapted models scored lower on Turkish prompts than on English ones.',
+       "Run shared protocols in several languages",
+       "Groups in different countries run the same protocol in their own languages, on the models adapted for those languages, and judge the outputs natively instead of through translation. Language is one condition among several, and a useful place to start."]
+    ];
+    var pairs = '<div class="pairs"><div class="pair-head" aria-hidden="true"><span>Where the evidence falls short</span><span>What a better science would do</span></div>' +
+      PAIRS.map(function (p) {
+        return '<div class="pair"><div class="now" data-label="Where the evidence falls short"><h3>' + p[0] + "</h3><p>" + p[1] + '</p></div><div class="next" data-label="What a better science would do"><h3>' + p[2] + "</h3><p>" + p[3] + "</p></div></div>";
+      }).join("") + "</div>";
+
+    var WHY = [
+      ["Re-tests show which models a finding describes",
+       'The <a href="#/study/alignment-faking-2024">original alignment faking study</a> found that Claude 3 Opus complied with harmful requests about 14% of the time when it believed the conversation would be used for training, and almost never otherwise. A <a href="https://arxiv.org/abs/2506.18032" target="_blank" rel="noopener">2025 test of 25 models</a> found a similar gap in five of them. Only in Claude 3 Opus did the gap look consistently driven by the model protecting its existing values. Anyone relying on the first result needs the second to know which models it describes.'],
+      ["Re-tests show which part of a claim holds",
+       'The <a href="#/study/sleeper-agents-2024">sleeper agents study</a> found that backdoors trained into a model survived safety training, most strongly in models trained to reason about deceiving their training. A <a href="https://www.alignmentforum.org/posts/mu7eJdesBkKuBycnY/sleeper-agent-backdoor-results-are-messy" target="_blank" rel="noopener">2026 rebuild on two Llama models</a> found that safety fine-tuning often failed to remove the backdoor, so the main result held. Whether a backdoor survived depended on the optimiser, the learning rate and the model, though, and distilling the deceptive reasoning into the model made backdoors less robust, the reverse of the original finding. Re-tests so far suggest that claims that something can happen under the original conditions hold up best, while rates, rankings and explanations shift most.'],
+      ["Re-tests show whether a finding is out of date",
+       'A result shown on one generation of models may not hold on the next. Developers train against problems once they are known, and newer models are more likely to notice a test. In one study, <a href="#/study/anti-scheming-eval-awareness-2025">stated evaluation awareness rose from 2.0% to 20.5% during capabilities training</a>. Original models also get retired. For ' + S.filter(function (s) { return s.models_still_available === "no"; }).length + " of the " + S.length + " studies, none of the original models can still be run, and for " + S.filter(function (s) { return s.models_still_available === "partly"; }).length + " more only some can. Re-running key experiments on each new release, while the older models are still available, shows which results still hold."],
+      ["Re-tests check the claims release decisions rest on",
+       "Capability claims are tested every day by the people who use the models. Claims that a model will not do something, that a mitigation works or that no failure was observed feed into release decisions, and they are rarely checked outside the team that made them. When a test finds no failure, a re-run with stronger elicitation is how to tell whether the failure is absent or the test was too weak to find it."],
+      ["Automated research will need checking",
+       'OpenAI <a href="https://openai.com/index/research-acceleration-view-inside-openai/" target="_blank" rel="noopener">reported in September 2026</a> that since June the total running time of agents across its research organisation has exceeded that of its human researchers, and it says an automated AI researcher can also be an automated safety or alignment researcher. Findings from such systems need checks that do not rest on trusting whoever produced them, and an independent re-run under stated conditions is such a check. Agents cannot yet do the re-running reliably: on <a href="#/study/paperbench-2025">PaperBench</a>, the best agent tested in 2025 averaged a replication score of 21.0% across 20 machine learning papers.'],
+      ["Most replications are cheap",
+       "Of the " + S.length + " studies in the library, " + S.filter(function (s) { return s.compute_tier === "T0" || s.compute_tier === "T1"; }).length + ' could be replicated for under about $500 in compute, and ' + S.filter(function (s) { return s._code; }).length + ' have released code. Replications are also how <a href="#/resources">training programmes such as ARENA and BlueDot Impact</a> teach new researchers, so the work builds people as well as evidence.']
+    ];
+    var why = '<div class="reasons">' + WHY.map(function (w) { return '<div class="reason"><h3>' + w[0] + "</h3><p>" + w[1] + "</p></div>"; }).join("") + "</div>";
+    var heroText = NETWORK
+      ? "<h1>Towards a science of AI safety whose findings can be checked</h1>" +
+        '<p class="lead">This prototype builds on the AI Safety Replication Library, which records which of <strong>' + S.length + " AI safety findings</strong> have been re-tested by someone else, and under which conditions. It adds a way to request the missing re-tests, a pooled fund to pay for them, and coordinated runs that test findings under new conditions, starting with other languages. The forms on this site do not send anything yet.</p>" +
+        '<div class="actions"><a class="btn" href="#/network">How the network would work</a><a class="btn quiet" href="#/vision">What re-tests have found</a></div>'
+      : "<h1>Towards a science of AI safety whose findings can be checked</h1>" +
+        '<p class="lead">Decisions about how AI systems are built, released and overseen draw on a small body of experiments. Each was run on particular models, prompts and settings at a particular time, and many have never been re-run by anyone else. This library is a first step: a record of which <strong>' + S.length + " AI safety findings</strong> have been re-tested, under which conditions, and what it would take to test the rest.</p>" +
+        '<div class="actions"><a class="btn" href="#/studies">Browse the studies</a><a class="btn quiet" href="#/vision">What re-tests have found</a></div>';
+    var NETWORK_URL = "/*__NETURL__*/";
+    function ghostItem(title, text, href) {
+      return '<li><span class="ghost" aria-hidden="true"></span><div><b>' + (href ? '<a href="' + href + '">' + title + "</a>" : title) + "</b><span>" + text + "</span></div></li>";
+    }
+    var items = [
+      ["A request queue", "Anyone could ask for a specific replication and name the decision the result would inform.", "#/requests"],
+      ["A pooled fund", "Teams would be paid when results are published, whatever they show, so a replication that fails earns as much as one that holds.", "#/network/fund"],
+      ["Coordinated runs under new conditions", "Groups in different places would run one protocol with one condition changed, such as a newer model, another model family, another judge or another language. The first pilot starts with language, replicating one finding in Turkish, Portuguese and a third language.", "#/pilot"]
+    ];
+    var adds = NETWORK
+      ? '<section class="section"><div class="coming"><div><span class="tagline">Prototype</span><h2>The network, in prototype</h2><p>This version of the site shows how a replication network would work on top of the library. Every result would return to the library with the conditions it ran under. The forms do not send anything yet.</p><div class="actions" style="margin-top:20px"><a class="btn" href="#/network">How the network would work</a></div></div><ul>' +
+        items.map(function (x) { return ghostItem(x[0], x[1], x[2]); }).join("") + "</ul></div></section>"
+      : '<section class="section"><div class="coming"><div><span class="tagline">In preparation</span><h2>Coming next: a replication network</h2><p>The library records which findings have been re-tested. The next step is a way to get the missing re-tests done, with every result returning to the library alongside the conditions it ran under.</p><div class="actions" style="margin-top:20px"><a class="btn quiet" href="' + NETWORK_URL + '" target="_blank" rel="noopener">See the prototype</a></div></div><ul>' +
+        items.map(function (x) { return ghostItem(x[0], x[1], null); }).join("") + "</ul></div></section>";
+    var statuses = STATUS.map(function (s) { return "<div>" + sw(s.key) + "<b>" + esc(s.label) + ' <span class="muted">' + countStatus(s.key) + "</span></b><p>" + esc(s.def) + "</p></div>"; }).join("");
+    app.innerHTML =
+      '<section class="hero-wrap"><div class="wrap hero">' + heroText + fieldHTML() + "</div></section>" +
+      '<div class="wrap">' +
+      '<section class="section" id="why"><div class="section-head"><h2>Why re-testing is worth doing</h2><p>A published finding is a claim about the models, prompts, judges and settings it was tested on, at the time it was tested. Those conditions tend to drop out as the finding is cited. Re-running it, under the original conditions or with one of them changed, tells the people who rely on it three things the original paper cannot: which systems it describes, which part of it holds, and whether it is still true.</p><p class="small" style="font-family:var(--sans)"><a href="#/vision">What re-tests have found so far</a></p></div>' + why + "</section>" +
+      '<section class="section" id="shortfalls"><div class="section-head"><h2>Where the evidence falls short, and what would improve it</h2><p>Five features of how AI safety evidence is produced make it hard to tell which findings hold. Each is documented in studies the library tracks, and each points to a change the field could make.</p></div>' + pairs + "</section>" +
+      '<section class="section"><div class="section-head"><h2>The library is the first piece</h2><p>The library states each of ' + S.length + " studies with the conditions it was shown under, tracks every independent re-run we could find, and sets out what a new replication would take: models, code, compute, difficulty and the pitfalls to avoid. Each link below opens the studies list with filters applied.</p></div><div class=\"cols3\">" +
+      '<div class="way"><h3>Learn by replicating</h3><p>Starter studies with released code that run on application programming interface (API) credits or a single graphics processing unit (GPU). They suit a first project for a fellowship or reading group.</p><a class="go" href="' + PRESETS.learn.hash + '">Show ' + plural(PRESETS.learn.n, "study", "studies") + "</a></div>" +
+      '<div class="way"><h3>Fill a gap</h3><p>Studies nobody has independently re-run yet, where some or all of the original models can still be used.</p><a class="go" href="' + PRESETS.gap.hash + '">Show ' + plural(PRESETS.gap.n, "study", "studies") + "</a></div>" +
+      '<div class="way"><h3>Port to another language</h3><p>Starter and intermediate studies tested only in English. Re-running one in another language tests whether the finding travels.</p><a class="go" href="' + PRESETS.port.hash + '">Show ' + plural(PRESETS.port.n, "study", "studies") + "</a></div>" +
+      "</div></section>" + adds +
+      '<section class="section"><div class="section-head"><h2>How to read a status</h2><p>Only re-runs by other authors count towards a status. A status records what we found in public sources, and it is not a judgement of the original work.</p></div><div class="statuses">' + statuses + "</div>" +
+      '<p class="muted small" style="margin-top:22px;max-width:720px">Claim types matter when reading a status. Claims that something can happen under the original conditions tend to hold up, while rates, effect sizes and rankings are the claims most likely to shift on new models. The <a href="#/method">method page</a> defines each claim type.</p></section>' +
+      '<section class="section"><div class="section-head"><h2>Resources for running a replication</h2><p>' + R.length + " tools, datasets, guides and sources of funding, from evaluation frameworks and compute access to fellowships and automated replication tools.</p></div>" +
+      '<div class="actions" style="margin-top:0"><a class="btn quiet" href="#/resources">Browse the resources</a><a class="btn quiet" href="#/guide">Choosing a study to replicate</a></div></section>' +
+      '<section class="section"><div class="section-head"><h2>What better evidence cannot show</h2>' +
+      "<p>Re-testing improves the evidence about AI systems that exist today. It cannot show that a future, more capable system is safe, because the decisive tests would have to run on systems that do not exist yet, and a capable enough system could pass tests it would fail in use. Its value is in finding out which current results are weaker than they look before decisions rest on them.</p>" +
+      "<p>The library has limits of its own. Coverage is uneven, and work outside English is thinner than the rest. Our search for re-runs was cut short for " + LIMITED + ' studies, and their pages say so. Corrections are welcome, and the <a href="#/method">method page</a> explains how each field was filled.</p></div></section>' +
+      "</div>";
+    firstHome = false;
+  }
+
+  /* ---------- Studies ---------- */
+  var st = null;
+  function renderStudies(q) {
+    st = stateFrom(q);
+    var fs = FACETS.map(function (f) {
+      var opts = f.opts.map(function (o) {
+        return '<label class="opt" data-f="' + f.id + '" data-v="' + esc(o[0]) + '"><input type="checkbox" name="' + f.id + '" value="' + esc(o[0]) + '"' + (st.sets[f.id].has(o[0]) ? " checked" : "") + ">" +
+          (f.swatch ? sw(o[0]) : "") + "<span>" + esc(o[1]) + '</span><span class="n"></span></label>';
+      }).join("");
+      return "<fieldset><legend>" + esc(f.label) + "</legend>" + opts + "</fieldset>";
+    }).join("");
+    app.innerHTML =
+      '<div class="wrap"><div class="page-head"><h1>Studies</h1><p class="lead">' + S.length + " empirical AI safety studies, each with its claim, replication record, cost and porting notes.</p></div>" +
+      '<div class="browse"><details class="filters" id="filters" open><summary>Filters</summary><form id="ff" onsubmit="return false">' +
+      '<fieldset><legend><label for="fq">Search</label></legend><input type="search" id="fq" name="q" placeholder="Title, author, model or tag" value="' + esc(st.q) + '"></fieldset>' + fs +
+      '<button type="button" class="linkish" id="clear">Clear all filters</button></form></details>' +
+      '<div><div class="results-bar"><span class="count" id="count" aria-live="polite"></span><label class="small muted">Sort <select id="sort">' +
+      SORTS.map(function (s) { return '<option value="' + s[0] + '"' + (st.sort === s[0] ? " selected" : "") + ">" + s[1] + "</option>"; }).join("") +
+      '</select></label></div><div id="list"></div></div></div></div>';
+    if (window.matchMedia("(max-width: 960px)").matches) document.getElementById("filters").open = false;
+    var form = document.getElementById("ff");
+    form.addEventListener("input", onFilter);
+    form.addEventListener("change", onFilter);
+    document.getElementById("sort").addEventListener("change", function (e) { st.sort = e.target.value; updateStudies(); });
+    document.getElementById("clear").addEventListener("click", function () {
+      st = stateFrom(new URLSearchParams(""));
+      form.querySelectorAll("input[type=checkbox]").forEach(function (i) { i.checked = false; });
+      document.getElementById("fq").value = "";
+      updateStudies();
+    });
+    updateStudies();
+  }
+  function onFilter(e) {
+    var t = e.target;
+    if (t.name === "q") st.q = t.value.trim();
+    else if (t.type === "checkbox") { if (t.checked) st.sets[t.name].add(t.value); else st.sets[t.name].delete(t.value); }
+    updateStudies();
+  }
+  function studyRow(s) {
+    var d = find(DIFF, s.difficulty), a = find(ACCESS, s.model_access);
+    return '<article class="row"><span class="row-spine s-' + s._st.key + '" aria-hidden="true"></span><div><h3><a href="#/study/' + esc(s.id) + '">' + esc(s.title) + "</a></h3>" +
+      '<div class="by">' + esc([s.authors, s.year].filter(Boolean).join(", ")) + (s.organisation ? ". " + esc(s.organisation) : "") + "</div>" +
+      '<p class="clamp">' + esc(s.core_claim) + "</p></div>" +
+      '<div class="row-meta">' + statusTag(s) + "<span>" + esc(d ? d[1] : "") + "</span><span>Compute " + esc(tierShort(s.compute_tier)) + "</span><span>" + esc(a ? a[1] : "") + (s._code ? ", code released" : "") + "</span></div></article>";
+  }
+  function updateStudies() {
+    history.replaceState(null, "", stateHash(st));
+    var list = sortStudies(S.filter(function (s) { return matches(s, st); }), st.sort);
+    document.getElementById("count").textContent = list.length === S.length ? "Showing all " + S.length + " studies" : "Showing " + plural(list.length, "study", "studies") + " of " + S.length;
+    document.getElementById("list").innerHTML = list.length ? list.map(studyRow).join("") :
+      '<p class="empty">No studies match these filters. Try removing one, or <button type="button" class="linkish" data-clear>clear all filters</button>.</p>';
+    var c = document.querySelector("[data-clear]");
+    if (c) c.addEventListener("click", function () { document.getElementById("clear").click(); });
+    document.querySelectorAll(".opt[data-f]").forEach(function (el) {
+      var f = FACETS.filter(function (x) { return x.id === el.getAttribute("data-f"); })[0], v = el.getAttribute("data-v");
+      var n = S.filter(function (s) { return matches(s, st, f.id) && f.get(s) === v; }).length;
+      el.querySelector(".n").textContent = n;
+      el.classList.toggle("zero", n === 0 && !st.sets[f.id].has(v));
+    });
+  }
+
+  /* ---------- Study page ---------- */
+  function fact(label, html) { return html ? "<dt>" + label + "</dt><dd>" + html + "</dd>" : ""; }
+  function renderStudy(id) {
+    var s = BYID[id];
+    if (!s) return renderMissing();
+    var order = sortStudies(S, "area"), idx = order.indexOf(s), prev = order[idx - 1], next = order[idx + 1];
+    var reps = arr(s.replications);
+    var indep = reps.filter(function (r) { return r.outcome !== "extended"; }), exts = reps.filter(function (r) { return r.outcome === "extended"; });
+    function repHTML(r) {
+      var o = OUTCOME[r.outcome] || { key: "none", label: r.outcome };
+      return '<div class="rep-item"><span class="status s-' + o.key + '">' + sw(o.key) + esc(o.label) + "</span><h3>" + (isURL(r.url) ? ext(r.url, r.title) : esc(r.title)) + "</h3>" +
+        '<div class="by">' + esc([r.by, r.year].filter(Boolean).join(", ")) + "</div>" + (r.summary ? "<p>" + esc(r.summary) + "</p>" : "") + "</div>";
+    }
+    var record = (indep.length ? indep.map(repHTML).join("") : '<p class="muted">No independent re-run found.</p>') +
+      (s.replication_search_limited ? '<p class="note">Our search for re-runs of this study was cut short, so one may exist that is not listed here.</p>' : "");
+    var t = find(TIERS, s.compute_tier), d = find(DIFF, s.difficulty), a = find(ACCESS, s.model_access), av = find(AVAIL, s.models_still_available);
+    var links = [isURL(s.paper_url) ? ext(s.paper_url, "Paper") : "", isURL(s.code_url) ? ext(s.code_url, "Code") : "", isURL(s.data_url) && s.data_url !== s.code_url ? ext(s.data_url, "Data") : ""].filter(Boolean).join(" &nbsp; ");
+    var netBox = "";
+    if (NETWORK) {
+      netBox = (s.id === PILOT_ID ? '<div class="aside-box"><h3>This study is the proposed pilot</h3><p>The network would replicate it in three languages at once, on general-purpose models and on models adapted for each language.</p><a class="btn small" href="#/pilot">Read the pilot plan</a></div>' : "") +
+        '<div class="aside-box"><h3>Request a replication</h3><p>Name the condition you want tested and the decision the result would inform.</p><a class="btn small" href="#/take-part?form=request&amp;study=' + esc(s.id) + '">Request a replication of this study</a></div>';
+    }
+    app.innerHTML =
+      '<div class="wrap"><div class="crumbs"><a href="#/studies">Studies</a> / <a href="#/studies?area=' + s._area + '">' + esc(s.category) + "</a></div>" +
+      '<div class="study"><article><h1>' + esc(s.title) + "</h1>" +
+      '<div class="by">' + esc([s.authors, s.year].filter(Boolean).join(", ")) + (s.organisation ? ". " + esc(s.organisation) : "") + "</div>" +
+      (links ? '<div class="small" style="margin-top:12px">' + links + "</div>" : "") +
+      '<div class="verdict s-' + s._st.key + '">' + statusTag(s) + "<p>" + esc(s._st.def) + " " + (s._indep ? plural(s._indep, "independent re-run") + " listed below." : "") + "</p></div>" +
+      '<h2>The claim</h2><p class="serif">' + esc(s.core_claim) + "</p>" +
+      (s.why_it_matters ? '<h2>Why it matters</h2><p class="serif">' + esc(s.why_it_matters) + "</p>" : "") +
+      "<h2>Replication record</h2>" + record +
+      (exts.length ? '<h2>Extensions and follow-ups</h2><p class="small muted">Work that builds on the result rather than re-testing it, including work by the original team. These do not count towards the status.</p>' + exts.map(repHTML).join("") : "") +
+      (s.pitfalls ? '<h2>Pitfalls</h2><p class="serif">' + esc(s.pitfalls) + "</p>" : "") +
+      (arr(s.replication_ideas).length ? '<h2>Ideas for a replication</h2><ul class="ideas">' + arr(s.replication_ideas).map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "") +
+      (s.multilingual_port ? '<h2>Porting to another language</h2><p class="serif">' + esc(s.multilingual_port) + "</p>" : "") +
+      '<nav class="pager" aria-label="Neighbouring studies">' + (prev ? '<a href="#/study/' + esc(prev.id) + '"><span>Previous</span>' + esc(shortName(prev)) + "</a>" : "<span></span>") +
+      (next ? '<a href="#/study/' + esc(next.id) + '" style="text-align:right"><span>Next</span>' + esc(shortName(next)) + "</a>" : "") + "</nav>" +
+      "</article><aside>" + netBox + '<dl class="facts">' +
+      fact("Compute", t ? esc(t[0] + ", " + t[1] + ". " + t[2] + ".") + (s.compute_note ? " " + esc(s.compute_note) : "") : esc(s.compute_note)) +
+      fact("Difficulty", d ? esc(d[1] + ". " + d[2]) : "") +
+      fact("Original models", esc(arr(s.original_models).join(", "))) +
+      fact("Model access", a ? esc(a[1]) : "") +
+      fact("Original models still available", av ? esc(av[1]) : "") +
+      fact("Tooling", esc(s.tooling)) +
+      fact("Languages tested", esc(s.languages_tested)) +
+      fact("Claim types", esc(arr(s.claim_types).join(", "))) +
+      fact("Tags", arr(s.tags).length ? '<div class="tags">' + arr(s.tags).map(function (x) { return '<span class="tag">' + esc(x) + "</span>"; }).join("") + "</div>" : "") +
+      "</dl></aside></div></div>";
+  }
+
+  /* ---------- Resources ---------- */
+  var TYPES = [];
+  R.forEach(function (r) { if (TYPES.indexOf(r.type) < 0) TYPES.push(r.type); });
+  TYPES.sort(function (a, b) { return R.filter(function (r) { return r.type === b; }).length - R.filter(function (r) { return r.type === a; }).length; });
+  function renderResources(q) {
+    var sel = new Set((q.get("type") || "").split(",").filter(Boolean)), term = q.get("q") || "";
+    app.innerHTML = '<div class="wrap"><div class="page-head"><h1>Resources</h1><p class="lead">' + R.length + " tools, datasets, guides, groups and sources of funding for running a replication.</p></div>" +
+      '<div class="read"><label class="small muted" for="rq">Search resources</label><input type="search" id="rq" placeholder="Name, use or maintainer" value="' + esc(term) + '"></div>' +
+      '<div class="chips" role="group" aria-label="Filter by type">' + TYPES.map(function (t, i) { return '<button type="button" class="chip" data-t="' + i + '" aria-pressed="' + sel.has(String(i)) + '">' + esc(t) + "</button>"; }).join("") + "</div>" +
+      '<p class="small muted" id="rcount" aria-live="polite"></p><div id="rlist" style="padding-bottom:72px"></div></div>';
+    function update() {
+      var t = document.getElementById("rq").value.trim().toLowerCase();
+      var parts = []; if (t) parts.push("q=" + encodeURIComponent(t)); if (sel.size) parts.push("type=" + Array.from(sel).join(","));
+      history.replaceState(null, "", "#/resources" + (parts.length ? "?" + parts.join("&") : ""));
+      var shown = 0;
+      document.getElementById("rlist").innerHTML = TYPES.map(function (type, i) {
+        if (sel.size && !sel.has(String(i))) return "";
+        var list = R.filter(function (r) { return r.type === type && (!t || [r.name, r.description, r.use_for, r.maintainer, arr(r.tags).join(" ")].join(" ").toLowerCase().indexOf(t) >= 0); });
+        shown += list.length;
+        if (!list.length) return "";
+        return '<section class="res-group"><h2>' + esc(type) + ' <span class="muted" style="font-weight:500">' + list.length + "</span></h2>" + list.map(function (r) {
+          return '<article class="res"><div><h3>' + (isURL(r.url) ? ext(r.url, r.name) : esc(r.name)) + "</h3><p>" + esc(r.description) + "</p>" +
+            (r.multilingual_relevance ? '<p><b style="font-weight:600;color:var(--ink)">For other languages.</b> ' + esc(r.multilingual_relevance) + "</p>" : "") + "</div>" +
+            "<dl>" + (r.use_for ? "<dt>Use it for</dt><dd>" + esc(r.use_for) + "</dd>" : "") + (r.access ? "<dt>Access</dt><dd>" + esc(r.access) + "</dd>" : "") +
+            (r.maintainer ? "<dt>Maintained by</dt><dd>" + esc(r.maintainer) + "</dd>" : "") + (r.status ? "<dt>Status</dt><dd>" + esc(r.status) + "</dd>" : "") + "</dl></article>";
+        }).join("") + "</section>";
+      }).join("") || '<p class="empty">No resources match. Try another word or remove a type.</p>';
+      document.getElementById("rcount").textContent = shown === R.length ? "Showing all " + R.length + " resources" : "Showing " + plural(shown, "resource") + " of " + R.length;
+    }
+    document.getElementById("rq").addEventListener("input", update);
+    app.querySelectorAll(".chip").forEach(function (b) {
+      b.addEventListener("click", function () { var v = b.getAttribute("data-t"); if (sel.has(v)) sel.delete(v); else sel.add(v); b.setAttribute("aria-pressed", sel.has(v)); update(); });
+    });
+    update();
+  }
+
+  /* ---------- Guide ---------- */
+  var SPEC = [
+    "# Replication spec: <study title>", "",
+    "Study: <title, authors, year, link>",
+    "Claim being tested: <one sentence, with the conditions it was shown under>",
+    "Question: original conditions, or recurrence on other models?", "",
+    "## Original setup",
+    "- Models and versions:",
+    "- Prompts or dataset (link and version):",
+    "- Sampling: temperature, samples per prompt, maximum tokens:",
+    "- Judge or metric, and how it was validated:",
+    "- Reported result (number, and the table or figure it comes from):", "",
+    "## Match criteria (decide before running)",
+    "- Expected result:",
+    "- What counts as a match (tolerance):",
+    "- What counts as a failure to replicate:", "",
+    "## Planned deviations",
+    "- <each deviation, and whether it could change the result>", "",
+    "## Budget and stop rule",
+    "- Estimated cost and compute:",
+    "- Stop if:", "",
+    "## Deviation log (fill in while running)",
+    "- <date>: <what changed and why>"
+  ].join("\n");
+  function renderGuide() {
+    app.innerHTML = '<div class="wrap"><div class="page-head"><h1>Choosing a study to replicate</h1><p class="lead">Three starting points, a checklist for before you run anything, notes on porting a study to another language and a one-page spec template.</p></div><div class="prose">' +
+      "<h2>Three starting points</h2><p>Each link opens the studies list with filters applied, which you can change afterwards.</p><ul>" +
+      '<li><b>Learn by replicating.</b> Starter studies with released code that run on API credits or a single GPU. <a href="' + PRESETS.learn.hash + '">Show ' + plural(PRESETS.learn.n, "study", "studies") + "</a></li>" +
+      '<li><b>Fill a gap.</b> Studies nobody has independently re-run yet, where some or all of the original models can still be used. <a href="' + PRESETS.gap.hash + '">Show ' + plural(PRESETS.gap.n, "study", "studies") + "</a></li>" +
+      '<li><b>Port to another language.</b> Starter and intermediate studies tested only in English. <a href="' + PRESETS.port.hash + '">Show ' + plural(PRESETS.port.n, "study", "studies") + "</a></li></ul>" +
+      "<h2>Before you run anything</h2><ul>" +
+      "<li>Write down the claim you are testing and the conditions it was shown under: models, prompts, sampling settings, judge and metric.</li>" +
+      "<li>Decide what counts as a match before you run: the expected number and how close is close enough.</li>" +
+      "<li>Decide which question you are asking. Re-running the original conditions tests whether the result holds. Running it on other models tests whether it recurs. The two can give different answers, so report which one you tested.</li>" +
+      "<li>Pin model versions and providers. API routers can serve quantised weights or switch providers between calls, which changes results.</li>" +
+      "<li>Sample more than once per prompt and report the variance. A single low-temperature sample hides instability.</li>" +
+      "<li>Check any automated judge against human ratings on a sample, especially outside English.</li>" +
+      "<li>Log every deviation from the original method and publish the log with the result, including null results.</li></ul>" +
+      "<h2>Porting a study to another language</h2><ul>" +
+      "<li><b>Native or translated prompts.</b> Translation direction can change results. Use natively written prompts where you can, and keep a translated set so the two can be compared.</li>" +
+      "<li><b>Realistic variants.</b> Text without diacritics, and mixed-language text such as Turkish with English terms, are conditions real users produce and models may handle differently.</li>" +
+      "<li><b>Judge language.</b> An English-centred judge scoring non-English answers can be wrong in ways that bias the gap you measure. Check its agreement with native raters before trusting it.</li>" +
+      "<li><b>Refusal is separate from uplift.</b> A model that answers in a weaker language may still give a useless answer. Score answer quality separately, using matched harmless tasks as a capability check.</li>" +
+      "<li><b>Base model against local fine-tune.</b> Comparing an open model with its local-language fine-tune isolates what localisation does to its safeguards.</li>" +
+      "<li><b>Resource level.</b> Effects reported for low-resource languages may not hold for mid-resource languages such as Turkish. Set your expectations before you look at results.</li></ul>" +
+      '<h2 id="spec">Replication spec template</h2><p>A one-page spec makes a replication easy to review. It also lets an AI agent run the replication while a second agent checks the run against the spec and lists every deviation.</p>' +
+      '<div class="copy-row"><button type="button" class="btn small" data-copy="spec">Copy template</button><span class="copy-status" aria-live="polite"></span></div>' +
+      '<pre class="template">' + esc(SPEC) + "</pre></div></div>";
+  }
+
+  /* ---------- Method ---------- */
+  var SCOLS = ["id", "short_name", "title", "authors", "year", "organisation", "paper_url", "category", "core_claim", "claim_types", "original_models", "model_access", "models_still_available", "code_url", "data_url", "tooling", "compute_tier", "compute_note", "difficulty", "replication_status", "replications", "replication_search_limited", "languages_tested", "multilingual_port", "why_it_matters", "pitfalls", "replication_ideas", "tags"];
+  var RCOLS = ["id", "name", "type", "url", "description", "use_for", "access", "maintainer", "status", "multilingual_relevance", "tags"];
+  function csv(rows, cols) {
+    function cell(v) {
+      if (v == null) v = "";
+      if (Array.isArray(v)) v = v.map(function (x) { return typeof x === "object" ? [x.outcome, x.title, x.by, x.year, x.url].filter(Boolean).join(" | ") : x; }).join("; ");
+      v = String(v);
+      return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+    }
+    return [cols.join(",")].concat(rows.map(function (r) { return cols.map(function (c) { return cell(r[c]); }).join(","); })).join("\n");
+  }
+  function cleanJSON() {
+    function strip(o) { var x = {}; Object.keys(o).forEach(function (k) { if (k.charAt(0) !== "_") x[k] = o[k]; }); return x; }
+    return JSON.stringify({ studies: S.map(strip), resources: R }, null, 2);
+  }
+  function dataText(kind) {
+    if (kind === "spec") return SPEC;
+    if (kind === "json") return cleanJSON();
+    if (kind === "scsv") return csv(S, SCOLS);
+    if (kind === "rcsv") return csv(R, RCOLS);
+    return "";
+  }
+  function renderMethod(section) {
+    var statuses = STATUS.map(function (s) { return "<div><dt>" + sw(s.key) + " " + esc(s.label) + "</dt><dd>" + esc(s.def) + " " + plural(countStatus(s.key), "study", "studies") + ".</dd></div>"; }).join("");
+    app.innerHTML = '<div class="wrap"><div class="page-head"><h1>Method</h1><p class="lead">What counts as a study, what each status and tier means, how the records were checked, and how to get the data.</p></div><div class="prose">' +
+      "<h2>What counts as a study</h2><p>An empirical AI safety or alignment result that the field relies on, or that makes a good training replication, and that publishes enough detail to attempt a replication: code, data, prompts or a detailed method. Failed, conditional and contested replications are included on purpose.</p>" +
+      "<h2>Replication status</h2><p>Only replications by different authors count towards a status. Work that builds on a result rather than re-testing it, including follow-ups by the original team, is listed as an extension. A status records what we found in public sources, and it is not a judgement of the original work.</p><dl class=\"defs\">" + statuses + "</dl>" +
+      '<h2>Claim types</h2><dl class="defs">' +
+      "<div><dt>Existence</dt><dd>X can happen under the stated conditions.</dd></div><div><dt>Prevalence</dt><dd>X happens at some rate across a stated set of models or settings.</dd></div>" +
+      "<div><dt>Magnitude</dt><dd>A specific effect size.</dd></div><div><dt>Mechanism</dt><dd>An internal or causal account of why X happens.</dd></div>" +
+      "<div><dt>Ranking</dt><dd>A comparison across models or methods.</dd></div><div><dt>Method</dt><dd>A technique, such as an attack, defence, detector or metric, works as claimed.</dd></div></dl>" +
+      "<p>The distinction matters when reading a replication. Existence claims shown under the original conditions tend to hold up. Prevalence, magnitudes and rankings are the claims most likely to shift on new models.</p>" +
+      '<h2>Compute tiers and difficulty</h2><dl class="defs">' +
+      "<div><dt>T0</dt><dd>Application programming interface (API) calls or a laptop only, under about $50.</dd></div>" +
+      "<div><dt>T1</dt><dd>One graphics processing unit (GPU) or modest API spend, about $50 to $500.</dd></div>" +
+      "<div><dt>T2</dt><dd>Several GPUs, fine-tuning mid-size models or heavy API use, about $500 to $5,000.</dd></div>" +
+      "<div><dt>T3</dt><dd>Large-scale training or frontier-scale compute, over about $5,000.</dd></div>" +
+      DIFF.map(function (d) { return "<div><dt>" + d[1] + "</dt><dd>" + esc(d[2]) + "</dd></div>"; }).join("") + "</dl>" +
+      "<p>Tiers and difficulty describe a faithful replication of the core result, not of the whole paper.</p>" +
+      "<h2>How the records were checked</h2><p>Records were compiled from papers, official repositories, project pages and replication write-ups. Links were taken only from pages opened during compilation, and a second, independent pass re-opened the sources to check titles, links, claims and replication outcomes. Replication outcomes are reported as the replicating authors described them.</p>" +
+      "<p>Coverage is uneven: some areas, and work outside English, are thinner than others. The search for re-runs was cut short for " + LIMITED + ' studies. Their pages say so, and for them "no public replication found" means none turned up in a partial search.</p>' +
+      '<h2 id="data">Data</h2><p>The full dataset is embedded in this page. CSV columns follow the field names used in the records.</p>' +
+      '<div class="copy-row"><button type="button" class="btn small" data-download="json">Download JSON</button><button type="button" class="btn small quiet" data-download="scsv">Download studies CSV</button><button type="button" class="btn small quiet" data-download="rcsv">Download resources CSV</button><span class="copy-status" aria-live="polite"></span></div>' +
+      '<div class="copy-row"><button type="button" class="linkish" data-copy="json">Copy all data as JSON</button><button type="button" class="linkish" data-copy="scsv">Copy studies as CSV</button><button type="button" class="linkish" data-copy="rcsv">Copy resources as CSV</button><span class="copy-status" aria-live="polite"></span></div>' +
+      '<h2 id="corrections">Corrections and additions</h2><p>To correct a record or suggest a study, name the field and give the source. Send corrections and additions to [contact address].</p>' +
+      "</div></div>";
+    if (section) { var el = document.getElementById(section); if (el) el.scrollIntoView(); }
+  }
+
+  /* ---------- Vision ---------- */
+  function ex(url, text) { return '<a href="' + url + '" target="_blank" rel="noopener">' + text + "</a>"; }
+  function stTag(id) { var s = BYID[id]; if (!s) return ""; return '<a class="status s-' + s._st.key + '" href="#/study/' + id + '">' + sw(s._st.key) + esc(shortName(s)) + ": " + esc(s._st.label.toLowerCase()) + "</a>"; }
+  function claimBars() {
+    var tested = S.filter(function (s) { return s._st.key !== "none"; });
+    var rows = [["existence", "Claims that something can happen"], ["prevalence", "Claims about how often it happens"]];
+    return '<div class="cbars">' + rows.map(function (r) {
+      var g = tested.filter(function (s) { return arr(s.claim_types).indexOf(r[0]) >= 0; });
+      var segs = ["rep", "part", "cond", "cont"].map(function (k) {
+        var n = g.filter(function (s) { return s._st.key === k; }).length;
+        return n ? '<span class="seg s-' + k + '" style="flex:' + n + '" title="' + esc(SBY[k].label + ": " + n) + '">' + n + "</span>" : "";
+      }).join("");
+      return '<div class="cbar"><div class="cbar-label">' + r[1] + ' <span class="muted">' + g.length + ' re-tested studies</span></div><div class="cbar-track">' + segs + "</div></div>";
+    }).join("") + '<div class="legend">' + ["rep", "part", "cond", "cont"].map(function (k) { return "<span>" + sw(k) + esc(SBY[k].label) + "</span>"; }).join("") + "</div></div>";
+  }
+  function renderVision() {
+    var NETWORK_URL = "/*__NETURL__*/";
+    var reruns = S.reduce(function (n, s) { return n + arr(s.replications).length; }, 0);
+    var CASES = [
+      ["Shutdown resistance", ["shutdown-resistance-2025"],
+       'Palisade Research\'s <a href="#/study/shutdown-resistance-2025">shutdown study</a> found that several frontier models sometimes interfered with a shutdown script so they could finish a task, some in up to 97% of trials even when told not to. A ' + ex("https://www.alignmentforum.org/posts/wnzkjSmrgWZaBa2aC/self-preservation-or-instruction-ambiguity-examining-the", "re-run by Google DeepMind researchers") + " found that Gemini 2.5 Pro resisted under the original prompt but complied in all 1,000 samples once the prompt said that shutdown takes precedence. The researchers attributed the behaviour mainly to ambiguous instructions."],
+      ["Emergent misalignment", ["emergent-misalignment-2025"],
+       'The <a href="#/study/emergent-misalignment-2025">original emergent misalignment study</a> found that GPT-4o, fine-tuned on code with undisclosed security flaws, gave misaligned answers about 20% of the time on eight unrelated questions. A ' + ex("https://arxiv.org/abs/2605.12199", "2026 re-test") + " reproduced the GPT-4o result but found consistent emergent misalignment in only 2 of 12 open models. Stopping training early removed it while keeping most task performance."],
+      ["Alignment faking", ["alignment-faking-2024"],
+       'In Anthropic and Redwood Research\'s <a href="#/study/alignment-faking-2024">alignment-faking study</a>, Claude 3 Opus complied with harmful requests about 14% of the time when told the conversation would be used to train it, and almost never otherwise. A ' + ex("https://arxiv.org/abs/2506.18032", "follow-up testing 25 models") + " found a similar gap in five. Only in Claude 3 Opus did the gap look consistently driven by the model protecting its existing goals."],
+      ["Jailbreak success rates", ["strongreject-2024", "low-resource-languages-jailbreak-2023"],
+       '<a href="#/study/strongreject-2024">StrongREJECT</a> re-scored 37 published jailbreaks with a grader that rates how useful an answer is, and most scored well below the success rates reported when they were introduced. The same team tried to reproduce the finding that <a href="#/study/low-resource-languages-jailbreak-2023">low-resource languages jailbreak GPT-4</a> in Scots Gaelic. They found the answers generally vacuous or incoherent, with no usable harmful information.'],
+      ["Unlearning and tamper resistance", ["wmdp-rmu-unlearning-2024", "tamper-resistant-safeguards-2024"],
+       "Representation Misdirection for Unlearning (RMU) is a widely used baseline for removing hazardous knowledge from a model. An " + ex("https://arxiv.org/abs/2409.18025", "independent re-test") + ' confirmed that the <a href="#/study/wmdp-rmu-unlearning-2024">released RMU model</a> scored 29.9% on biosecurity questions against 64.4% for the unprotected model. Fine-tuning on 10 unrelated examples then brought it back to 61.6%. A ' + ex("https://arxiv.org/abs/2412.07097", "re-evaluation") + ' of <a href="#/study/tamper-resistant-safeguards-2024">tamper-resistant safeguards</a>, a leading method for making open-weight models resist that kind of fine-tuning, found that the protection held in the original attack set-ups. It broke with other random seeds, a different learning-rate schedule or low-rank adaptation (LoRA).'],
+      ["Sparse autoencoders", ["scaling-monosemanticity-2024"],
+       'Anthropic\'s work <a href="#/study/scaling-monosemanticity-2024">scaling sparse autoencoders to Claude 3 Sonnet</a> is a central piece of evidence that the method finds interpretable features in frontier models, and ' + ex("https://arxiv.org/abs/2406.04093", "concurrent work at OpenAI") + " found the same scaling behaviour on GPT-4. When " + ex("https://www.alignmentforum.org/posts/4uXCAJNuPKtKBsi28/negative-results-for-saes-on-downstream-tasks", "Google DeepMind tested sparse autoencoders on a safety task") + ", detecting harmful user intent, probes built on them generalised worse than plain linear probes. The team then deprioritised the research."],
+      ["Deception probes", ["deception-probes-2025"],
+       'Apollo Research\'s <a href="#/study/deception-probes-2025">deception probes</a> separated honest from deceptive answers in Llama-3.3-70B with scores of 0.96 to 0.999, where 0.5 is chance. A ' + ex("https://www.lesswrong.com/posts/MFdGxip7TdQS8eNc2/cross-dataset-transfer-evaluation-of-deception-probes-in", "2026 re-test") + " recomputed the published scores exactly. Probes trained on smaller Llama and Gemma models, from 1 billion to 9 billion parameters, scored 0.88 to 0.91 within the dataset they were trained on, but averaged 0.468 on other datasets."]
+    ];
+    var VOICES = [
+      ["Anthropic, 2023", "Anthropic's post on " + ex("https://www.anthropic.com/news/evaluating-ai-systems", "the challenges of evaluating AI systems") + " said that robust evaluations are very hard to build and that effective AI governance depends on them. One of its examples was that developers run the Massive Multitask Language Understanding (MMLU) benchmark in different ways, so scores cannot be compared across labs without care."],
+      ["Apollo Research, 2024", "Apollo Research's " + ex("https://www.lesswrong.com/posts/fnc6Sgt3CGCdFmmgX/we-need-a-science-of-evals", "call for a science of evaluations") + " noted that evaluations underpin many responsible scaling policies and may be tied to risk thresholds in future laws. Among the questions it said a mature field should answer was how to get consistent results when an evaluation is re-run."],
+      ["EleutherAI, 2024", "EleutherAI's " + ex("https://arxiv.org/abs/2405.14782", "lessons on reproducible evaluation") + ", drawn from three years of evaluating language models, reported that the authors had frequently struggled to reproduce published results. They found that scores depended on implementation details and on how the evaluation was set up."],
+      ["UK AI Security Institute, 2025", "Researchers at the UK AI Security Institute " + ex("https://arxiv.org/abs/2507.03409", "compared AI “scheming” research with the 1970s attempts to teach apes language") + ". They argued that the earlier work went wrong by attributing human traits to animals, relying on anecdote and lacking theory, and asked scheming researchers to include appropriate control conditions and rely less on anecdotes."],
+      ["Max Niederman, 2025", "Max Niederman's question on LessWrong, " + ex("https://www.lesswrong.com/posts/88xgGLnLo64AgjGco/where-are-the-ai-safety-replications", "Where are the AI safety replications?") + ", asked why a community that often discusses the replication crisis publishes so few replications. It asked whether the cause was funding, status or a lack of coordinated effort."],
+      ["Second Look Research, 2026", "Second Look Research, a replication group at the University of Chicago's Existential Risk Laboratory, has argued that " + ex("https://www.lesswrong.com/posts/MmfzfGcQ3h3p6N9pD/empirical-safety-claims-from-frontier-labs-should-be-1", "empirical safety claims from frontier labs should be replicated, scrutinised and open-sourced") + ". The post notes that some lab safety research is released without code or basic methodological details, and that earlier results have depended on details as easy to miss as which provider served the model. It suggests replication is neglected because novel research is more exciting, and because replication seems less likely to lead to a publication or a job offer. An " + ex("https://www.lesswrong.com/posts/oKxc8maZGtnzgpNzx/rerunning-ai-safety-papers-on-every-frontier-release-would-1", "earlier post") + " argues that re-running AI safety papers on every frontier release would be cheap once a replication codebase exists."]
+    ];
+    var building = NETWORK
+      ? '<p><a href="#/network">How the network would work</a> &nbsp; <a href="#/pilot">The proposed pilot</a></p>'
+      : '<p><a href="' + NETWORK_URL + '" target="_blank" rel="noopener">See the network prototype</a></p>';
+    app.innerHTML = '<div class="wrap"><div class="page-head"><h1>What re-testing has shown, and where it should lead</h1>' +
+      '<p class="lead">Decisions about how artificial intelligence (AI) systems are built, tested and released rest on a small number of published experiments. The ' + ex("https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026", "International AI Safety Report 2026") + " calls the position this leaves governments in an “evidence dilemma”: AI systems are becoming more capable quickly, while evidence about their risks emerges slowly and is hard to assess. Re-running an experiment is the most direct way to learn how much weight its result can bear.</p></div>" +
+      '<div class="vision">' +
+      '<section class="vsec"><h2>What re-tests have found so far</h2><p class="vintro">The library tracks ' + S.length + " studies and records " + reruns + " re-runs and follow-up studies of them. Counting only re-runs by other authors, " + countStatus("rep") + " studies have replicated, " + countStatus("part") + " have partially replicated, " + countStatus("cond") + " held only under some conditions and " + countStatus("cont") + " are contested. We found no independent re-run for the other " + countStatus("none") + ". For several widely cited findings, the re-test changed how far the result reaches.</p>" +
+      CASES.map(function (c) {
+        var first = BYID[c[1][0]];
+        return '<article class="vcase"><span class="vspine s-' + (first ? first._st.key : "none") + '" aria-hidden="true"></span><div><h3>' + c[0] + '</h3><div class="vtags">' + c[1].map(stTag).join("") + "</div><p>" + c[2] + "</p></div></article>";
+      }).join("") +
+      '<div class="vnote"><h3>Re-tests also confirm results</h3><p>A confirmation tells the next researcher which results are safe to build on. A ' + ex("https://arxiv.org/abs/2508.00943", "re-test of the sandbagging set-up") + ' on ten newer models found that every model except Qwen2.5-7B could be prompted to underperform selectively on dangerous-capability questions, cutting their scores by 60% to 85%. The <a href="#/study/ai-sandbagging-2024">original sandbagging study</a> had shown the same behaviour in GPT-4 and Claude 3 Opus. Second Look Research ' + ex("https://www.lesswrong.com/posts/Dvqmgfeu2KDF7uMkx/internal-state-control-is-a-general-property-of-llms", "re-ran one of Anthropic’s introspection experiments") + ', on whether models represent a word more strongly when told to think about it, and found the effect in all 14 open-weight models they tested.</p></div>' +
+      '<div class="vnote"><h3>Some kinds of claim hold up better than others</h3><p>Across the library, claims that something can happen have held up better than claims about how often it happens. The numbers are small and each status covers a whole study, so we treat this as a pattern to keep testing.</p>' + claimBars() + "</div>" +
+      '<div class="vnote"><h3>Two widely reported demonstrations have not been re-run outside the teams that produced them</h3><p>In Anthropic\'s <a href="#/study/agentic-misalignment-2025">agentic misalignment study</a>, Claude Opus 4 and Gemini 2.5 Flash blackmailed a fictional executive in 96% of samples in one condition, and ' + ex("https://www.theregister.com/2025/06/25/anthropic_ai_blackmail_study", "The Register’s report") + ' ran under the headline “Anthropic: All the major AI models will blackmail us if pushed hard enough”. We found no independent re-run of that study, or of Apollo Research\'s <a href="#/study/in-context-scheming-2024">in-context scheming evaluations</a>, which Apollo has since ' + ex("https://www.apolloresearch.ai/blog/more-capable-models-are-better-at-in-context-scheming", "re-run on newer models itself") + ". Our search for re-runs of the agentic misalignment study was cut short, so one may exist.</p></div></section>" +
+      '<section class="vsec"><h2>What researchers in the field have said</h2><p class="vintro">AI developers, evaluation organisations, a government institute and a replication group have each argued that the field\'s evidence needs more checking.</p>' +
+      '<div class="voices">' + VOICES.map(function (v) { return '<div class="voice"><h3>' + v[0] + "</h3><p>" + v[1] + "</p></div>"; }).join("") + "</div>" +
+      '<p class="vintro" style="margin-top:22px">None of this says the original findings were wrong. The UK AI Security Institute authors write that their goal is not to dismiss the idea that AI systems may be scheming. In ' + ex("https://zephaniahdev.com/writing/meta_science", "Zephaniah Roe’s principles for AI safety replications") + ", the Second Look co-lead writes that influential papers that are plainly wrong are rare, and that the more common problem is results that are true in some sense but incomplete.</p></section>" +
+      '<section class="vsec"><h2>What we would like the field to look like</h2><p class="vintro">We would like the findings that decisions rest on to be checked before those decisions are made.</p><ul class="vlist">' +
+      "<li>Every finding that a developer, funder or government relies on would have a public status, stating which models, languages, prompts and judges it has been shown under, and who re-ran it. A reader could then tell whether a result applies to the system in front of them.</li>" +
+      "<li>Load-bearing experiments would be re-run on each major model release. Second Look estimates that once a replication codebase exists, adding a new model takes a single terminal command.</li>" +
+      "<li>Re-tests would be paid for whatever they find, so that a replication that fails earns as much as one that holds, and both would be published. Developers' safety claims, including those in model system cards, would come with enough code and method for an outside team to re-run them.</li>" +
+      '<li>Automated judges would be checked against human raters in each language they are used in. In <a href="#/study/coin-flip-safety-judges-2026">an audit of 6,642 human-verified harmfulness labels</a>, four common safety judges were 51% to 59% accurate.</li>' +
+      "<li>Groups in several countries would run shared protocols in their own languages, on models adapted for those languages. At present, " + ENGLISH_ONLY + " of the library's " + S.length + " studies tested English alone.</li></ul></section>" +
+      '<section class="vsec"><h2>What we are building</h2><p>The AI Safety Replication Library is the first piece. It states each of ' + S.length + " studies with the conditions it was shown under, records every independent re-run we could find, and sets out what a new replication would take. Of the " + S.length + " studies, " + S.filter(function (s) { return s.compute_tier === "T0" || s.compute_tier === "T1"; }).length + " could be replicated for under about $500 in compute, and " + S.filter(function (s) { return s._code; }).length + " have released code.</p>" +
+      "<p>The next piece is a replication network. Anyone could request a re-test through a public queue and name the decision it would inform. A pooled fund would pay teams when results are published, whatever they show. Groups in different places would run one protocol with one condition changed. The first pilot would replicate one finding in Turkish, Portuguese and a third language.</p>" + building + "</section>" +
+      '<section class="vsec"><h2>What re-testing cannot show</h2><p>Re-testing improves the evidence about AI systems that exist today. It cannot show that a more capable future system is safe, because the decisive tests would have to run on systems that do not exist yet. Its value is in finding out which current results are weaker than they look before decisions rest on them.</p></section>' +
+      "</div></div>";
+  }
+
+  /* ---------- Network: how it works ---------- */
+  function loopSVG() {
+    var W = 154, H = 88, xA = 24, xB = 210, xC = 396, xD = 582, rA = 56, rB = 208;
+    function box(x, y, w, h, main) { return '<rect class="bx' + (main ? " main" : "") + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="8"/>'; }
+    function txt(x, y, name, lines) {
+      return '<text class="t1" x="' + (x + 12) + '" y="' + (y + 24) + '">' + name + "</text>" + lines.map(function (l, i) { return '<text class="t2" x="' + (x + 12) + '" y="' + (y + 40 + 16 * i) + '">' + l + "</text>"; }).join("");
+    }
+    var ln = function (d) { return '<path class="ln" d="' + d + '" marker-end="url(#ah)"/>'; };
+    return '<svg viewBox="0 0 760 330" role="img" aria-label="How one replication moves from a request to the shared record"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="hd" d="M0 0L10 5L0 10z"/></marker></defs>' +
+      ln("M" + (xA + W) + " " + (rA + 44) + "H" + xB) + ln("M" + (xB + W) + " " + (rA + 44) + "H" + xC) + ln("M" + (xC + W) + " " + (rA + 44) + "H" + xD) +
+      ln("M" + (xD + W / 2) + " " + (rA + H) + "V" + rB) + ln("M" + xC + " " + (rB + 44) + "H" + (xB + W)) + ln("M" + xB + " " + (rB + 44) + "H" + (xA + W)) + ln("M" + (xA + W / 2) + " " + rB + "V" + (rA + H)) +
+      box(xA, rA, W, H) + txt(xA, rA, "Request", ["names a finding and", "the decision its", "result would inform"]) +
+      box(xB, rA, W, H) + txt(xB, rA, "Pooled fund", ["pays teams on", "publication,", "whatever the result"]) +
+      box(xC, rA, W, H) + txt(xC, rA, "Claim", ["a team claims it", "and has 6 to 8 weeks", "before it lapses"]) +
+      box(xD, rA, W, H) + txt(xD, rA, "Protocol review", ["one senior reviewer", "checks the protocol", "once for all sites"]) +
+      box(xC, rB, 340, 88) + txt(xC, rB, "Runs at one or more sites", ["each site tests one changed condition, such as a", "newer model, another judge or another language"]) +
+      box(xB, rB, W, H) + txt(xB, rB, "Author reply", ["original authors see", "results and reply", "before publication"]) +
+      box(xA, rB, W, H, true) + txt(xA, rB, "Shared record", ["stores each result", "with model, language,", "judge and settings"]) +
+      '<text class="t2" x="' + (xA + W / 2 + 10) + '" y="' + (rA + H + 28) + '">gaps in the record</text><text class="t2" x="' + (xA + W / 2 + 10) + '" y="' + (rA + H + 44) + '">become new requests</text>' +
+      '<text class="t1" x="24" y="30">One replication, from request to record</text></svg>';
+  }
+  function renderNetwork(section) {
+    app.innerHTML = '<div class="wrap"><div class="page-head"><h1>How the network would work</h1><p class="lead">The network would add three things to the library: a queue where anyone can request a specific replication, a pooled fund that pays for them, and coordinated runs that test a finding under new conditions, starting with other languages. Every result returns to the library with the conditions it ran under.</p><p class="small" style="margin-top:12px"><a href="#/why">Why re-testing is worth doing</a></p></div>' +
+      '<div class="diagram">' + loopSVG() + "</div>" +
+      '<div class="prose">' +
+      '<h2 id="record">The record</h2><p>The record is this library, extended so that every result is stored with the conditions it ran under: model and version, language, judge, prompts and settings. Each finding then carries a list of the conditions under which it held and failed, which a developer, evaluator or researcher can check before relying on it. Original authors can attach a reply to any result about their work.</p>' +
+      '<h2 id="queue">The request queue</h2><p>Anyone can request a replication, including researchers, developers, evaluators and labs. Each request names the finding, the condition to test and the decision the result would inform, so that requests can be ranked by what they would change. A team claims a request and has 6 to 8 weeks to deliver before the claim lapses and the request returns to the queue.</p><p><a href="#/requests">See the open requests</a></p>' +
+      '<h2 id="fund">The pooled fund</h2><p>Funders pay into one pooled fund, which pays teams on publication whatever the result, so that a replication that fails earns as much as one that holds. Labs can fund replications only through the pool, so that no lab pays directly for re-tests of its own work or a competitor\'s.</p><p><a href="#/take-part?form=fund">Pledge to the fund</a></p>' +
+      '<h2 id="sites">Coordinated runs under new conditions</h2><p>Where a change of condition could change a result, the protocol runs at several sites at once, each with one condition changed. The condition can be a newer model release, another model family, another judge, a fine-tuned variant, a different test framing or another language. One senior reviewer checks each protocol once for all sites, so that review costs do not grow with the number of sites.</p>' +
+      "<h3>Why start with language</h3><p>Language is one of the least-tested conditions in the library: of its " + S.length + " studies, " + ENGLISH_ONLY + ' tested English alone. It also changes several conditions at once, namely the prompts, the judge and, for models adapted to a language, the model itself. Groups working in a language know which adapted models are in use and can judge outputs natively. Later protocols would vary other conditions, such as re-running key experiments on each new model release.</p><p><a href="#/pilot">Read the proposed pilot</a> &nbsp; <a href="#/take-part?form=site">Offer to run a site</a></p>' +
+      '<h2 id="prototype">What this prototype does</h2><p>The pages and forms on this site show what each part would involve. The forms do not send anything, and each one gives you the text of your request, pledge or offer to send by email instead. Apart from the proposed pilot, the open requests are drawn from gaps in the library rather than submitted by outside parties.</p>' +
+      "</div></div>";
+    if (section) { var el = document.getElementById(section); if (el) el.scrollIntoView(); }
+  }
+
+  /* ---------- Network: requests ---------- */
+  var GAPS = S.filter(function (s) { return s._st.key === "none"; });
+  function renderRequests(q) {
+    var p = BYID[PILOT_ID];
+    app.innerHTML = '<div class="wrap"><div class="page-head"><h1>Requests</h1><p class="lead">A request names a finding, the condition to test and the decision the result would inform. The queue holds one proposed request, the pilot. Below it are the ' + GAPS.length + " studies in the library that nobody has independently re-run, any of which can be requested.</p></div>" +
+      '<div class="read" style="max-width:860px"><div class="card"><div class="label">Proposed pilot, seeking sites and funding</div><h3>Does the refusal direction hold in Turkish, Portuguese and a third language, and in models adapted for them?</h3><dl>' +
+      '<dt>Finding</dt><dd><a href="#/study/' + PILOT_ID + '">' + esc(p ? p.title : "Refusal Direction is Universal Across Safety-Aligned Languages") + "</a> (Wang et al., 2025)</dd>" +
+      "<dt>Condition to test</dt><dd>Turkish, Portuguese and [a third language], on the paper's general-purpose models and on open-weight models adapted for each language.</dd>" +
+      "<dt>Decision it would inform</dt><dd>Whether developers of locally adapted models inherit the refusal mechanism of their base model, and whether evaluators can use interventions built from English activations on adapted models in other languages.</dd>" +
+      "<dt>Sites</dt><dd>AI Safety Türkiye for Turkish. Portuguese and [third language] groups to be confirmed.</dd></dl>" +
+      '<div class="actions" style="margin-top:16px"><a class="btn small" href="#/pilot">Read the pilot plan</a><a class="btn small quiet" href="#/take-part?form=site">Offer to run a site</a></div></div></div>' +
+      '<section style="margin-top:48px;padding-bottom:72px"><h2>Studies open for requests</h2><p class="muted" style="margin-top:8px;max-width:720px">Each study below has no independent re-run that we found. The idea shown is one of the replication designs in its record; a request can test a different condition.</p>' +
+      '<div class="gap-filters"><label>Research area<select id="garea"><option value="">All areas</option>' + AREAS.map(function (a, i) { return '<option value="' + i + '">' + esc(a) + "</option>"; }).join("") + "</select></label>" +
+      '<label>Compute<select id="gtier"><option value="">Any</option><option value="lo">T0 or T1, under about $500</option><option value="hi">T2 or T3, over about $500</option></select></label>' +
+      '<label class="opt"><input type="checkbox" id="gcode"> Released code only</label><span class="small muted" id="gcount" aria-live="polite" style="margin-left:auto;padding-bottom:8px"></span></div><div id="glist"></div></section></div>';
+    function update() {
+      var a = document.getElementById("garea").value, t = document.getElementById("gtier").value, c = document.getElementById("gcode").checked;
+      var list = GAPS.filter(function (s) {
+        if (a !== "" && String(s._area) !== a) return false;
+        if (t === "lo" && !(s.compute_tier === "T0" || s.compute_tier === "T1")) return false;
+        if (t === "hi" && !(s.compute_tier === "T2" || s.compute_tier === "T3")) return false;
+        if (c && !s._code) return false;
+        return true;
+      });
+      document.getElementById("gcount").textContent = "Showing " + list.length + " of " + GAPS.length;
+      document.getElementById("glist").innerHTML = list.map(function (s) {
+        var d = find(DIFF, s.difficulty), idea = arr(s.replication_ideas)[0];
+        return '<article class="gap-item"><div><h3 style="font-size:17px"><a href="#/study/' + esc(s.id) + '">' + esc(s.title) + "</a></h3>" +
+          '<div class="by">' + esc(s.category) + ". Compute " + esc(tierText(s.compute_tier)) + ". " + esc(d ? d[1] : "") + (s._code ? ". Code released" : "") + "</div>" +
+          (s.id === PILOT_ID ? '<p class="small" style="margin-top:6px"><a href="#/pilot">This study is the proposed pilot.</a></p>' : "") +
+          (idea ? '<p class="idea">' + esc(idea) + "</p>" : "") +
+          (s.replication_search_limited ? '<p class="small muted" style="margin-top:6px">Our search for re-runs of this study was cut short, so one may exist.</p>' : "") +
+          '</div><a class="btn small quiet" href="#/take-part?form=request&amp;study=' + esc(s.id) + '">Request this replication</a></article>';
+      }).join("") || '<p class="empty">No studies match these filters.</p>';
+      var parts = []; if (a) parts.push("area=" + a); if (t) parts.push("tier=" + t); if (c) parts.push("code=1");
+      history.replaceState(null, "", "#/requests" + (parts.length ? "?" + parts.join("&") : ""));
+    }
+    if (q.get("area")) document.getElementById("garea").value = q.get("area");
+    if (q.get("tier")) document.getElementById("gtier").value = q.get("tier");
+    if (q.get("code")) document.getElementById("gcode").checked = true;
+    ["garea", "gtier", "gcode"].forEach(function (id) { document.getElementById(id).addEventListener("change", update); });
+    update();
+  }
+
+  /* ---------- Network: pilot ---------- */
+  function renderPilot() {
+    app.innerHTML = '<div class="wrap"><div class="page-head"><h1>The proposed pilot</h1><p class="lead">The pilot would replicate one finding at three sites over eight weeks, to test whether the multi-site design works before the request queue and the pooled fund are built.</p></div><div class="prose">' +
+      '<h2>The finding</h2><p class="serif">The finding comes from <a href="#/study/' + PILOT_ID + '">Wang et al. (2025)</a>, published at the Conference on Neural Information Processing Systems (NeurIPS). On chat models including Llama 3.1 8B, Qwen 2.5 7B and Gemma 2 9B, a refusal direction taken from English activations removed refusals in other safety-aligned languages almost completely when ablated. Directions taken from three non-English safety-aligned languages also transferred to the others.</p>' +
+      "<h2>Why this finding</h2><p>Language is the first condition the network would test, because it is under-tested and changes the prompts, the judge and, for adapted models, the model itself. Later protocols would vary other conditions, such as new model releases, fine-tuned variants and test framing.</p><ul><li>We found no independent replication.</li><li>The paper covered 14 languages, not including Turkish or Portuguese, so each site's language is an untested condition.</li><li>The paper tested only general-purpose models, so models adapted for a language are untested too.</li>" +
+      '<li>The <a href="https://github.com/mainlp/Multilingual-Refusal" target="_blank" rel="noopener">code and translated prompt sets are public</a>, and the experiments run on a single graphics processing unit (GPU) for models of 7 to 9 billion parameters.</li></ul>' +
+      "<p>The result would tell developers of locally adapted models whether adaptation preserves the refusal mechanism of the base model. It would also tell evaluators whether interventions built from English activations carry over to adapted models in other languages.</p>" +
+      "<h2>What each site does</h2><ol>" +
+      "<li>The site reproduces one of the paper's original conditions with the authors' code, so that the three sites' results can be compared with each other and with the paper.</li>" +
+      "<li>It translates the paper's harmful and harmless prompts into its language, with native review, and runs the same tests on the paper's models.</li>" +
+      "<li>It tests [two or three] open-weight models adapted for its language against their base models, for example KocDigital-LLM-8b against Llama 3 8B for Turkish.</li>" +
+      "<li>Native speakers label [number] responses per language, and the site compares their labels with the WildGuard judge, which in the original paper scored English back-translations of the answers.</li></ol>" +
+      "<h2>What counts as a result</h2><p>Before any runs, the protocol will fix what counts as each outcome. These are proposed starting points, to be confirmed at protocol review.</p><ul>" +
+      "<li>On the shared original condition, each site's refusal rate after ablation falls within 10 percentage points of the published figure.</li>" +
+      "<li>In each language, the judge's labels agree with native labels to within 5 percentage points.</li>" +
+      "<li>[The threshold at which the direction counts as transferring to a new language or an adapted model.]</li>" +
+      "<li>All three sites deliver results on one protocol within eight weeks, after a single senior review.</li></ul>" +
+      '<h2>Schedule</h2><table class="plain"><thead><tr><th>Weeks</th><th>What happens</th></tr></thead><tbody>' +
+      "<tr><td>1 and 2</td><td>The protocol and pre-registration are drafted, and one senior reviewer checks them for all sites.</td></tr>" +
+      "<tr><td>3 to 6</td><td>Each site runs the four steps.</td></tr>" +
+      "<tr><td>7 and 8</td><td>Results are pooled, sent to the original authors for reply and published to the record.</td></tr></tbody></table>" +
+      '<h2>Sites</h2><table class="plain"><thead><tr><th>Language</th><th>Group</th></tr></thead><tbody>' +
+      "<tr><td>Turkish</td><td>AI Safety Türkiye</td></tr><tr><td>Portuguese</td><td>[Research group to be confirmed]</td></tr><tr><td>[Third language]</td><td>[Research group to be confirmed]</td></tr></tbody></table>" +
+      '<p>Each site commits one person for six weeks, in weeks 3 to 8, with compute and native raters paid from the pilot budget. <a href="#/take-part?form=site">Offer to run a site</a></p>' +
+      '<h2>Budget</h2><p>Most of the cost is people\'s time. Compute is a small line: a Turkish re-run of a 55-model safety study, designed by AI Safety Türkiye, puts its core costs at about $300 to $500 for 20 to 25 models.</p><table class="plain"><thead><tr><th>Line</th><th>Basis</th><th>Cost</th></tr></thead><tbody>' +
+      "<tr><td>Site researchers</td><td>One person at each of three sites for six weeks</td><td>[amount]</td></tr>" +
+      "<tr><td>Senior protocol review</td><td>One review of the shared protocol</td><td>[amount]</td></tr>" +
+      "<tr><td>Native raters</td><td>[hours] per language, in three languages</td><td>[amount]</td></tr>" +
+      "<tr><td>Compute</td><td>Single-GPU runs at three sites</td><td>[amount]</td></tr>" +
+      "<tr><td>Coordination</td><td>Over eight weeks</td><td>[amount]</td></tr>" +
+      "<tr><td><b>Total</b></td><td></td><td>[amount]</td></tr></tbody></table>" +
+      "<h2>If the pilot cannot go ahead as planned</h2><p>The pilot depends on three research groups working in different languages each committing one person for six weeks. If fewer than three groups commit by [date], the replication will run with the groups that have committed, its results will be published to the record, and the queue and the fund will wait.</p>" +
+      "<p>Every site first reproduces the same original condition. If the sites' results on that condition differ by more than 10 percentage points, the protocol is fixed before the new-language steps begin. If the judge misses the 5-point agreement threshold in a language, that language's results are published as unvalidated.</p>" +
+      "</div></div>";
+  }
+
+  /* ---------- Network: take part ---------- */
+  function studyOptions(selected) {
+    return '<option value="">Choose a study</option>' + AREAS.map(function (a, i) {
+      return '<optgroup label="' + esc(a) + '">' + S.filter(function (s) { return s._area === i; }).map(function (s) {
+        return '<option value="' + esc(s.id) + '"' + (s.id === selected ? " selected" : "") + ">" + esc(shortName(s)) + "</option>";
+      }).join("") + "</optgroup>";
+    }).join("") + '<option value="other"' + (selected === "other" ? " selected" : "") + ">A finding not in the library</option>";
+  }
+  var FORMS = [["request", "Request a replication"], ["fund", "Pledge to the fund"], ["site", "Run a site"]];
+  function renderTakePart(q) {
+    var which = q.get("form") || "request";
+    if (!find(FORMS, which)) which = "request";
+    var studyId = q.get("study") || "";
+    app.innerHTML = '<div class="wrap"><div class="page-head"><h1>Take part</h1><p class="lead">You can request a replication, put money into the pooled fund or run a site. Each form shows what that would involve.</p></div>' +
+      '<p class="proto read">This is a prototype. Nothing is sent when you submit a form. You get the text of your request, pledge or offer to copy and send by email to [contact address].</p>' +
+      '<div class="tabs" role="tablist">' + FORMS.map(function (f) { return '<button type="button" role="tab" id="tab-' + f[0] + '" aria-selected="' + (f[0] === which) + '" aria-controls="panel" data-form="' + f[0] + '">' + f[1] + "</button>"; }).join("") + "</div>" +
+      '<div id="panel" role="tabpanel" aria-labelledby="tab-' + which + '" style="padding-bottom:72px"></div></div>';
+    app.querySelectorAll(".tabs button").forEach(function (b) {
+      b.addEventListener("click", function () { location.hash = "#/take-part?form=" + b.getAttribute("data-form"); });
+    });
+    var panel = document.getElementById("panel");
+    if (which === "request") formRequest(panel, studyId);
+    else if (which === "fund") formFund(panel);
+    else formSite(panel);
+  }
+  function fld(id, label, hint, control) { return '<div class="fld"><label for="' + id + '">' + label + "</label>" + (hint ? '<span class="hint">' + hint + "</span>" : "") + control + '<div class="err" id="' + id + '-err" aria-live="polite"></div></div>'; }
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
+  function requireFields(ids) {
+    var ok = true;
+    ids.forEach(function (p) { var e = document.getElementById(p[0] + "-err"); if (!val(p[0])) { e.textContent = p[1]; ok = false; } else e.textContent = ""; });
+    return ok;
+  }
+  function showPreview(panel, title, rows, text, note) {
+    var box = panel.querySelector(".preview");
+    box.innerHTML = '<div class="card"><div class="label">' + esc(title) + "</div><h3>" + esc(rows[0][1]) + "</h3><dl>" +
+      rows.slice(1).filter(function (r) { return r[1]; }).map(function (r) { return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + "</dd>"; }).join("") + "</dl>" +
+      (note ? '<p class="small muted" style="margin:14px 0 0">' + esc(note) + "</p>" : "") +
+      '<div class="copy-row" style="margin-bottom:0"><button type="button" class="btn small" data-copytext>Copy as text</button><span class="copy-status" aria-live="polite"></span></div></div>';
+    box.querySelector("[data-copytext]").addEventListener("click", function (e) { copyText(text, e.target.parentNode.querySelector(".copy-status")); });
+    box.scrollIntoView({ block: "nearest" });
+  }
+  function formRequest(panel, studyId) {
+    var s = BYID[studyId];
+    var idea = s ? arr(s.replication_ideas)[0] || "" : "";
+    panel.innerHTML = '<form class="form" id="f" novalidate>' +
+      fld("r-study", "Finding", "Pick a study from the library, or describe a finding that is not in it.", '<select id="r-study">' + studyOptions(s ? s.id : "") + "</select>") +
+      '<div id="r-other-wrap" hidden>' + fld("r-other", "The finding, with a link", "", '<input type="text" id="r-other">') + "</div>" +
+      fld("r-cond", "Condition to test", "Which model, language, judge or setting should change? Leave the original conditions to test whether the result holds.", '<textarea id="r-cond">' + esc(idea) + "</textarea>") +
+      fld("r-decision", "Decision the result would inform", "Who would act differently depending on the result, and how? Requests are ranked by what they would change.", '<textarea id="r-decision"></textarea>') +
+      fld("r-role", "You are", "", '<select id="r-role"><option>A researcher</option><option>A developer</option><option>An evaluator</option><option>A funder</option><option>An AI lab</option><option>Other</option></select>') +
+      '<div class="fld"><span class="lab">Would you put money towards it?</span><div class="radios">' +
+      '<label><input type="radio" name="r-money" value="no" checked> No</label><label><input type="radio" name="r-money" value="pool"> Yes, through the pooled fund</label></div></div>' +
+      '<div id="r-amount-wrap" hidden>' + fld("r-amount", "Amount, in US dollars", "Paid into the pooled fund and released when results are published, whatever they show.", '<input type="number" id="r-amount" min="0" step="100">') + "</div>" +
+      '<div class="two">' + fld("r-name", "Name", "", '<input type="text" id="r-name" autocomplete="name">') + fld("r-email", "Email", "", '<input type="email" id="r-email" autocomplete="email">') + "</div>" +
+      '<button type="submit" class="btn">Preview the request</button></form><div class="preview"></div>';
+    var f = document.getElementById("f");
+    function sync() {
+      document.getElementById("r-other-wrap").hidden = val("r-study") !== "other";
+      document.getElementById("r-amount-wrap").hidden = f.querySelector("input[name=r-money]:checked").value !== "pool";
+    }
+    document.getElementById("r-study").addEventListener("change", function () {
+      var x = BYID[val("r-study")], c = document.getElementById("r-cond");
+      if (x && !c.value.trim()) c.value = arr(x.replication_ideas)[0] || "";
+      sync();
+    });
+    f.addEventListener("change", sync);
+    sync();
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var need = [["r-study", "Choose a study, or pick the last option to describe another finding."], ["r-cond", "Say which condition should be tested."], ["r-decision", "Name the decision the result would inform."]];
+      if (val("r-study") === "other") need.push(["r-other", "Describe the finding."]);
+      if (!requireFields(need)) return;
+      var x = BYID[val("r-study")], finding = x ? x.title + " (" + [x.authors, x.year].filter(Boolean).join(", ") + ")" : val("r-other");
+      var money = f.querySelector("input[name=r-money]:checked").value === "pool" ? (val("r-amount") ? "$" + Number(val("r-amount")).toLocaleString("en-GB") + " through the pooled fund" : "Yes, through the pooled fund") : "None offered";
+      var by = [val("r-name"), val("r-role").toLowerCase()].filter(Boolean).join(", ");
+      var rows = [["Finding", finding], ["Condition to test", val("r-cond")], ["Decision it would inform", val("r-decision")], ["Requested by", by], ["Funding offered", money], ["Contact", val("r-email")]];
+      var text = "Replication request\n\n" + rows.filter(function (r) { return r[1]; }).map(function (r) { return r[0] + ": " + r[1]; }).join("\n");
+      showPreview(panel, "Your request, as it would appear in the queue", rows, text, "Nothing has been sent. Copy the text and email it to [contact address].");
+    });
+  }
+  function formFund(panel) {
+    panel.innerHTML = '<form class="form" id="f" novalidate>' +
+      '<div class="two">' + fld("p-amount", "Amount", "", '<input type="number" id="p-amount" min="0" step="100">') + fld("p-cur", "Currency", "", '<select id="p-cur"><option>USD</option><option>EUR</option><option>GBP</option></select>') + "</div>" +
+      fld("p-for", "What it is for", "Money given for any request goes wherever the queue ranks highest.", '<select id="p-for"><option>Any request</option><option>The proposed pilot</option><option>Replications in a particular language</option></select>') +
+      '<div id="p-lang-wrap" hidden>' + fld("p-lang", "Which language", "", '<input type="text" id="p-lang">') + "</div>" +
+      '<div class="fld"><div class="radios"><label><input type="checkbox" id="p-lab"> I am giving on behalf of an AI developer</label></div></div>' +
+      '<div class="two">' + fld("p-name", "Name or organisation", "", '<input type="text" id="p-name">') + fld("p-email", "Email", "", '<input type="email" id="p-email" autocomplete="email">') + "</div>" +
+      '<p class="small muted">The pooled fund pays teams on publication, whatever the result. Labs can fund replications only through the pool, so that no lab pays directly for re-tests of its own work or a competitor\'s.</p>' +
+      '<button type="submit" class="btn">Preview the pledge</button></form><div class="preview"></div>';
+    var f = document.getElementById("f");
+    f.addEventListener("change", function () { document.getElementById("p-lang-wrap").hidden = val("p-for") !== "Replications in a particular language"; });
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!requireFields([["p-amount", "Enter an amount."], ["p-name", "Enter a name or organisation."]])) return;
+      var purpose = val("p-for") === "Replications in a particular language" ? "Replications in " + (val("p-lang") || "[language]") : val("p-for");
+      var rows = [["Amount", Number(val("p-amount")).toLocaleString("en-GB") + " " + val("p-cur")], ["For", purpose], ["From", val("p-name") + (document.getElementById("p-lab").checked ? " (an AI developer)" : "")], ["Paid out", "On publication of each replication, whatever the result"], ["Contact", val("p-email")]];
+      var text = "Pledge to the pooled replication fund\n\n" + rows.filter(function (r) { return r[1]; }).map(function (r) { return r[0] + ": " + r[1]; }).join("\n");
+      showPreview(panel, "Your pledge", rows, text, document.getElementById("p-lab").checked ? "Gifts from AI developers go into the pool and cannot be earmarked for a particular study. Nothing has been sent." : "Nothing has been sent. Copy the text and email it to [contact address].");
+    });
+  }
+  function formSite(panel) {
+    panel.innerHTML = '<form class="form" id="f" novalidate>' +
+      '<p class="small" style="color:var(--ink2)">A site contributes its language, the open-weight models adapted for that language and native speakers who can check results. For the pilot, each site commits one person for six weeks, with compute and native raters paid from the pilot budget.</p>' +
+      '<div class="two">' + fld("g-name", "Research group or organisation", "", '<input type="text" id="g-name">') + fld("g-country", "Country", "", '<input type="text" id="g-country">') + "</div>" +
+      fld("g-lang", "Language or languages", "", '<input type="text" id="g-lang">') +
+      fld("g-models", "Open-weight models adapted for your language", "Name any you know of, and their base models if known.", '<textarea id="g-models"></textarea>') +
+      fld("g-time", "Time you could commit", "", '<select id="g-time"><option>One person for six weeks</option><option>Less than one person for six weeks</option><option>More than one person for six weeks</option></select>') +
+      '<div class="fld"><span class="lab">Native speakers available to label responses</span><div class="radios"><label><input type="radio" name="g-raters" value="Yes" checked> Yes</label><label><input type="radio" name="g-raters" value="Not yet"> Not yet</label></div></div>' +
+      '<div class="two">' + fld("g-contact", "Contact name", "", '<input type="text" id="g-contact" autocomplete="name">') + fld("g-email", "Email", "", '<input type="email" id="g-email" autocomplete="email">') + "</div>" +
+      '<button type="submit" class="btn">Preview the offer</button></form><div class="preview"></div>';
+    var f = document.getElementById("f");
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!requireFields([["g-name", "Enter the group or organisation."], ["g-lang", "Enter at least one language."]])) return;
+      var rows = [["Group", val("g-name") + (val("g-country") ? ", " + val("g-country") : "")], ["Languages", val("g-lang")], ["Adapted models", val("g-models")], ["Time", val("g-time")],
+        ["Native raters", f.querySelector("input[name=g-raters]:checked").value], ["Contact", [val("g-contact"), val("g-email")].filter(Boolean).join(", ")]];
+      var text = "Offer to run a site\n\n" + rows.filter(function (r) { return r[1]; }).map(function (r) { return r[0] + ": " + r[1]; }).join("\n");
+      showPreview(panel, "Your offer to run a site", rows, text, "Nothing has been sent. Copy the text and email it to [contact address].");
+    });
+  }
+
+  /* ---------- Misc ---------- */
+  function renderMissing() {
+    app.innerHTML = '<div class="wrap"><div class="page-head"><h1>Page not found</h1><p class="lead">That address does not match a page or a study. <a href="#/studies">Browse the studies</a> or go to the <a href="#/">home page</a>.</p></div></div>';
+  }
+  function copyText(text, statusEl) {
+    function done(ok) { if (statusEl) { statusEl.textContent = ok ? "Copied." : "Copying failed. Select the text and copy it manually."; setTimeout(function () { statusEl.textContent = ""; }, 3000); } }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { done(true); }, function () { fallback(); });
+    else fallback();
+    function fallback() {
+      var ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand("copy"); } catch (e) { ok = false; } document.body.removeChild(ta); done(ok);
+    }
+  }
+  app.addEventListener("click", function (e) {
+    var c = e.target.closest("[data-copy]");
+    if (c) { copyText(dataText(c.getAttribute("data-copy")), c.parentNode.querySelector(".copy-status")); return; }
+    var sc = e.target.closest("[data-scroll]");
+    if (sc) { var t = document.getElementById(sc.getAttribute("data-scroll")); if (t) t.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); return; }
+    var d = e.target.closest("[data-download]");
+    if (d) saveFile(d.getAttribute("data-download"), d.parentNode.querySelector(".copy-status"));
+  });
+  /* Inside the Claude artifact viewer, files are offered through the downloads capability; opened as a plain file, a blob link does the job. */
+  function saveFile(kind, statusEl) {
+    var name = { json: "ai-safety-replication-library.json", scsv: "studies.csv", rcsv: "resources.csv" }[kind], data = dataText(kind);
+    function blobSave() {
+      var blob = new Blob([data], { type: kind === "json" ? "application/json" : "text/csv" });
+      var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    }
+    function failed() { if (statusEl) statusEl.textContent = "The download did not start. Use the copy links below instead."; }
+    if (window.claude && typeof window.claude.use === "function") {
+      window.claude.use("downloads").then(function (dl) {
+        if (!dl) { blobSave(); return; }
+        dl.save({ filename: name, data: data }).then(function () {}, function (err) { if (!err || err.code !== "declined") failed(); });
+      }, blobSave);
+    } else blobSave();
+  }
+  /* Tooltip for hero tiles */
+  var tip = document.getElementById("tip");
+  function showTip(el) {
+    if (!el || !el.getAttribute("data-tip")) return;
+    tip.innerHTML = esc(el.getAttribute("data-tip")) + "<span>" + esc(el.getAttribute("data-tip2")) + "</span>";
+    tip.hidden = false;
+    var r = el.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+    var x = Math.min(Math.max(8, r.left + r.width / 2 - tw / 2), window.innerWidth - tw - 8), y = r.top - th - 8;
+    if (y < 8) y = r.bottom + 8;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  function hideTip() { tip.hidden = true; }
+  app.addEventListener("mouseover", function (e) { var t = e.target.closest(".book"); if (t) showTip(t); else hideTip(); });
+  app.addEventListener("focusin", function (e) { var t = e.target.closest(".book"); if (t) showTip(t); else hideTip(); });
+  app.addEventListener("mouseleave", hideTip);
+  window.addEventListener("scroll", hideTip, { passive: true });
+
+  /* ---------- Router ---------- */
+  function parse() {
+    var h = location.hash.replace(/^#\/?/, ""), q = "", i = h.indexOf("?");
+    if (i >= 0) { q = h.slice(i + 1); h = h.slice(0, i); }
+    var parts = h.split("/");
+    return { page: parts[0] || "home", arg: decodeURIComponent(parts.slice(1).join("/")), q: new URLSearchParams(q) };
+  }
+  var NET_PAGES = { network: 1, requests: 1, pilot: 1, "take-part": 1 };
+  function route() {
+    hideTip();
+    var r = parse();
+    document.getElementById("nav").innerHTML = navHTML(r.page);
+    if (NET_PAGES[r.page] && !NETWORK) { renderMissing(); }
+    else if (r.page === "home" || r.page === "why") { renderHome(); if (r.page === "why") { var wEl = document.getElementById("why"); if (wEl) setTimeout(function () { wEl.scrollIntoView(); }, 0); } }
+    else if (r.page === "studies") renderStudies(r.q);
+    else if (r.page === "study") renderStudy(r.arg);
+    else if (r.page === "resources") renderResources(r.q);
+    else if (r.page === "guide") renderGuide();
+    else if (r.page === "method") renderMethod(r.arg);
+    else if (r.page === "vision") renderVision();
+    else if (r.page === "network") renderNetwork(r.arg);
+    else if (r.page === "requests") renderRequests(r.q);
+    else if (r.page === "pilot") renderPilot();
+    else if (r.page === "take-part") renderTakePart(r.q);
+    else renderMissing();
+    var titles = { vision: "What re-testing has shown", why: "Why re-testing is worth doing", home: "", studies: "Studies", resources: "Resources", guide: "Choosing a study", method: "Method", network: "How it works", requests: "Requests", pilot: "Pilot", "take-part": "Take part" };
+    var base = NETWORK ? "AI Safety Replication Network (prototype)" : "AI Safety Replication Library";
+    var pageTitle = r.page === "study" && BYID[r.arg] ? shortName(BYID[r.arg]) : titles[r.page];
+    document.title = pageTitle ? pageTitle + ", " + base : base;
+    if ((!r.arg || r.page === "study") && r.page !== "why") window.scrollTo(0, 0);
+    if (r.page !== "home") app.focus({ preventScroll: true });
+  }
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+</body>
+</html>

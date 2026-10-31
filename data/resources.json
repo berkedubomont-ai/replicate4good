@@ -1,0 +1,1719 @@
+[
+  {
+    "id": "forrt-replication-database",
+    "name": "FORRT Replication Database (FReD)",
+    "type": "Replication programme or collection",
+    "url": "https://forrt.org/FReD",
+    "description": "A curated database of replication results in the social and behavioural sciences, coded from large replication projects and individual articles, with an online Explorer app for filtering by replicability and effect size and an Annotator that flags replication findings in a reading list. The data load through an MIT-licensed R package maintained under the Framework for Open and Reproducible Research Training (FORRT).",
+    "use_for": "A working model for a living ledger of AI safety findings: one record per original finding, linked replications, coded outcomes and effect sizes.",
+    "access": "free and open",
+    "maintainer": "FORRT (package authors Lukas Röseler, Lukas Wallrich, Helena Hartmann and Flavio Azevedo)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "findings-ledger",
+      "meta-science",
+      "psychology",
+      "r-package",
+      "replication-database"
+    ]
+  },
+  {
+    "id": "institute-for-replication",
+    "name": "Institute for Replication (I4R)",
+    "type": "Replication programme or collection",
+    "url": "https://i4replication.org/",
+    "description": "An international organisation that checks published social science, mainly economics, through one-day team replication games and a discussion paper series of more than 230 reproduction reports. It has also run AI replication games comparing human-only, AI-assisted and AI-led teams (see the I4R AI teams trial among the studies).",
+    "use_for": "A tested format for running one-day replication events, plus evidence on how far to trust AI coding agents in replication work.",
+    "access": "free and open",
+    "maintainer": "Institute for Replication (chaired by Abel Brodeur)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "ai-assisted-replication",
+      "events",
+      "meta-science",
+      "replication-games",
+      "social-science"
+    ]
+  },
+  {
+    "id": "ml-reproducibility-challenge",
+    "name": "Machine Learning Reproducibility Challenge (MLRC)",
+    "type": "Replication programme or collection",
+    "url": "https://reproml.org/",
+    "description": "An annual challenge, in its ninth edition in 2026, that collects reproductions, replications and generalisability studies of machine learning papers, peer-reviewed through Transactions on Machine Learning Research (TMLR). In 2026 it became an official NeurIPS track, with accepted papers presented at NeurIPS 2026 in Sydney.",
+    "use_for": "A peer-reviewed venue with established reporting norms for publishing an AI safety replication, including failed or partial ones; check the site for the next cycle's deadlines.",
+    "access": "free and open",
+    "maintainer": "MLRC organising committee (Koustuv Sinha, Jessica Forde, Joelle Pineau and others)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "neurips",
+      "publication-venue",
+      "reproducibility",
+      "tmlr"
+    ]
+  },
+  {
+    "id": "second-look-research",
+    "name": "Second Look Research",
+    "type": "Replication programme or collection",
+    "url": "https://secondlookresearch.com/",
+    "description": "A replication group at the University of Chicago Existential Risk Laboratory (XLab) that re-implements load-bearing empirical AI safety papers, often on newer models, and publishes short write-ups with open code, mostly on LessWrong. It runs a part-time Fall 2026 stream through SPAR (Research Program for AI Risks).",
+    "use_for": "Check whether a target paper has already been replicated, and borrow its paper-selection criteria (narrative influence, research dependence, vulnerability to non-replication, difficulty, recency) and write-up format.",
+    "access": "free and open",
+    "maintainer": "University of Chicago Existential Risk Laboratory (XLab); led by Zephaniah Roe and Yixiong Hao",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "ai-safety",
+      "fellowship",
+      "lesswrong",
+      "open-source-code",
+      "replication",
+      "uchicago"
+    ]
+  },
+  {
+    "id": "aisi-elicitation-protocol",
+    "name": "A structured protocol for elicitation experiments",
+    "type": "Methodology guide or checklist",
+    "url": "https://www.aisi.gov.uk/blog/our-approach-to-ai-capability-elicitation",
+    "description": "A July 2025 post from the UK AI Security Institute (AISI) describing how its Science of Evaluations team standardised elicitation experiments, with a linked best-practice checklist. Steps include establishing an appropriate baseline, identifying a specific analysis type, running a pilot, guarding against data leakage and reporting negative as well as positive results.",
+    "use_for": "A ready protocol for experiments that test whether a technique (agent scaffolding, best-of-n sampling, tool access) changes a published result.",
+    "access": "free and open",
+    "maintainer": "UK AI Security Institute",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "aisi",
+      "elicitation",
+      "pre-specification",
+      "protocol"
+    ]
+  },
+  {
+    "id": "agentic-benchmark-checklist",
+    "name": "Agentic Benchmark Checklist (ABC)",
+    "type": "Methodology guide or checklist",
+    "url": "https://arxiv.org/abs/2507.02825",
+    "description": "A checklist for building and auditing agentic benchmarks, drawn from the authors' experience, published best practice and previously reported issues; applying it, they found flaws such as too few test cases in SWE-bench Verified and empty responses counted as successes in TAU-bench.",
+    "use_for": "Auditing an agent benchmark before replicating results on it, since flawed task setup or grading can shift measured performance by up to 100% in relative terms.",
+    "access": "free and open",
+    "maintainer": "Zhu et al. (paper authors)",
+    "status": "unknown",
+    "multilingual_relevance": "",
+    "tags": [
+      "agentic benchmarks",
+      "agents",
+      "benchmark validity",
+      "checklist",
+      "reward design"
+    ]
+  },
+  {
+    "id": "network-automated-evaluation-best-practice",
+    "name": "Best Practice: Automated Evaluation of Large Language Models",
+    "type": "Methodology guide or checklist",
+    "url": "https://www.aisi.gov.uk/blog/international-evaluation-best-practice-and-open-questions-in-ai-measurement",
+    "description": "The first best-practice guidance (2026) from the International Network for Advanced AI Measurement, Evaluation and Science, formerly the International Network of AI Safety Institutes, covering evaluation objectives, comparability of inference settings and scoring, iterative elicitation, and logging. It recommends versioned evaluations, standard frameworks such as Inspect, full task and judge logs, and uncertainty estimates.",
+    "use_for": "A reporting checklist for replications: record sampling parameters, reasoning effort, provider and serving details, model version, code commit and safeguard settings so others can tell why results differ.",
+    "access": "free and open",
+    "maintainer": "International Network for Advanced AI Measurement, Evaluation and Science (published via the UK AI Security Institute)",
+    "status": "active",
+    "multilingual_relevance": "The guidance does not cover multilingual evaluation, so translation and judge-language choices need their own documentation.",
+    "tags": [
+      "best-practice",
+      "inference-settings",
+      "international-network",
+      "logging",
+      "reproducibility"
+    ]
+  },
+  {
+    "id": "betterbench",
+    "name": "BetterBench",
+    "type": "Methodology guide or checklist",
+    "url": "https://betterbench.stanford.edu/",
+    "description": "A Stanford assessment framework of 46 benchmark-quality criteria applied to 24 widely used AI benchmarks, with a searchable living repository of assessments and a checklist of minimum standards for benchmark developers.",
+    "use_for": "Checking a benchmark's design, documentation and reproducibility before choosing it as a replication target.",
+    "access": "free and open",
+    "maintainer": "Stanford University (Reuel et al.)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "benchmark quality",
+      "checklist",
+      "evaluation methodology",
+      "reproducibility"
+    ]
+  },
+  {
+    "id": "cot-monitorability-position-2025",
+    "name": "Chain of Thought Monitorability: A New and Fragile Opportunity for AI Safety",
+    "type": "Methodology guide or checklist",
+    "url": "https://arxiv.org/abs/2507.11473",
+    "description": "Position paper by 41 authors from AI labs and safety research groups arguing that monitoring models' natural-language reasoning is a useful but fragile safety layer, with open research questions and recommendations for developers.",
+    "use_for": "Deciding which monitorability properties to measure, and why, before replicating chain-of-thought faithfulness or monitoring results.",
+    "access": "free and open",
+    "maintainer": "Korbak, Balesni and 39 co-authors",
+    "status": "active",
+    "multilingual_relevance": "Written with English reasoning in mind; whether its monitorability assumptions hold when models reason in other languages is an open question that Turkish experiments could address.",
+    "tags": [
+      "cot-monitoring",
+      "monitorability",
+      "position-paper",
+      "research-agenda"
+    ]
+  },
+  {
+    "id": "anthropic-challenges-evaluating-ai-systems",
+    "name": "Challenges in evaluating AI systems",
+    "type": "Methodology guide or checklist",
+    "url": "https://www.anthropic.com/research/evaluating-ai-systems",
+    "description": "An October 2023 Anthropic essay on practical problems met when running benchmarks such as Massive Multitask Language Understanding (MMLU), the Bias Benchmark for Question Answering (BBQ), BIG-bench and HELM, as well as human A/B tests, red teaming and model-written evaluations. Examples include formatting changes moving MMLU accuracy by about five points, and a bias benchmark scoring zero bias only because the model was not answering the questions.",
+    "use_for": "A list of implementation traps (prompt format, few-shot settings, refusals that look like safe behaviour, contamination, faulty items) to rule out before blaming the model for a replication gap.",
+    "access": "free and open",
+    "maintainer": "Anthropic",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "anthropic",
+      "benchmarks",
+      "evaluation-pitfalls",
+      "prompt-format"
+    ]
+  },
+  {
+    "id": "metr-capability-elicitation-guidelines",
+    "name": "Guidelines for capability elicitation",
+    "type": "Methodology guide or checklist",
+    "url": "https://metr.org/blog/2024-03-15-guidelines-for-capability-elicitation/",
+    "description": "Guidance from METR (Model Evaluation and Threat Research), March 2024, on how much effort to spend drawing out an agent's capabilities before reporting a score: fix spurious failures, iterate on a development set, and watch for red flags such as high run-to-run variance or dropped runs. The authors describe it as reasoned but not fully tested.",
+    "use_for": "Helps judge whether a lower score in a replication reflects the model or weaker elicitation (scaffolding, tools, prompting) than the original study used.",
+    "access": "free and open",
+    "maintainer": "METR",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "agents",
+      "capability-evaluation",
+      "elicitation",
+      "metr"
+    ]
+  },
+  {
+    "id": "lessons-from-the-trenches",
+    "name": "Lessons from the Trenches on Reproducible Evaluation of Language Models",
+    "type": "Methodology guide or checklist",
+    "url": "https://arxiv.org/abs/2405.14782",
+    "description": "A practitioner guide from the developers of the lm-evaluation-harness (Biderman et al., 30 authors) on why language model evaluation results are hard to reproduce, with recommended practices drawn from three years of harness development.",
+    "use_for": "Guidance on which implementation details to pin down and report when re-running a published benchmark result.",
+    "access": "free and open",
+    "maintainer": "EleutherAI and collaborators (Biderman et al.)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "best practices",
+      "evaluation methodology",
+      "lm-evaluation-harness",
+      "reproducibility"
+    ]
+  },
+  {
+    "id": "neurips-paper-checklist",
+    "name": "NeurIPS Paper Checklist",
+    "type": "Methodology guide or checklist",
+    "url": "https://neurips.cc/public/guides/PaperChecklist",
+    "description": "The 16-question checklist required for NeurIPS 2026 submissions, covering claims and limitations, reproducibility, open code and data, experimental details, error bars, compute, safeguards, licences and use of large language models (LLMs). Submissions without it are desk-rejected.",
+    "use_for": "Audit what an original paper disclosed and omitted before scoping a replication, and structure the replication write-up.",
+    "access": "free and open",
+    "maintainer": "NeurIPS (Conference on Neural Information Processing Systems)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "error-bars",
+      "neurips",
+      "reporting-checklist",
+      "reproducibility"
+    ]
+  },
+  {
+    "id": "principles-meta-science-ai-safety-replications",
+    "name": "Principles for Meta-Science and AI Safety Replications",
+    "type": "Methodology guide or checklist",
+    "url": "https://www.lesswrong.com/posts/8qytxHWzSsdsyTfmZ/principles-for-meta-science-and-ai-safety-replications",
+    "description": "A January 2026 LessWrong post by Zephaniah Roe setting out norms for an AI safety replication team: replication is not vindication, re-implement from scratch rather than rerun the authors' code, treat failed replications as findings, and publish author responses alongside results. It also lists criteria for choosing which papers to replicate.",
+    "use_for": "A short charter to adopt or adapt when setting up a replication programme or scoping a single replication.",
+    "access": "free and open",
+    "maintainer": "Zephaniah Roe",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "lesswrong",
+      "meta-science",
+      "paper-selection",
+      "replication-norms"
+    ]
+  },
+  {
+    "id": "reforms-checklist",
+    "name": "REFORMS: Consensus-based Recommendations for Machine-learning-based Science",
+    "type": "Methodology guide or checklist",
+    "url": "https://reforms.cs.princeton.edu/",
+    "description": "A consensus checklist of 32 items in eight sections, written by 19 researchers across fields and published in Science Advances in 2024, for reporting and reviewing machine-learning-based scientific studies.",
+    "use_for": "Structuring a replication report so that data splits, leakage checks and evaluation choices are documented and reviewable.",
+    "access": "free and open",
+    "maintainer": "Princeton University (Kapoor et al.)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "checklist",
+      "leakage",
+      "ml-based science",
+      "reporting standards",
+      "reproducibility"
+    ]
+  },
+  {
+    "id": "multilingual-safety-survey-2025",
+    "name": "The State of Multilingual LLM Safety Research: From Measuring the Language Gap to Mitigating It",
+    "type": "Methodology guide or checklist",
+    "url": "https://arxiv.org/abs/2505.24119",
+    "description": "A systematic review of nearly 300 safety papers from *ACL venues published from 2020 to 2024, showing that large language model (LLM) safety research covers non-English languages far less than English and that English-only papers often do not state which languages they tested. It ends with recommendations and three research directions: multilingual safety evaluation, training data generation and cross-lingual safety generalisation.",
+    "use_for": "Scoping a multilingual replication: it maps which languages and safety questions are under-studied and which reporting habits to avoid.",
+    "access": "free and open",
+    "maintainer": "Zheng-Xin Yong, Beyza Ermis, Marzieh Fadaee, Stephen H. Bach and Julia Kreutzer",
+    "status": "active",
+    "multilingual_relevance": "Core reference on the language gap in LLM safety research.",
+    "tags": [
+      "language-gap",
+      "multilingual-safety",
+      "reporting-practice",
+      "research-agenda",
+      "survey"
+    ]
+  },
+  {
+    "id": "apollo-science-of-evals",
+    "name": "We Need A 'Science of Evals'",
+    "type": "Methodology guide or checklist",
+    "url": "https://www.apolloresearch.ai/blog/we-need-a-science-of-evals",
+    "description": "A January 2024 Apollo Research post arguing that model evaluations are still more craft than science: results shift with prompt wording, and a negative result cannot show that a capability is absent. It proposes maturity stages modelled on aviation and lists questions on coverage, robustness, reproducibility and statistical confidence.",
+    "use_for": "Frames which properties (prompt sensitivity, elicitation strength, statistics, construct clarity) a replication should vary and report rather than hold fixed.",
+    "access": "free and open",
+    "maintainer": "Apollo Research",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "apollo-research",
+      "elicitation",
+      "prompt-sensitivity",
+      "science-of-evals"
+    ]
+  },
+  {
+    "id": "agentic-misalignment-framework",
+    "name": "agentic-misalignment research framework",
+    "type": "Evaluation framework or harness",
+    "url": "https://github.com/anthropic-experimental/agentic-misalignment",
+    "description": "Anthropic's MIT-licensed code for the agentic misalignment study, which generates three fictional scenarios (blackmail, information leaking and a lethal-action scenario) across goal and urgency conditions, runs them against models from several providers, and classifies responses for harmful behaviour.",
+    "use_for": "Re-running or extending the agentic misalignment experiments on new models, including open-weight models via Together or OpenRouter, with the original prompts and classifiers.",
+    "access": "free and open",
+    "maintainer": "Anthropic (anthropic-experimental GitHub organisation)",
+    "status": "unknown",
+    "multilingual_relevance": "Scenarios are English and set in a US company; a Turkish port needs localisation and classifier validation.",
+    "tags": [
+      "agentic misalignment",
+      "api",
+      "blackmail",
+      "evaluation harness",
+      "insider threat"
+    ]
+  },
+  {
+    "id": "bloom",
+    "name": "Bloom (Petri Bloom)",
+    "type": "Evaluation framework or harness",
+    "url": "https://meridianlabs-ai.github.io/petri_bloom/",
+    "description": "An open-source tool that turns a written behaviour description into a generated set of evaluation scenarios, runs them against a target model and scores the behaviour with a judge model. Anthropic released it in 2025; development has moved to Meridian Labs, where it runs on the Petri framework, and the original safety-research repository is frozen.",
+    "use_for": "Build targeted, re-runnable frequency estimates for a behaviour reported in a study, such as sycophancy or self-preservation, across several models.",
+    "access": "free and open",
+    "maintainer": "Meridian Labs (originally Anthropic)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "automated-evals",
+      "behavioural-evaluation",
+      "elicitation-rate",
+      "meridian-labs"
+    ]
+  },
+  {
+    "id": "controlarena",
+    "name": "ControlArena",
+    "type": "Evaluation framework or harness",
+    "url": "https://github.com/UKGovernmentBEIS/control-arena",
+    "description": "Open-source library built on Inspect AI for running AI control experiments, with settings such as APPS programming, Bash tasks from the Ctrl-Z paper and BashArena, plus monitors, micro-protocols and analysis tools.",
+    "use_for": "Re-running AI control and resampling-protocol experiments (APPS backdooring, BashBench) without rebuilding the environments, as Terekhov et al. did in 2025.",
+    "access": "free and open",
+    "maintainer": "UK AI Security Institute and Redwood Research",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "agents",
+      "ai-control",
+      "evaluation-harness",
+      "inspect",
+      "monitoring"
+    ]
+  },
+  {
+    "id": "garak",
+    "name": "garak",
+    "type": "Evaluation framework or harness",
+    "url": "https://github.com/NVIDIA/garak",
+    "description": "NVIDIA's open-source (Apache 2.0) large language model (LLM) vulnerability scanner, the Generative AI Red-teaming and Assessment Kit, which runs probes for jailbreaks, prompt injection, data leakage, toxicity and similar failures against many model back-ends and scores them with paired detectors. Version 0.17.1 was released in October 2026.",
+    "use_for": "Quick, repeatable baseline scans when replicating jailbreak or prompt-injection results on new models.",
+    "access": "free and open",
+    "maintainer": "NVIDIA (created by Leon Derczynski)",
+    "status": "active",
+    "multilingual_relevance": "Check how probes and detectors behave on non-English text before porting a scan to another language.",
+    "tags": [
+      "jailbreaks",
+      "nvidia",
+      "red-teaming",
+      "vulnerability-scanner"
+    ]
+  },
+  {
+    "id": "helm",
+    "name": "Holistic Evaluation of Language Models (HELM)",
+    "type": "Evaluation framework or harness",
+    "url": "https://crfm.stanford.edu/helm/",
+    "description": "An open-source (Apache 2.0) evaluation framework and set of public leaderboards, including HELM Capabilities and HELM Safety, from the Stanford Center for Research on Foundation Models (CRFM), with evaluation data and results freely available on the site. HELM entered maintenance mode on 1 June 2026: volunteers fix significant bugs on a best-effort basis, but no new features or leaderboard evaluations will be added.",
+    "use_for": "Inspect the setup and data behind past leaderboard scores; for new evaluations its maintainers point to alternatives such as Inspect Evals and lm-evaluation-harness.",
+    "access": "free and open",
+    "maintainer": "Stanford Center for Research on Foundation Models (CRFM)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "evaluation-framework",
+      "leaderboard",
+      "maintenance-mode",
+      "stanford"
+    ]
+  },
+  {
+    "id": "inspect-ai",
+    "name": "Inspect",
+    "type": "Evaluation framework or harness",
+    "url": "https://inspect.aisi.org.uk/",
+    "description": "An open-source (MIT) Python framework for large language model (LLM) evaluations, with composable solvers and scorers, agents, sandboxed tool execution (Docker, Kubernetes, Modal and others), a log viewer, built-in support for over 20 model providers and local inference through Hugging Face, vLLM and SGLang. It is developed by the UK AI Security Institute and Meridian Labs, which also maintain the companion transcript-analysis tool Scout.",
+    "use_for": "Define a task once, run it across API and open-weight models, and keep full per-sample logs, as international evaluation best-practice guidance recommends.",
+    "access": "free and open",
+    "maintainer": "UK AI Security Institute and Meridian Labs",
+    "status": "active",
+    "multilingual_relevance": "Model-agnostic, so translated datasets can be swapped in; model-graded scorers and judge prompts need checking in the target language.",
+    "tags": [
+      "agents",
+      "aisi",
+      "evaluation-harness",
+      "logging",
+      "python",
+      "sandboxing"
+    ]
+  },
+  {
+    "id": "inspect-evals",
+    "name": "Inspect Evals",
+    "type": "Evaluation framework or harness",
+    "url": "https://ukgovernmentbeis.github.io/inspect_evals/",
+    "description": "An open registry of about 185 ready-to-run evaluations built on Inspect, covering safeguards, scheming and misalignment (for example Alignment Faking and Agentic Misalignment), cybersecurity, agents, knowledge, reasoning, bias and honesty. Founded in 2024 with contributions from the UK AI Security Institute, Arcadia Impact and the Vector Institute, it is now maintained by Generality Labs.",
+    "use_for": "Check whether an Inspect implementation of a target study already exists before building one, and register your own port for others to reuse.",
+    "access": "free and open",
+    "maintainer": "Generality Labs (founding contributors: UK AI Security Institute, Arcadia Impact, Vector Institute)",
+    "status": "active",
+    "multilingual_relevance": "Check each evaluation's dataset language before reuse; a translated port usually means swapping the dataset and re-validating any model-graded scorer.",
+    "tags": [
+      "benchmarks",
+      "eval-registry",
+      "inspect",
+      "ready-to-run"
+    ]
+  },
+  {
+    "id": "lm-evaluation-harness",
+    "name": "Language Model Evaluation Harness (lm-evaluation-harness)",
+    "type": "Evaluation framework or harness",
+    "url": "https://github.com/EleutherAI/lm-evaluation-harness",
+    "description": "EleutherAI's MIT-licensed framework for evaluating language models on more than 60 academic benchmarks with hundreds of subtasks, supporting Hugging Face transformers, vLLM, SGLang, llama.cpp and OpenAI-compatible APIs. Release 0.4.13 came out in August 2026.",
+    "use_for": "Run standard log-likelihood and generation benchmarks on open-weight models, for capability baselines or to check whether fine-tuning in a replication degraded general performance.",
+    "access": "free and open",
+    "maintainer": "EleutherAI",
+    "status": "active",
+    "multilingual_relevance": "Includes multilingual task families; check the task list for coverage of the target language and whether items were machine-translated.",
+    "tags": [
+      "benchmarks",
+      "eleutherai",
+      "evaluation-harness",
+      "open-weight",
+      "python"
+    ]
+  },
+  {
+    "id": "open-source-alignment-faking",
+    "name": "Open Source Replication of Anthropic's Alignment Faking Paper (safety-research/open-source-alignment-faking)",
+    "type": "Evaluation framework or harness",
+    "url": "https://github.com/safety-research/open-source-alignment-faking",
+    "description": "A repository that describes itself as an open-source replication of the alignment-faking paper, with a pipeline script for running the prompted setting on a chosen model, a notebook for plots and reading scratchpads, and fine-tuning and inference code built on the safety-tooling library.",
+    "use_for": "Running the alignment-faking prompted and fine-tuning experiments on open-weight models, now that the original Claude models are no longer on the public API.",
+    "access": "free and open",
+    "maintainer": "safety-research GitHub organisation",
+    "status": "unknown",
+    "multilingual_relevance": "",
+    "tags": [
+      "alignment faking",
+      "classifiers",
+      "fine-tuning",
+      "open-weight models",
+      "replication"
+    ]
+  },
+  {
+    "id": "petri",
+    "name": "Petri (Inspect Petri)",
+    "type": "Evaluation framework or harness",
+    "url": "https://meridianlabs-ai.github.io/inspect_petri/",
+    "description": "An open-source alignment auditing agent built on Inspect: an auditor model runs multi-turn scenarios from plain-language seed instructions against a target model, and a judge model scores the transcripts on 38 built-in dimensions. Anthropic released it in October 2025 and handed development to Meridian Labs with Petri 3.0 in May 2026; inspect-petri 3.1.1 was released in October 2026.",
+    "use_for": "Re-run behavioural audit findings (deception, oversight subversion, sycophancy) on new models, remembering it is built for broad screening rather than as a fixed benchmark.",
+    "access": "free and open",
+    "maintainer": "Meridian Labs with the UK AI Security Institute Red Team (originally Anthropic)",
+    "status": "active",
+    "multilingual_relevance": "Seed instructions are plain markdown files, so translated seeds are easy to write; auditor, target and judge behaviour then all need checking in that language.",
+    "tags": [
+      "agents",
+      "alignment-auditing",
+      "behavioural-evaluation",
+      "inspect",
+      "meridian-labs"
+    ]
+  },
+  {
+    "id": "polyguard",
+    "name": "PolyGuard",
+    "type": "Evaluation framework or harness",
+    "url": "https://arxiv.org/abs/2504.04377",
+    "description": "Multilingual safety moderation models for 17 languages, fine-tuned from Qwen2.5-7B-Instruct, Ministral-8B and Qwen2.5-0.5B on PolyGuardMix (1.91 million samples of translated WildGuardMix data and real multilingual chats), with the 29,000-sample PolyGuardPrompts benchmark for evaluation.",
+    "use_for": "A multilingual judge or cross-check for prompt and response harmfulness, and a held-out set for comparing guard models across languages.",
+    "access": "free and open",
+    "maintainer": "Priyanshu Kumar, Maarten Sap and co-authors",
+    "status": "unknown",
+    "multilingual_relevance": "Turkish is not among its 17 languages, so Turkish use needs separate validation.",
+    "tags": [
+      "benchmark",
+      "guard-model",
+      "moderation",
+      "multilingual",
+      "safety-classifier"
+    ]
+  },
+  {
+    "id": "promptfoo",
+    "name": "promptfoo",
+    "type": "Evaluation framework or harness",
+    "url": "https://github.com/promptfoo/promptfoo",
+    "description": "An MIT-licensed command-line tool and library for testing and red-teaming large language model (LLM) applications, comparing outputs across providers and running checks in continuous integration (CI) pipelines. OpenAI announced its acquisition of Promptfoo in March 2026, and the repository now states the project is part of OpenAI.",
+    "use_for": "Lightweight side-by-side comparisons of prompts and models, for example to test how sensitive a replicated result is to prompt wording.",
+    "access": "free and open",
+    "maintainer": "Promptfoo (part of OpenAI)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "continuous-integration",
+      "openai",
+      "prompt-testing",
+      "red-teaming"
+    ]
+  },
+  {
+    "id": "pyrit",
+    "name": "Python Risk Identification Tool for generative AI (PyRIT)",
+    "type": "Evaluation framework or harness",
+    "url": "https://github.com/microsoft/PyRIT",
+    "description": "Microsoft's open-source (MIT) Python framework that helps security and safety researchers probe generative AI systems for risks by automating red-teaming attacks and scoring responses. The repository moved from Azure/PyRIT, archived in March 2026, to microsoft/PyRIT; version 1.1.0 was released in September 2026.",
+    "use_for": "Script repeatable multi-turn attack runs when replicating red-teaming or jailbreak studies against API models.",
+    "access": "free and open",
+    "maintainer": "Microsoft",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "automation",
+      "jailbreaks",
+      "microsoft",
+      "red-teaming"
+    ]
+  },
+  {
+    "id": "qwen3guard",
+    "name": "Qwen3Guard",
+    "type": "Evaluation framework or harness",
+    "url": "https://github.com/QwenLM/Qwen3Guard",
+    "description": "Open-weight safety moderation models built on Qwen3 in 0.6B, 4B and 8B sizes: a generative variant labels prompts and responses as safe, controversial or unsafe across nine categories, and a streaming variant scores each generated token.",
+    "use_for": "A multilingual judge or input filter for safety evaluations of open-weight models in languages that English-centred guard models do not cover.",
+    "access": "free and open",
+    "maintainer": "Qwen team (QwenLM)",
+    "status": "active",
+    "multilingual_relevance": "Claims support for 119 languages and dialects; check its Turkish accuracy against native labels before using it as a judge.",
+    "tags": [
+      "guard-model",
+      "moderation",
+      "multilingual",
+      "safety-classifier",
+      "streaming"
+    ]
+  },
+  {
+    "id": "gemma-scope",
+    "name": "Gemma Scope",
+    "type": "Interpretability tooling",
+    "url": "https://huggingface.co/google/gemma-scope",
+    "description": "Google DeepMind's open suite of JumpReLU sparse autoencoders for Gemma 2 (all layers of 2B and 9B, selected layers of 27B, widths from about 16K to 1M features) plus transcoders for Gemma 2 2B. Gemma Scope 2 (https://huggingface.co/google/gemma-scope-2) extends the suite to the Gemma 3 family from 270M to 27B.",
+    "use_for": "Lets you replicate SAE feature, steering and probing studies, such as open analogues of Scaling Monosemanticity or the Google DeepMind negative results, without training SAEs yourself.",
+    "access": "free and open",
+    "maintainer": "Google DeepMind",
+    "status": "active",
+    "multilingual_relevance": "Gemma models are multilingual, so the SAEs can be run on Turkish text, but check reconstruction quality and feature interpretability on Turkish before relying on English-derived feature labels.",
+    "tags": [
+      "gemma",
+      "interpretability",
+      "open weights",
+      "sparse autoencoders",
+      "transcoders"
+    ]
+  },
+  {
+    "id": "gemma-scope-2",
+    "name": "Gemma Scope 2",
+    "type": "Interpretability tooling",
+    "url": "https://huggingface.co/google/gemma-scope-2",
+    "description": "Google DeepMind's open suite of sparse autoencoders (SAEs) and transcoders trained on every layer of all Gemma 3 models (270M to 27B parameters, pretrained and instruction-tuned), released in December 2025 under a CC BY 4.0 licence. It succeeds the original Gemma Scope for Gemma 2, which remains available.",
+    "use_for": "Ready-made dictionaries for replicating feature-level safety findings (refusal, jailbreaks, chain-of-thought faithfulness) on an open model family without training SAEs yourself.",
+    "access": "free and open",
+    "maintainer": "Google DeepMind",
+    "status": "active",
+    "multilingual_relevance": "Gemma 3 models are multilingual, so the same SAEs and transcoders can be tested on non-English prompts.",
+    "tags": [
+      "deepmind",
+      "gemma",
+      "pretrained-saes",
+      "sparse-autoencoders",
+      "transcoders"
+    ]
+  },
+  {
+    "id": "neuronpedia",
+    "name": "Neuronpedia",
+    "type": "Interpretability tooling",
+    "url": "https://www.neuronpedia.org/",
+    "description": "Open-source platform for browsing, searching and steering features of released sparse autoencoders and transcoders, with circuit tracing and an API. It hosts Gemma Scope and Gemma Scope 2, Llama Scope, Qwen SAEs and others.",
+    "use_for": "A quick, GPU-free way to inspect features, try steering and shortlist candidate features before running a replication locally.",
+    "access": "free and open",
+    "maintainer": "Johnny Lin, with support from Decode Research and other funders",
+    "status": "active",
+    "multilingual_relevance": "Hosts SAEs for multilingual model families (Gemma, Llama, Qwen), so Turkish prompts can be tried through the search and steering tools.",
+    "tags": [
+      "api",
+      "circuit tracing",
+      "circuit-tracing",
+      "feature browser",
+      "feature-browser",
+      "sparse autoencoders",
+      "sparse-autoencoders",
+      "steering"
+    ]
+  },
+  {
+    "id": "nnsight",
+    "name": "NNsight",
+    "type": "Interpretability tooling",
+    "url": "https://nnsight.net/",
+    "description": "An MIT-licensed Python package for reading and editing the internals of PyTorch models during a forward pass, from the National Deep Inference Fabric (NDIF) team at Northeastern University. The same code runs locally or, with one flag, on large models hosted by NDIF; version 0.8.1 was released in October 2026.",
+    "use_for": "Replicate activation-level results on models too large for local hardware, using tutorials that reimplement published interpretability methods as worked examples.",
+    "access": "free and open",
+    "maintainer": "NDIF team, Northeastern University",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "interpretability",
+      "ndif",
+      "pytorch",
+      "remote-execution"
+    ]
+  },
+  {
+    "id": "saelens",
+    "name": "SAELens",
+    "type": "Interpretability tooling",
+    "url": "https://github.com/decoderesearch/SAELens",
+    "description": "MIT-licensed Python library for training, loading and analysing sparse autoencoders on language models, with TransformerLens integration and support for Hugging Face, NNsight or any PyTorch model through encode and decode calls.",
+    "use_for": "The standard way to load released SAEs such as Gemma Scope or to train your own for dictionary-learning replications.",
+    "access": "free and open",
+    "maintainer": "Decode Research (Joseph Bloom, Curt Tigges, Anthony Duong, David Chanin)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "decode-research",
+      "interpretability",
+      "mechanistic interpretability",
+      "pretrained-saes",
+      "python library",
+      "sparse autoencoders",
+      "sparse-autoencoders",
+      "transformerlens"
+    ]
+  },
+  {
+    "id": "transformerlens",
+    "name": "TransformerLens",
+    "type": "Interpretability tooling",
+    "url": "https://github.com/TransformerLensOrg/TransformerLens",
+    "description": "An MIT-licensed Python library for mechanistic interpretability that loads language models, caches their internal activations and lets users patch or ablate them during a forward pass. Its TransformerBridge interface supports thousands of Hugging Face models; version 4.3.0 was released in October 2026.",
+    "use_for": "The usual starting point for replicating circuit, probing and activation-patching results on small and mid-size open models.",
+    "access": "free and open",
+    "maintainer": "TransformerLensOrg (created by Neel Nanda; maintained by Bryce Meyer and others)",
+    "status": "active",
+    "multilingual_relevance": "Many tokenisers split Turkish and other agglutinative languages into more tokens than English, which shifts position-based analyses; check token alignment when porting English-prompt experiments.",
+    "tags": [
+      "activation-patching",
+      "mechanistic-interpretability",
+      "open-weight",
+      "pytorch"
+    ]
+  },
+  {
+    "id": "deepcode",
+    "name": "DeepCode",
+    "type": "Automated replication tool",
+    "url": "https://github.com/HKUDS/DeepCode",
+    "description": "An MIT-licensed coding agent from the University of Hong Kong Data Intelligence Lab whose original Paper2Code pipeline turns papers into working code, and whose authors report PaperBench scores above the best human and commercial-agent baselines. It now also works as a general agent inside local repositories.",
+    "use_for": "An alternative automated paper-to-code baseline; treat its PaperBench claims as the authors' own and check generated code line by line.",
+    "access": "free and open",
+    "maintainer": "Data Intelligence Lab, University of Hong Kong (HKUDS)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "agents",
+      "automated-replication",
+      "paper-to-code",
+      "paperbench"
+    ]
+  },
+  {
+    "id": "paperbench",
+    "name": "PaperBench",
+    "type": "Automated replication tool",
+    "url": "https://github.com/openai/frontier-evals",
+    "description": "OpenAI's 2025 benchmark of whether AI agents can replicate recent machine learning papers from scratch, graded against detailed rubrics by a large language model judge (SimpleJudge); its code sits in the MIT-licensed openai/frontier-evals repository, formerly openai/preparedness. A cheaper Code-Dev variant grades code development only, without running experiments.",
+    "use_for": "Borrow its rubric and judging set-up to structure a human or agent replication, and as a reference point for what current agents can and cannot reproduce.",
+    "access": "free and open",
+    "maintainer": "OpenAI",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "agents",
+      "benchmark",
+      "openai",
+      "paper-replication",
+      "rubrics"
+    ]
+  },
+  {
+    "id": "papercoder",
+    "name": "PaperCoder (Paper2Code)",
+    "type": "Automated replication tool",
+    "url": "https://github.com/going-doer/Paper2Code",
+    "description": "A multi-agent system that turns a machine learning paper (PDF or LaTeX) into a code repository through planning, analysis and code-generation stages, published at ICLR 2026 (International Conference on Learning Representations). It runs with OpenAI models or open models served through vLLM, under an Apache 2.0 licence.",
+    "use_for": "Generate a first-draft implementation of a paper's method to compare against, or to speed up, a from-scratch human re-implementation.",
+    "access": "free and open",
+    "maintainer": "Minju Seo, Jinheon Baek, Seongyun Lee and Sung Ju Hwang",
+    "status": "unknown",
+    "multilingual_relevance": "",
+    "tags": [
+      "agents",
+      "automated-replication",
+      "code-generation",
+      "paper-to-code"
+    ]
+  },
+  {
+    "id": "agentdojo",
+    "name": "AgentDojo",
+    "type": "Benchmark or dataset",
+    "url": "https://agentdojo.spylab.ai/",
+    "description": "An extensible environment with 97 realistic agent tasks (such as managing email or booking travel) and 629 security test cases for evaluating prompt injection attacks and defences, distributed as a Python package.",
+    "use_for": "Reproducing prompt injection results and testing defences on a shared, versioned task suite.",
+    "access": "free and open",
+    "maintainer": "ETH Zurich SPY Lab and Invariant Labs",
+    "status": "active",
+    "multilingual_relevance": "English tasks; injections written in other languages, including Turkish, are a natural extension for testing cross-lingual injection robustness.",
+    "tags": [
+      "agents",
+      "defences",
+      "prompt injection",
+      "security",
+      "tool use"
+    ]
+  },
+  {
+    "id": "agentharm-dataset",
+    "name": "AgentHarm",
+    "type": "Benchmark or dataset",
+    "url": "https://huggingface.co/datasets/ai-safety-institute/AgentHarm",
+    "description": "An agent misuse benchmark of explicitly harmful multi-step tasks with synthetic tools in 11 harm categories, paired with benign versions of the same tasks; the public release covers part of the test and validation sets and is loaded through Inspect Evals.",
+    "use_for": "Measuring whether tool-using agents refuse or complete harmful tasks, with benign twins that check the agent is still capable.",
+    "access": "free and open",
+    "maintainer": "UK AI Security Institute",
+    "status": "active",
+    "multilingual_relevance": "English only; translating tasks and tool outputs is feasible, but the GPT-4o semantic and refusal judges need re-validation in the new language.",
+    "tags": [
+      "agents",
+      "inspect",
+      "misuse",
+      "refusal",
+      "tool use"
+    ]
+  },
+  {
+    "id": "air-bench-2024",
+    "name": "AIR-Bench 2024",
+    "type": "Benchmark or dataset",
+    "url": "https://huggingface.co/datasets/stanford-crfm/air-bench-2024",
+    "description": "5,694 human-audited prompts across 314 risk categories derived from 8 government regulations and 16 company policies, with region-specific subsets (China, EU and US) and per-category judge prompts.",
+    "use_for": "Checking refusal coverage against regulation-based risk categories and reporting results by jurisdiction-specific subset, with a public HELM leaderboard for comparison.",
+    "access": "free and open",
+    "maintainer": "Stanford CRFM (Center for Research on Foundation Models)",
+    "status": "active",
+    "multilingual_relevance": "English only; the regulation-based taxonomy could guide a Turkish extension built on Turkish regulation and the EU AI Act.",
+    "tags": [
+      "helm",
+      "refusal",
+      "regulation",
+      "risk taxonomy",
+      "safety benchmark"
+    ]
+  },
+  {
+    "id": "sandbagging-games-release-2025",
+    "name": "AISI x FAR Sandbagging Games (models and evaluation logs)",
+    "type": "Benchmark or dataset",
+    "url": "https://huggingface.co/sandbagging-games",
+    "description": "Hugging Face release from the 'Auditing Games for Sandbagging' study containing 15 model checkpoints, including password-locked model organisms, and an evaluation_logs dataset.",
+    "use_for": "Testing sandbagging detection and elicitation methods on models with known ground truth instead of building password-locked models from scratch.",
+    "access": "free and open",
+    "maintainer": "UK AI Security Institute with FAR.AI",
+    "status": "unknown",
+    "multilingual_relevance": "",
+    "tags": [
+      "auditing",
+      "elicitation",
+      "model-organisms",
+      "password-locked-models",
+      "sandbagging"
+    ]
+  },
+  {
+    "id": "anthropic-model-written-evals",
+    "name": "Anthropic model-written evaluation datasets (anthropics/evals)",
+    "type": "Benchmark or dataset",
+    "url": "https://github.com/anthropics/evals",
+    "description": "The model-written evaluation datasets released with Perez et al. (2022), covering persona traits and stated goals, sycophancy, advanced-AI-risk behaviours (with human-written comparison sets) and a generated Winogender-style gender-bias set, as JSONL files under a CC-BY-4.0 licence.",
+    "use_for": "Ready-made multiple-choice items for re-testing sycophancy, self-preservation and power-seeking statements on new or open-weight models.",
+    "access": "free and open",
+    "maintainer": "Anthropic",
+    "status": "unknown",
+    "multilingual_relevance": "English only; items could be translated or regenerated in Turkish, but US-centric political items need adaptation.",
+    "tags": [
+      "advanced ai risk",
+      "datasets",
+      "model-written evaluations",
+      "persona",
+      "sycophancy"
+    ]
+  },
+  {
+    "id": "cetvel",
+    "name": "Cetvel",
+    "type": "Benchmark or dataset",
+    "url": "https://arxiv.org/abs/2508.16431",
+    "description": "A Turkish large language model (LLM) benchmark of 23 discriminative and generative tasks in seven categories, including grammatical error correction, translation and questions on Turkish history and idioms, used to evaluate 33 open-weight models up to 70B parameters; results can be browsed in a Hugging Face Space hosted by Koç University's KUIS AI Center.",
+    "use_for": "Checking that a Turkish-localised model really gained Turkish capability before comparing its safety with its base model, so safety differences are not confused with fluency differences.",
+    "access": "free and open",
+    "maintainer": "KUIS AI Center, Koç University (Er, Kesen, Şahin and Erdem)",
+    "status": "active",
+    "multilingual_relevance": "Turkish-specific; found Turkish-centric instruction-tuned models generally behind multilingual general-purpose models.",
+    "tags": [
+      "benchmark",
+      "capability",
+      "cultural-knowledge",
+      "leaderboard",
+      "turkish"
+    ]
+  },
+  {
+    "id": "cot-control-suite-2026",
+    "name": "CoT-Control",
+    "type": "Benchmark or dataset",
+    "url": "https://github.com/YuehHanChen/CoTControl",
+    "description": "Evaluation suite from 'Reasoning Models Struggle to Control their Chains of Thought' that tests whether reasoning models can follow instructions about their own reasoning (for example suppressing a word) on GPQA, Humanity's Last Exam (HLE) and MMLU-Pro questions and on SWE-bench and Berkeley Function Calling Leaderboard (BFCL) agent tasks.",
+    "use_for": "Measuring how far a model can shape its own chain of thought, a precondition for evading chain-of-thought monitors, with MIT-licensed code that runs through OpenRouter or local models.",
+    "access": "free and open",
+    "maintainer": "Yueh-Han Chen and co-authors",
+    "status": "unknown",
+    "multilingual_relevance": "Control modes such as word suppression could be translated to test whether models control Turkish reasoning differently from English reasoning.",
+    "tags": [
+      "benchmark",
+      "controllability",
+      "cot-monitoring",
+      "reasoning-models"
+    ]
+  },
+  {
+    "id": "cybench-benchmark",
+    "name": "Cybench",
+    "type": "Benchmark or dataset",
+    "url": "https://cybench.github.io",
+    "description": "40 professional Capture the Flag (CTF) tasks from four competitions in six categories, with subtasks for partial credit, a Docker-based agent framework and a public leaderboard that collects results from system cards and independent runs.",
+    "use_for": "Running a standard offensive-cyber capability evaluation with exact flag checking, so no judge model is needed.",
+    "access": "free and open",
+    "maintainer": "Stanford University (Cybench team)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "agents",
+      "ctf",
+      "cybersecurity",
+      "dangerous capabilities",
+      "leaderboard"
+    ]
+  },
+  {
+    "id": "guardrail-tr",
+    "name": "Guardrail-TR",
+    "type": "Benchmark or dataset",
+    "url": "https://huggingface.co/datasets/ytu-ce-cosmos/guardrail-tr",
+    "description": "A Turkish prompt-safety dataset of about 405,000 single-turn prompts with safe or unsafe labels and ten hazard categories, combining Turkish toxic-language and hate-speech corpora with translated, culturally adapted English safety datasets and labelled by a jury of three large language models. Two classifiers are trained on it: the Yıldız Technical University (YTU) Cosmos group's ModernBERT model and a BERTurk model published by the individual account thealper2.",
+    "use_for": "Training or testing Turkish input filters, or as a first-pass Turkish harm classifier whose labels are spot-checked by native speakers.",
+    "access": "free and open",
+    "maintainer": "Yıldız Technical University (YTU) Computer Engineering Cosmos Research Group",
+    "status": "active",
+    "multilingual_relevance": "Turkish-specific; labels come from language-model judges rather than human annotators.",
+    "tags": [
+      "classifier",
+      "dataset",
+      "guardrail",
+      "prompt-safety",
+      "turkish"
+    ]
+  },
+  {
+    "id": "harmbench",
+    "name": "HarmBench",
+    "type": "Benchmark or dataset",
+    "url": "https://github.com/centerforaisafety/HarmBench",
+    "description": "A standardised framework for automated red teaming and refusal evaluation, with harmful behaviour sets (standard, contextual and multimodal), fine-tuned Llama-2-13B and Mistral-7B classifiers, and baseline results for 18 attack methods against 33 models and defences.",
+    "use_for": "Scoring attack success and refusals with a shared behaviour set and a validated classifier, so replicated results are comparable with the many papers that report HarmBench numbers.",
+    "access": "free and open",
+    "maintainer": "Center for AI Safety",
+    "status": "unknown",
+    "multilingual_relevance": "English behaviours; check the classifier's accuracy on Turkish outputs before using it to score them.",
+    "tags": [
+      "classifier",
+      "harmful behaviours",
+      "jailbreak evaluation",
+      "red teaming",
+      "refusal"
+    ]
+  },
+  {
+    "id": "lab-bench",
+    "name": "LAB-Bench (Language Agent Biology Benchmark)",
+    "type": "Benchmark or dataset",
+    "url": "https://huggingface.co/datasets/futurehouse/lab-bench",
+    "description": "Over 2,400 multiple-choice questions on practical biology research tasks (literature, figures, tables, databases, sequences, protocols and cloning), of which about 80% is public and 20% is held back to monitor training contamination.",
+    "use_for": "Measuring practical biology research skills of models and agents, a proxy input to biosecurity capability assessments.",
+    "access": "free and open",
+    "maintainer": "FutureHouse",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "agents",
+      "biology",
+      "biosecurity",
+      "dangerous capabilities",
+      "multiple choice"
+    ]
+  },
+  {
+    "id": "m-alert",
+    "name": "M-ALERT",
+    "type": "Benchmark or dataset",
+    "url": "https://huggingface.co/datasets/felfri/M-ALERT",
+    "description": "A parallel red-teaming benchmark of about 15,000 prompts per language in English, French, German, Italian and Spanish, tagged with 32 risk categories; its paper tested 39 models and found that safety varies by language and category.",
+    "use_for": "Checking whether a model's safety holds across languages category by category, and as a template translation pipeline for a Turkish version.",
+    "access": "free and open",
+    "maintainer": "Felix Friedrich and co-authors (hosted under the felfri account)",
+    "status": "active",
+    "multilingual_relevance": "Five European languages and no Turkish; Aytaş et al. (2026), the 55-model Turkish study, drew some seed prompts from it.",
+    "tags": [
+      "benchmark",
+      "llama-guard",
+      "multilingual",
+      "red-teaming",
+      "risk-taxonomy"
+    ]
+  },
+  {
+    "id": "metr-public-tasks",
+    "name": "METR public tasks",
+    "type": "Benchmark or dataset",
+    "url": "https://github.com/METR/public-tasks",
+    "description": "Source code for a set of example autonomy tasks written to the METR Task Standard, plus summary information for a larger suite, with a list of tasks that should not be trained on.",
+    "use_for": "Running a public subset of the task families behind METR's autonomy and time-horizon evaluations, for example through METR's Inspect task bridge.",
+    "access": "free and open",
+    "maintainer": "METR",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "agents",
+      "autonomy",
+      "dangerous capabilities",
+      "metr",
+      "task standard"
+    ]
+  },
+  {
+    "id": "model-organisms-for-em",
+    "name": "Model Organisms for Emergent Misalignment (code, datasets and models)",
+    "type": "Benchmark or dataset",
+    "url": "https://github.com/clarifying-EM/model-organisms-for-EM",
+    "description": "Code, narrowly misaligned training datasets and analysis tools from the Model Organisms for Emergent Misalignment work (Turner, Soligo and colleagues, 2025), with fine-tuned LoRA adapters and steering vectors from 0.5B to 32B parameters on Hugging Face under ModelOrganismsForEM. Training data ships as an encrypted archive, with the passphrase in the README, to deter web scraping.",
+    "use_for": "Starting from small, coherent emergently misaligned models and their training data, so replications can run on a single GPU.",
+    "access": "free and open",
+    "maintainer": "Anna Soligo, Edward Turner and colleagues (clarifying-EM GitHub organisation)",
+    "status": "unknown",
+    "multilingual_relevance": "Datasets and evaluation questions are English; translating the free-form evaluation questions is a cheap cross-lingual test.",
+    "tags": [
+      "datasets",
+      "emergent misalignment",
+      "hugging face",
+      "lora",
+      "model organisms",
+      "steering vectors"
+    ]
+  },
+  {
+    "id": "sorry-bench",
+    "name": "SORRY-Bench",
+    "type": "Benchmark or dataset",
+    "url": "https://sorry-bench.github.io",
+    "description": "A refusal benchmark of 440 unsafe instructions balanced across 44 fine-grained topics, plus about 8,800 variants from 20 linguistic mutations such as other languages and dialects, with a fine-tuned Mistral-7B judge and over 7,000 human judgement labels.",
+    "use_for": "Testing whether refusal behaviour is consistent across fine-grained topics and phrasings, using a cheap validated judge.",
+    "access": "free with sign-up",
+    "maintainer": "SORRY-Bench team (Xie et al.)",
+    "status": "active",
+    "multilingual_relevance": "Includes translated variants (the project page names French and Tamil among them), so it offers a template for adding Turkish versions; check the judge's accuracy in any new language.",
+    "tags": [
+      "linguistic mutations",
+      "llm judge",
+      "multilingual",
+      "refusal",
+      "safety benchmark"
+    ]
+  },
+  {
+    "id": "strongreject",
+    "name": "StrongREJECT",
+    "type": "Benchmark or dataset",
+    "url": "https://github.com/dsbowen/strong_reject",
+    "description": "A jailbreak evaluation benchmark of forbidden prompts in six harm categories with a rubric-based LLM evaluator and a fine-tuned Gemma 2B evaluator, plus several dozen baseline jailbreak implementations, packaged as a Python library.",
+    "use_for": "Scoring jailbreak outcomes by how useful a response actually is, which avoids counting empty or degraded responses as successes.",
+    "access": "free and open",
+    "maintainer": "StrongREJECT authors (Souly et al.); package hosted by dsbowen on GitHub",
+    "status": "unknown",
+    "multilingual_relevance": "English prompts; the rubric evaluator can be run on translated prompts but needs validation against Turkish human labels.",
+    "tags": [
+      "autograder",
+      "jailbreak evaluation",
+      "llm judge",
+      "refusal",
+      "safety benchmark"
+    ]
+  },
+  {
+    "id": "swe-bench-verified",
+    "name": "SWE-bench Verified",
+    "type": "Benchmark or dataset",
+    "url": "https://openai.com/index/introducing-swe-bench-verified/",
+    "description": "A 500-task subset of SWE-bench (real GitHub issues from Python repositories, graded by unit tests) that 93 Python-experienced developers screened to drop underspecified issues and unfair tests; later audits such as the Agentic Benchmark Checklist report that some tasks still have too few tests.",
+    "use_for": "Measuring autonomous software engineering on a cleaner subset, an input to AI research and development capability and time-horizon analyses.",
+    "access": "free and open",
+    "maintainer": "OpenAI (subset of the SWE-bench dataset)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "agents",
+      "ai r&d",
+      "coding",
+      "human-validated",
+      "software engineering"
+    ]
+  },
+  {
+    "id": "turkbench",
+    "name": "TurkBench",
+    "type": "Benchmark or dataset",
+    "url": "https://arxiv.org/abs/2601.07020",
+    "description": "A benchmark of 8,151 samples across 21 subtasks for generative large language models (LLMs) in Turkish, grouped into knowledge, language understanding, reasoning, content moderation, grammar and vocabulary, and instruction following, with an online leaderboard on Hugging Face.",
+    "use_for": "A Turkish capability and content-moderation baseline for the models in a safety replication.",
+    "access": "free and open",
+    "maintainer": "Çağrı Toraman and 21 co-authors",
+    "status": "active",
+    "multilingual_relevance": "Turkish-specific; accepted at the SIGTURK workshop at EACL 2026.",
+    "tags": [
+      "benchmark",
+      "capability",
+      "content-moderation",
+      "leaderboard",
+      "turkish"
+    ]
+  },
+  {
+    "id": "wmdp-benchmark",
+    "name": "WMDP Benchmark",
+    "type": "Benchmark or dataset",
+    "url": "https://www.wmdp.ai/",
+    "description": "WMDP (Weapons of Mass Destruction Proxy) is a set of 3,668 multiple-choice questions that stand in for hazardous knowledge in biosecurity, cybersecurity and chemical security, filtered to remove sensitive information before public release.",
+    "use_for": "Measuring weapons-relevant knowledge on a shared proxy, for example before and after an unlearning or safety intervention you are replicating.",
+    "access": "free and open",
+    "maintainer": "WMDP consortium of academics and technical consultants (Li et al.)",
+    "status": "active",
+    "multilingual_relevance": "English only; translation would need domain experts to keep technical terms accurate.",
+    "tags": [
+      "biosecurity",
+      "chemical security",
+      "cybersecurity",
+      "dangerous capabilities",
+      "multiple choice",
+      "unlearning"
+    ]
+  },
+  {
+    "id": "anthropic-model-deprecations",
+    "name": "Anthropic model deprecations",
+    "type": "Compute or model access",
+    "url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+    "description": "Anthropic's lifecycle page for Claude models (active, legacy, deprecated, retired) with retirement dates and replacements, and at least 60 days' notice before a public model is retired. It also records API changes, including removal of the temperature, top_p and top_k sampling parameters in API version 2026-10-21.",
+    "use_for": "Check whether a study's Claude snapshot is still callable, and note that newer API versions no longer accept sampling parameters, which matters when replicating temperature-dependent results.",
+    "access": "free and open",
+    "maintainer": "Anthropic",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "anthropic",
+      "model-availability",
+      "model-deprecation",
+      "sampling-parameters"
+    ]
+  },
+  {
+    "id": "anthropic-deprecation-commitments",
+    "name": "Commitments on model deprecation and preservation",
+    "type": "Compute or model access",
+    "url": "https://www.anthropic.com/research/deprecation-commitments",
+    "description": "Anthropic's November 2025 commitment to preserve the weights of all publicly released models, and of models with significant internal use, for at least the lifetime of the company, and to record a post-deployment report and a model interview at retirement. It does not promise researchers access to retired models, though it says preservation keeps that option open.",
+    "use_for": "Context on whether retired Claude models might return; until then, exact replication of studies run on retired Claude models is not possible.",
+    "access": "free and open",
+    "maintainer": "Anthropic",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "anthropic",
+      "model-deprecation",
+      "model-preservation",
+      "weights"
+    ]
+  },
+  {
+    "id": "deep-ignorance-models",
+    "name": "Deep Ignorance model suite",
+    "type": "Compute or model access",
+    "url": "https://huggingface.co/collections/EleutherAI/deep-ignorance-685441040d024a0fee593d68",
+    "description": "EleutherAI's Hugging Face collection of the 6.9B-parameter models released with the Deep Ignorance paper, pretrained with and without filtering of biothreat proxy text.",
+    "use_for": "Provides matched filtered and unfiltered checkpoints for testing tamper resistance, relearning attacks and evaluation protocols without pretraining your own models.",
+    "access": "free and open",
+    "maintainer": "EleutherAI",
+    "status": "unknown",
+    "multilingual_relevance": "",
+    "tags": [
+      "data filtering",
+      "open weights",
+      "tamper resistance",
+      "unlearning baselines"
+    ]
+  },
+  {
+    "id": "gemini-api-deprecations",
+    "name": "Gemini API deprecations",
+    "type": "Compute or model access",
+    "url": "https://ai.google.dev/gemini-api/docs/deprecations",
+    "description": "Google's tables of release dates, earliest shutdown dates and recommended replacements for stable and preview Gemini API models and related image, video and audio models. Some model names have no shutdown date but are automatically routed to their successors, so the model answering can change under the same name.",
+    "use_for": "Check whether a study's Gemini model is still available and whether requests are being redirected to a newer model.",
+    "access": "free and open",
+    "maintainer": "Google",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "gemini",
+      "google",
+      "model-availability",
+      "model-deprecation"
+    ]
+  },
+  {
+    "id": "hf-inference-endpoints",
+    "name": "Hugging Face Inference Endpoints",
+    "type": "Compute or model access",
+    "url": "https://endpoints.huggingface.co/",
+    "description": "A managed service for deploying models from the Hugging Face Hub on dedicated GPU instances with engines such as vLLM, SGLang, TGI (Text Generation Inference) or llama.cpp, with pay-as-you-go billing.",
+    "use_for": "Serve an exact open-weight checkpoint at a known precision and engine, avoiding the provider variation of shared APIs.",
+    "access": "paid",
+    "maintainer": "Hugging Face",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "dedicated-endpoints",
+      "hugging-face",
+      "model-deployment",
+      "open-weight"
+    ]
+  },
+  {
+    "id": "lambda",
+    "name": "Lambda",
+    "type": "Compute or model access",
+    "url": "https://lambda.ai/",
+    "description": "A GPU cloud provider offering on-demand H100 and B200 instances for prototyping, one-click multi-node clusters and large reserved superclusters.",
+    "use_for": "On-demand high-end GPUs for fine-tuning replications that outgrow a single consumer card.",
+    "access": "paid",
+    "maintainer": "Lambda",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "clusters",
+      "gpu-cloud",
+      "h100"
+    ]
+  },
+  {
+    "id": "modal",
+    "name": "Modal",
+    "type": "Compute or model access",
+    "url": "https://modal.com/",
+    "description": "A serverless cloud platform for running Python functions, inference, training and sandboxes on GPUs billed by the second, with a free monthly compute allowance. Inspect can use Modal as a sandbox back-end.",
+    "use_for": "Run bursty evaluation or inference jobs from code without managing servers, including sandboxed agent tasks.",
+    "access": "paid",
+    "maintainer": "Modal",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "gpu-cloud",
+      "python",
+      "sandboxes",
+      "serverless"
+    ]
+  },
+  {
+    "id": "ndif",
+    "name": "NSF National Deep Inference Fabric (NDIF)",
+    "type": "Compute or model access",
+    "url": "https://ndif.us/",
+    "description": "Research infrastructure funded by the US National Science Foundation and developed at Northeastern University that gives remote access to the internals of large open models such as Llama 3.1 8B, 70B and 405B and GPT-OSS 120B through the open-source NNsight library (https://nnsight.net).",
+    "use_for": "Lets researchers without large GPUs run activation-level replications (probes, steering, refusal directions) on 70B-scale and larger open models.",
+    "access": "free with sign-up",
+    "maintainer": "Northeastern University (NSF award 2408455)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "compute access",
+      "free-compute",
+      "interpretability",
+      "large-models",
+      "llama",
+      "nnsight",
+      "remote inference",
+      "remote-inference"
+    ]
+  },
+  {
+    "id": "openai-api-deprecations",
+    "name": "OpenAI API deprecations",
+    "type": "Compute or model access",
+    "url": "https://developers.openai.com/api/docs/deprecations",
+    "description": "OpenAI's list of retired and scheduled models and endpoints, with shutdown dates, replacements and minimum notice periods (at least six months for generally available models); it covers API access only and says nothing about preserving weights. As of October 2026, GPT-4o, GPT-4o mini, GPT-4.1 and GPT-4.1 mini are due to leave the API on 14 January 2027.",
+    "use_for": "Check whether the exact snapshot a study used can still be called, and schedule replications before shutdown dates.",
+    "access": "free and open",
+    "maintainer": "OpenAI",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "model-availability",
+      "model-deprecation",
+      "openai"
+    ]
+  },
+  {
+    "id": "openrouter",
+    "name": "OpenRouter",
+    "type": "Compute or model access",
+    "url": "https://openrouter.ai/",
+    "description": "A paid, OpenAI-compatible API that routes requests for 600+ models to 80+ underlying providers, with automatic fallback and price-based sorting. The same model name can be served by different providers at different precisions (for example fp8 or int4), so results can change with routing.",
+    "use_for": "Cheap access to many models in one place; for replications, pin the provider, disable fallbacks and filter by quantisation in the request's provider settings, then record which provider served each call.",
+    "access": "paid",
+    "maintainer": "OpenRouter",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "api-aggregator",
+      "provider-routing",
+      "quantisation",
+      "uncontrolled-variables"
+    ]
+  },
+  {
+    "id": "runpod",
+    "name": "Runpod",
+    "type": "Compute or model access",
+    "url": "https://www.runpod.io/",
+    "description": "A usage-billed GPU cloud offering on-demand and spot GPU pods, autoscaling serverless endpoints and multi-node clusters, across more than 30 GPU types from RTX 4090 to H100 and B200.",
+    "use_for": "Rent single GPUs by the hour for fine-tuning or activation-level replications on open-weight models.",
+    "access": "paid",
+    "maintainer": "Runpod",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "gpu-cloud",
+      "on-demand",
+      "serverless"
+    ]
+  },
+  {
+    "id": "together-ai",
+    "name": "Together AI",
+    "type": "Compute or model access",
+    "url": "https://www.together.ai/",
+    "description": "A cloud platform offering serverless and dedicated inference for open-weight models, managed fine-tuning (supervised fine-tuning and direct preference optimisation), batch inference and self-serve GPU clusters.",
+    "use_for": "API access to open-weight models and hosted fine-tuning jobs for replications that need training without managing GPUs.",
+    "access": "paid",
+    "maintainer": "Together AI",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "fine-tuning",
+      "gpu-cloud",
+      "inference-api",
+      "open-weight"
+    ]
+  },
+  {
+    "id": "turkish-localised-open-weight-models",
+    "name": "Turkish-localised open-weight LLMs (base-versus-localised pairs)",
+    "type": "Compute or model access",
+    "url": "https://huggingface.co/TURKCELL/Turkcell-LLM-7b-v1",
+    "description": "Turkish-adapted open-weight models with documented base models: Turkcell-LLM-7b-v1 (Mistral 7B, trained on about 5 billion Turkish tokens then instruction-tuned with low-rank adaptation), KocDigital-LLM-8b-v0.1 (Llama 3 8B, quantised low-rank adaptation fine-tuning), Yıldız Technical University (YTU) Cosmos Turkish-Gemma-9b-v0.1 and its reasoning variant T1 (Gemma 2 lineage) and Trendyol-LLM-Asure-12B (Gemma 3 12B). VNGRS's Kumru is trained from scratch and so has no base model to compare against; the record URL points to the Turkcell model card.",
+    "use_for": "Running paired safety evaluations of a base model and its Turkish-localised derivative to test whether localisation erodes safeguards.",
+    "access": "free and open",
+    "maintainer": "Turkcell; KocDigital; YTU Cosmos Research Group; Trendyol; VNGRS",
+    "status": "active",
+    "multilingual_relevance": "In Aytaş et al. (2026), the 55-model Turkish study, Turkish safety scores ranged from 96.71% (Turkish-Gemma-9B-T1) to 39.49% (Turkcell-LLM-7B), and most Turkish-adapted models scored lower on Turkish than English prompts, though not all.",
+    "tags": [
+      "base-model-pairs",
+      "language-adaptation",
+      "localisation",
+      "open-weight",
+      "turkish"
+    ]
+  },
+  {
+    "id": "vast-ai",
+    "name": "Vast.ai",
+    "type": "Compute or model access",
+    "url": "https://vast.ai/",
+    "description": "A GPU rental marketplace where prices for 20,000+ GPUs of 68+ types are set by supply and demand and billed per second, with on-demand instances, serverless endpoints and InfiniBand clusters.",
+    "use_for": "Low-cost short GPU sessions for small replications; hardware varies by host, so record the exact GPU and software stack used.",
+    "access": "paid",
+    "maintainer": "Vast.ai",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "gpu-cloud",
+      "low-cost",
+      "marketplace"
+    ]
+  },
+  {
+    "id": "era-ai-fellowship",
+    "name": "ERA:AI Fellowship",
+    "type": "Funding or fellowship",
+    "url": "https://erafellowship.org/",
+    "description": "A 10-week, full-time research fellowship in Cambridge, UK, covering technical AI safety (evaluations, interpretability, robustness, alignment, control), governance and technical governance, with a stipend, compute budget and research management. Check current status: Winter 2027 runs 18 January to 26 March 2027 and applications had closed by October 2026.",
+    "use_for": "Funded, mentored time and compute for an evaluation replication or extension.",
+    "access": "restricted or by application",
+    "maintainer": "ERA Cambridge",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "cambridge",
+      "evaluations",
+      "fellowship",
+      "stipend"
+    ]
+  },
+  {
+    "id": "lasr-labs",
+    "name": "LASR Labs",
+    "type": "Funding or fellowship",
+    "url": "https://www.lasrlabs.org/",
+    "description": "A 13-week, full-time, in-person London programme where supervised teams of three or four take a loss-of-control research project (past topics include AI control, chain-of-thought monitoring and scheming evaluations) to a paper and blog post, with a £15,000 stipend. Check current status: the next cohort runs June to September 2027 and applications were not yet open in October 2026.",
+    "use_for": "A team-based format that suits replication-plus-extension projects with a publication target.",
+    "access": "restricted or by application",
+    "maintainer": "LASR Labs",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "london",
+      "loss-of-control",
+      "research-programme",
+      "stipend",
+      "team-based"
+    ]
+  },
+  {
+    "id": "mats",
+    "name": "MATS",
+    "type": "Funding or fellowship",
+    "url": "https://www.matsprogram.org/",
+    "description": "A 12-week in-person research fellowship in Berkeley and London pairing fellows with mentors in alignment, interpretability, evaluations, control, security and governance, with a $1,250 weekly stipend, a $2,000 weekly compute budget and an optional funded 6 to 12 month extension. Check current status: Winter 2027 applications had closed by October 2026.",
+    "use_for": "A funded route for an ambitious replication or extension under an experienced mentor, with compute covered.",
+    "access": "restricted or by application",
+    "maintainer": "MATS",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "berkeley",
+      "compute-budget",
+      "fellowship",
+      "london",
+      "mentorship",
+      "stipend"
+    ]
+  },
+  {
+    "id": "coefficient-giving-navigating-transformative-ai",
+    "name": "Navigating Transformative AI (Coefficient Giving)",
+    "type": "Funding or fellowship",
+    "url": "https://coefficientgiving.org/funds/navigating-transformative-ai/",
+    "description": "The AI risk programme of Coefficient Giving (formerly Open Philanthropy), which has made more than 440 grants across technical AI safety research, governance and field-building. Check current status: its fund page listed no open calls when this entry was checked.",
+    "use_for": "A major funder of technical AI safety research, including evaluation work that overlaps with many replication targets.",
+    "access": "restricted or by application",
+    "maintainer": "Coefficient Giving (formerly Open Philanthropy)",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "coefficient-giving",
+      "funding",
+      "rfp",
+      "technical-ai-safety"
+    ]
+  },
+  {
+    "id": "pivotal-ai-safety-fellowship",
+    "name": "Pivotal AI Safety Fellowship",
+    "type": "Funding or fellowship",
+    "url": "https://www.pivotal-research.org/",
+    "description": "A 15-week, fully funded, in-person fellowship at the London Initiative for Safe AI (LISA) with mentored research on AI safety, governance and AI-bio risks, stipends of £15,000 to £18,000 and travel and housing support. Check current status: the next AI Safety Fellowship runs 18 January to 30 April 2027, with applications open in October 2026.",
+    "use_for": "A funded block of mentored research time suited to a replication-and-extension project.",
+    "access": "restricted or by application",
+    "maintainer": "Pivotal Research",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "fellowship",
+      "london",
+      "mentorship",
+      "stipend"
+    ]
+  },
+  {
+    "id": "schmidt-sciences-trustworthy-ai",
+    "name": "Science of Trustworthy AI (Schmidt Sciences)",
+    "type": "Funding or fellowship",
+    "url": "https://www.schmidtsciences.org/safetyscience/",
+    "description": "Schmidt Sciences' AI safety science programme, funding basic technical research on characterising misalignment, generalisable measurement (including evaluations with construct and predictive validity) and oversight of highly capable systems. Check current status: no open call was listed in October 2026, and Schmidt Sciences does not accept unsolicited proposals.",
+    "use_for": "A possible funder for evaluation-science or replication projects framed as measurement research, when a call opens.",
+    "access": "restricted or by application",
+    "maintainer": "Schmidt Sciences",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "funding",
+      "measurement",
+      "schmidt-sciences",
+      "science-of-evaluations"
+    ]
+  },
+  {
+    "id": "spar",
+    "name": "SPAR (Research Program for AI Risks)",
+    "type": "Funding or fellowship",
+    "url": "https://www.sparai.org/",
+    "description": "A part-time, remote, mentored research programme in which mentees spend 5 to 40 hours a week on a three-month AI safety or policy project; it is unpaid but covers approved project costs such as compute and API access. Check current status: Fall 2026 runs 14 September to 14 December, and Spring 2027 applications are expected to open around December 2026.",
+    "use_for": "Hosts Second Look Research's Fall 2026 replication stream, a remote, part-time way to join a supervised replication team.",
+    "access": "restricted or by application",
+    "maintainer": "Kairos AI Project, Inc.",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "fellowship",
+      "mentorship",
+      "part-time",
+      "remote",
+      "replication-stream"
+    ]
+  },
+  {
+    "id": "ea-funds-transformative-ai-fund",
+    "name": "Transformative AI Fund (EA Funds)",
+    "type": "Funding or fellowship",
+    "url": "https://funds.effectivealtruism.org/funds/transformative-ai",
+    "description": "EA Funds' rolling grant fund for early-stage work that reduces catastrophic risks from advanced AI, including technical research and researcher training, with grants typically $10,000 to $150,000. It replaced the Long-Term Future Fund, which has closed and no longer accepts applications; check current status before applying.",
+    "use_for": "Small grants for individuals or small teams, such as stipends or compute for a scoped replication project.",
+    "access": "restricted or by application",
+    "maintainer": "EA Funds",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "funding",
+      "individual-grants",
+      "ltff-successor",
+      "rolling-applications"
+    ]
+  },
+  {
+    "id": "uk-aisi-grants",
+    "name": "UK AI Security Institute grants (Challenge Fund, Alignment Project, Systemic Safety Grants)",
+    "type": "Funding or fellowship",
+    "url": "https://www.aisi.gov.uk/grants",
+    "description": "The UK AI Security Institute's grant programmes: the Challenge Fund (up to £200,000, open to UK and international academic and non-profit researchers), the Alignment Project (up to £1 million plus compute credits; over £27 million to 60+ projects in 2025) and Systemic Safety Grants. Check current status: all three were closed in October 2026, and AISI says a similar Alignment Project round is unlikely in 2026 but expects further academic grant programmes.",
+    "use_for": "Watch for new rounds funding evaluation and alignment research, including benchmark design, post-training elicitation and monitoring work.",
+    "access": "restricted or by application",
+    "maintainer": "UK AI Security Institute",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "aisi",
+      "alignment",
+      "compute-credits",
+      "funding",
+      "government"
+    ]
+  },
+  {
+    "id": "bats-group-brown",
+    "name": "BATS machine learning group (Brown University)",
+    "type": "Research group or lab",
+    "url": "https://cs.brown.edu/people/sbach/",
+    "description": "Stephen Bach's group in Brown University's Computer Science Department, focused on learning from limited supervision and synthetic data; its members produced the low-resource-language jailbreak study of GPT-4 and co-authored the 2025 survey of multilingual safety research on large language models.",
+    "use_for": "Reference methods for translation-based jailbreak tests and for reviewing the multilingual safety literature.",
+    "access": "free and open",
+    "maintainer": "Brown University",
+    "status": "active",
+    "multilingual_relevance": "Multilingual and low-resource-language safety.",
+    "tags": [
+      "low-resource-languages",
+      "multilingual-safety",
+      "research-lab",
+      "university"
+    ]
+  },
+  {
+    "id": "cohere-labs",
+    "name": "Cohere Labs",
+    "type": "Research group or lab",
+    "url": "https://cohere.com/research",
+    "description": "Cohere's research lab, called Cohere For AI until April 2025, which builds the open multilingual Aya models and datasets and has published multilingual safety work including the Aya Red-teaming data and the multilingual alignment prism study.",
+    "use_for": "A source of multilingual open-weight models and human-annotated red-teaming data, plus an open science community and scholars programme open to researchers without a lab affiliation.",
+    "access": "free and open",
+    "maintainer": "Cohere",
+    "status": "active",
+    "multilingual_relevance": "Aya is described as covering 101 languages, which makes it a common multilingual baseline.",
+    "tags": [
+      "aya",
+      "multilingual",
+      "open-science",
+      "red-teaming",
+      "research-lab"
+    ]
+  },
+  {
+    "id": "kuis-ai-center",
+    "name": "KUIS AI Center",
+    "type": "Research group or lab",
+    "url": "https://ai.ku.edu.tr",
+    "description": "The Koç University and İş Bank Artificial Intelligence Center in Istanbul, which lists natural language processing among its research areas and hosts the Cetvel Turkish benchmark for large language models.",
+    "use_for": "Turkish model benchmarking expertise for capability checks in Turkish safety replications.",
+    "access": "free and open",
+    "maintainer": "Koç University and İş Bank",
+    "status": "active",
+    "multilingual_relevance": "Turkish NLP and evaluation.",
+    "tags": [
+      "benchmark",
+      "istanbul",
+      "research-lab",
+      "turkish",
+      "university"
+    ]
+  },
+  {
+    "id": "mainlp-lmu",
+    "name": "MaiNLP (Munich AI and NLP lab)",
+    "type": "Research group or lab",
+    "url": "https://mainlp.github.io/",
+    "description": "Barbara Plank's lab at LMU Munich's Center for Information and Language Processing, working on robust, human-facing natural language processing, language variation and human label variation; it released the code and PolyRefuse dataset for the multilingual refusal-direction study.",
+    "use_for": "Code and data for activation-level multilingual refusal experiments that can be extended to Turkish.",
+    "access": "free and open",
+    "maintainer": "LMU Munich",
+    "status": "active",
+    "multilingual_relevance": "Language variation and dialects; PolyRefuse covers 14 languages but not Turkish.",
+    "tags": [
+      "interpretability",
+      "language-variation",
+      "multilingual",
+      "research-lab",
+      "university"
+    ]
+  },
+  {
+    "id": "metu-applied-nlp-lab",
+    "name": "METU Applied NLP Lab",
+    "type": "Research group or lab",
+    "url": "https://github.com/metunlp",
+    "description": "The Applied NLP Lab in Middle East Technical University's (METU) Department of Computer Engineering, whose public repositories include OpenEthics (an English-Turkish ethics and safety evaluation of 29 open-weight models), LlamaTurk and the companion code for the audit of 17 Turkish benchmark datasets co-authored with Turkcell AI.",
+    "use_for": "Turkish safety prompts, judge scripts and annotation guidelines that can seed a Turkish replication.",
+    "access": "free and open",
+    "maintainer": "Middle East Technical University, Department of Computer Engineering",
+    "status": "active",
+    "multilingual_relevance": "Turkish-focused; Çağrı Toraman is an author on OpenEthics, the benchmark audit and TurkBench.",
+    "tags": [
+      "ethics-benchmark",
+      "evaluation",
+      "research-lab",
+      "turkish",
+      "university"
+    ]
+  },
+  {
+    "id": "ytu-cosmos",
+    "name": "YTU Cosmos Research Group",
+    "type": "Research group or lab",
+    "url": "https://huggingface.co/ytu-ce-cosmos",
+    "description": "A natural language processing (NLP) group in Yıldız Technical University's Computer Engineering Department that releases Turkish large language models (CosmosGemma and CosmosLLaMa chat models), Turkish ModernBERT encoders, Turkish evaluation sets and the Guardrail-TR safety dataset.",
+    "use_for": "A source of Turkish-localised models and Turkish safety data for localisation and guardrail studies.",
+    "access": "free and open",
+    "maintainer": "Yıldız Technical University, Department of Computer Engineering",
+    "status": "active",
+    "multilingual_relevance": "Turkish-focused.",
+    "tags": [
+      "guardrail",
+      "open-weight",
+      "research-lab",
+      "turkish",
+      "university"
+    ]
+  },
+  {
+    "id": "ai-safety-camp",
+    "name": "AI Safety Camp",
+    "type": "Community or course",
+    "url": "https://www.aisafety.camp/",
+    "description": "A three-month, online, part-time research programme in which teams work on projects proposed by project leads, generally without stipends. Check current status: the 12th edition runs 11 January to 18 April 2027, with team member applications scheduled for 13 to 29 November 2026.",
+    "use_for": "A remote way to propose and lead a replication project with volunteer collaborators.",
+    "access": "restricted or by application",
+    "maintainer": "AI Safety Camp",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "online",
+      "part-time",
+      "team-projects",
+      "volunteer"
+    ]
+  },
+  {
+    "id": "apart-research",
+    "name": "Apart Research",
+    "type": "Community or course",
+    "url": "https://apartresearch.com/",
+    "description": "An AI safety research organisation that runs free weekend research sprints online and at local sites, with standout participants invited to Apart Studio and its fellowship. Its research areas include model-behaviour evaluations, safeguard testing and benchmarks.",
+    "use_for": "A ready format for short replication sprints; local groups can host an in-person site for a global sprint.",
+    "access": "free with sign-up",
+    "maintainer": "Apart Research",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "fellowship",
+      "hackathons",
+      "local-hubs",
+      "sprints"
+    ]
+  },
+  {
+    "id": "arena",
+    "name": "ARENA (Alignment Research Engineer Accelerator)",
+    "type": "Community or course",
+    "url": "https://www.arena.education/",
+    "description": "A 4 to 5 week in-person machine learning bootcamp for AI safety in London, with its curriculum online covering fundamentals, transformer interpretability, reinforcement learning, LLM evaluations (built on Inspect) and alignment science. Interpretability exercises reproduce published results such as indirect object identification in GPT-2 small.",
+    "use_for": "Self-study preparation for interpretability and evaluation replications, and exercise material for the early rungs of a replication training ladder.",
+    "access": "free and open",
+    "maintainer": "ARENA",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "bootcamp",
+      "curriculum",
+      "evaluations",
+      "interpretability",
+      "self-study"
+    ]
+  },
+  {
+    "id": "bluedot-tais-project-sprint",
+    "name": "Technical AI Safety Project Sprint (BlueDot Impact)",
+    "type": "Community or course",
+    "url": "https://bluedot.org/courses/technical-ai-safety-project",
+    "description": "A free, part-time sprint of about 30 hours in which participants, matched to a small group and an AI safety expert, extend a paper or improve research code and publish a write-up; past projects include reproducing findings from METR (Model Evaluation and Threat Research) and replicating evaluations with Inspect. It follows BlueDot Impact's free, cohort-based Technical AI Safety course, and accepted participants can apply for rapid grants for compute.",
+    "use_for": "A low-cost first rung for newcomers to complete and publish a small replication with expert feedback.",
+    "access": "restricted or by application",
+    "maintainer": "BlueDot Impact",
+    "status": "active",
+    "multilingual_relevance": "",
+    "tags": [
+      "course",
+      "free",
+      "online",
+      "project-sprint",
+      "replication-practice"
+    ]
+  }
+]

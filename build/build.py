@@ -458,6 +458,7 @@ def readme(studies, resources):
         "- `docs/index.html`: the library website, a single self-contained page with every study and resource inside. Open it in a browser; it needs no server. GitHub Pages serves this folder.",
         "- `docs/network.html`: a prototype of the replication network built on the library. Its forms do not send anything.",
         "- `docs/commons/index.html`: the AI Safety Evidence Commons website, a self-contained page on improving the science of AI safety through replication, built on the same data. It is a separate build: rebuilding the library does not update it.",
+        "- `docs/accelerator/index.html`: the AI Safety Replication Accelerator website, the project that keeps the repository and helps groups start re-runs, built on the same data. It is also a separate build.",
         "- `data/studies.json` and `data/studies.csv`: one record per study. Each gives the claim and the conditions it was shown under, the claim type, the models and whether they are still available, code and data links, a compute tier, difficulty, known replications and their outcomes, languages tested, what porting to another language would involve, pitfalls, and replication ideas.",
         "- `data/resources.json` and `data/resources.csv`: replication programmes, evaluation harnesses, interpretability tooling, automated replication tools, compute and model access, methodology guides, funding, research groups and courses.",
         "- `SCHEMA.md`: field definitions and allowed values.",
